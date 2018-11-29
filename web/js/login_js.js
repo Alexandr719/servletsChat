@@ -20,6 +20,34 @@ $('input[type=radio][name=type_log]').change(function() {
 
 
 
+$("#singIn").click(function () {
+      $.post( "registration", {data: regBlock.serialize() }, function(data ) {
+        $( ".result" ).html( data );
+    });
+});
+
+$("#LogIn").click(function () {
+
+    let data = getFormData(logBlock);
+
+    $.post( "login",  data, function(data ) {
+        $( ".result" ).html( data );
+    },"json");
+});
+
+
+
+function getFormData($form){
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function(n, i){
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+}
+
 
 
 

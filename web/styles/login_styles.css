@@ -27,7 +27,7 @@ input{
 }
 
 
-input[type= submit]{
+form button{
     cursor: pointer;
     width: 100px;
     background-color: white;
@@ -36,7 +36,7 @@ input[type= submit]{
     float: left;
 
 }
-input[type= submit]:hover{
+form button:hover{
     border: solid 2px #a90200;
 }
 .registration{

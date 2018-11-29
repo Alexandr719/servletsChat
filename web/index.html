@@ -23,46 +23,46 @@
 
         <form class="registration">
             <div class="filds">
-                <input type="text" id="login" placeholder="Login">
-                <label for="login">Login</label>
+                <input type="text" id="reg_login" name="Login" placeholder="Login">
+                <label for="reg_login">Login</label>
             </div>
 
             <div class="filds">
-                <input type="text" id="firstName" placeholder="Firt Name">
+                <input type="text" id="firstName" name="FirstName" placeholder="Firt Name">
                 <label for="firstName">First Name</label>
             </div>
 
             <div class="filds">
-                <input type="text" id="lastName" placeholder="Last Name">
+                <input type="text" id="lastName" name="LastName" placeholder="Last Name">
                 <label for="lastName">Last Name</label>
             </div>
 
             <div class="filds">
-                <input type="email" id="email" placeholder="Email">
+                <input type="email" id="email"  name="Email" placeholder="Email">
                 <label for="email">Email</label>
             </div>
 
 
             <div class="filds">
-                <input type="password" id="password" placeholder="Password">
+                <input type="password" id="password" name="Password" placeholder="Password">
                 <label for="password">Password</label>
             </div>
-            <input type="submit"  placeholder="Sign in" value="Sign in">
+            <button id="singIn"  type="button">Sign in</button>
 
         </form>
-        <form class="log">
+        <form class="log" enctype='application/json'>
             <div class="filds">
-                <input type="text" id="log_login" placeholder="Login">
+                <input type="text" id="log_login" name="login" placeholder="Login">
                 <label for="log_login">Login</label>
             </div>
 
 
             <div class="filds">
-                <input type="password" id="log_password" placeholder="Password">
+                <input type="password" id="log_password" name="password" placeholder="Password">
                 <label for="log_password">Password</label>
             </div>
 
-            <input type="submit"  placeholder="Sign in" value="Log in">
+            <button  id="LogIn"  type="button">Log in</button>
         </form>
 
 
