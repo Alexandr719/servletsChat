@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link rel="stylesheet" href="styles/login_styles.css">
+    <link rel="stylesheet" href="styles/main_styles.css">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+</head>
+<body>
+<div id="wrapper">
+
+    <div class="container">
+
+        <div class="container_header">
+        <input class="radiobtn" name="type_log" id="radio_reg" type="radio" value="reg">
+        <label for="radio_reg">S</label>
+
+        <input class="radiobtn" name="type_log" id="radio_log" type="radio" value="log" checked>
+        <label for="radio_log">L</label>
+        </div>
+
+
+        <form class="registration">
+            <div class="filds">
+                <input type="text" id="login" placeholder="Login">
+                <label for="login">Login</label>
+            </div>
+
+            <div class="filds">
+                <input type="text" id="firstName" placeholder="Firt Name">
+                <label for="firstName">First Name</label>
+            </div>
+
+            <div class="filds">
+                <input type="text" id="lastName" placeholder="Last Name">
+                <label for="lastName">Last Name</label>
+            </div>
+
+            <div class="filds">
+                <input type="email" id="email" placeholder="Email">
+                <label for="email">Email</label>
+            </div>
+
+
+            <div class="filds">
+                <input type="password" id="password" placeholder="Password">
+                <label for="password">Password</label>
+            </div>
+            <input type="submit"  placeholder="Sign in" value="Sign in">
+
+        </form>
+        <form class="log">
+            <div class="filds">
+                <input type="text" id="log_login" placeholder="Login">
+                <label for="log_login">Login</label>
+            </div>
+
+
+            <div class="filds">
+                <input type="password" id="log_password" placeholder="Password">
+                <label for="log_password">Password</label>
+            </div>
+
+            <input type="submit"  placeholder="Sign in" value="Log in">
+        </form>
+
+
+
+        <div id="error">Error example</div>
+    </div>
+
+</div>
+<script src="js/login_js.js"></script>
+</body>
+</html>
