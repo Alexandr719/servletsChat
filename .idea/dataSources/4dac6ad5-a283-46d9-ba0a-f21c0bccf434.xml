@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="@localhost">
-  <database-model serializer="dbm" rdbms="ORACLE" format-version="4.9">
+  <database-model serializer="dbm" rdbms="ORACLE" format-version="4.11">
     <root id="1">
       <ServerVersion>11.2.0.2</ServerVersion>
     </root>
@@ -342,13 +342,15 @@
     </table>
     <view id="66" parent="2" name="ALPHABETICAL_LIST_OF_PRODUCTS">
       <ObjectId>21592</ObjectId>
-      <DependsOnIds>21506,21481</DependsOnIds>
+      <SourceTextLength>433</SourceTextLength>
+      <DependsOnIds>21481,21506</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="67" parent="2" name="CATEGORY_SALES_FOR_1997">
       <ObjectId>21602</ObjectId>
+      <SourceTextLength>219</SourceTextLength>
       <DependsOnIds>21601</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
@@ -356,6 +358,7 @@
     </view>
     <view id="68" parent="2" name="CURRENT_PRODUCT_LIST">
       <ObjectId>21593</ObjectId>
+      <SourceTextLength>113</SourceTextLength>
       <DependsOnIds>21506</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
@@ -363,34 +366,39 @@
     </view>
     <view id="69" parent="2" name="CUSTOMER_AND_SUPPLIERS_BY_CITY">
       <ObjectId>21591</ObjectId>
-      <DependsOnIds>21494,21486</DependsOnIds>
+      <SourceTextLength>206</SourceTextLength>
+      <DependsOnIds>21486,21494</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="70" parent="2" name="INVOICES">
       <ObjectId>21598</ObjectId>
-      <DependsOnIds>21509,21492,21473,21498,21506,21486</DependsOnIds>
+      <SourceTextLength>1166</SourceTextLength>
+      <DependsOnIds>21473,21486,21492,21498,21506,21509</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="71" parent="2" name="ORDERS_QRY">
       <ObjectId>21594</ObjectId>
-      <DependsOnIds>21498,21486</DependsOnIds>
+      <SourceTextLength>498</SourceTextLength>
+      <DependsOnIds>21486,21498</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="72" parent="2" name="ORDER_DETAILS_EXTENDED">
       <ObjectId>21599</ObjectId>
-      <DependsOnIds>21509,21506</DependsOnIds>
+      <SourceTextLength>367</SourceTextLength>
+      <DependsOnIds>21506,21509</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="73" parent="2" name="ORDER_SUBTOTALS">
       <ObjectId>21600</ObjectId>
+      <SourceTextLength>191</SourceTextLength>
       <DependsOnIds>21509</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
@@ -398,6 +406,7 @@
     </view>
     <view id="74" parent="2" name="PRODUCTS_ABOVE_AVERAGE_PRICE">
       <ObjectId>21595</ObjectId>
+      <SourceTextLength>174</SourceTextLength>
       <DependsOnIds>21506</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
@@ -405,41 +414,47 @@
     </view>
     <view id="75" parent="2" name="PRODUCTS_BY_CATEGORY">
       <ObjectId>21596</ObjectId>
-      <DependsOnIds>21506,21481</DependsOnIds>
+      <SourceTextLength>282</SourceTextLength>
+      <DependsOnIds>21481,21506</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="76" parent="2" name="PRODUCT_SALES_FOR_1997">
       <ObjectId>21601</ObjectId>
-      <DependsOnIds>21509,21498,21506,21481</DependsOnIds>
+      <SourceTextLength>536</SourceTextLength>
+      <DependsOnIds>21481,21498,21506,21509</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="77" parent="2" name="QUARTERLY_ORDERS">
       <ObjectId>21597</ObjectId>
-      <DependsOnIds>21498,21486</DependsOnIds>
+      <SourceTextLength>266</SourceTextLength>
+      <DependsOnIds>21486,21498</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="78" parent="2" name="SALES_BY_CATEGORY">
       <ObjectId>21603</ObjectId>
-      <DependsOnIds>21498,21506,21481,21599</DependsOnIds>
+      <SourceTextLength>570</SourceTextLength>
+      <DependsOnIds>21481,21498,21506,21599</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="79" parent="2" name="SALES_TOTALS_BY_AMOUNT">
       <ObjectId>21604</ObjectId>
-      <DependsOnIds>21498,21600,21486</DependsOnIds>
+      <SourceTextLength>402</SourceTextLength>
+      <DependsOnIds>21486,21498,21600</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
       <Modifiable>1</Modifiable>
     </view>
     <view id="80" parent="2" name="SUMMARY_OF_SALES_BY_QUARTER">
       <ObjectId>21605</ObjectId>
+      <SourceTextLength>236</SourceTextLength>
       <DependsOnIds>21498,21600</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:32</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
@@ -447,6 +462,7 @@
     </view>
     <view id="81" parent="2" name="SUMMARY_OF_SALES_BY_YEAR">
       <ObjectId>21606</ObjectId>
+      <SourceTextLength>233</SourceTextLength>
       <DependsOnIds>21498,21600</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:21:33</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:43</ModifiedTimestamp>
@@ -454,12 +470,14 @@
     </view>
     <package id="82" parent="2" name="SOUTHWIND_PKG">
       <ObjectId>21617</ObjectId>
+      <SourceTextLength>675</SourceTextLength>
       <CreatedTimestamp>2018-09-10.19:25:50</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:50</ModifiedTimestamp>
     </package>
     <routine id="83" parent="2" name="FUNCTION2">
       <ObjectId>21654</ObjectId>
       <RoutineKind>function</RoutineKind>
+      <SourceTextLength>135</SourceTextLength>
       <DependsOnIds>4973,21655</DependsOnIds>
       <CreatedTimestamp>2018-09-12.13:52:10</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-12.15:16:11</ModifiedTimestamp>
@@ -467,13 +485,15 @@
     <routine id="84" parent="2" name="GREATESTORDERS">
       <ObjectId>21643</ObjectId>
       <RoutineKind>procedure</RoutineKind>
-      <DependsOnIds>21509,4973,21498,21486</DependsOnIds>
+      <SourceTextLength>639</SourceTextLength>
+      <DependsOnIds>4973,21486,21498,21509</DependsOnIds>
       <CreatedTimestamp>2018-09-11.16:21:21</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-11.16:22:25</ModifiedTimestamp>
     </routine>
     <routine id="85" parent="2" name="ISBOSS">
       <ObjectId>21650</ObjectId>
       <RoutineKind>function</RoutineKind>
+      <SourceTextLength>241</SourceTextLength>
       <DependsOnIds>21473</DependsOnIds>
       <CreatedTimestamp>2018-09-11.18:58:08</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-12.13:59:16</ModifiedTimestamp>
@@ -481,6 +501,7 @@
     <routine id="86" parent="2" name="ISBOSSV2">
       <ObjectId>21655</ObjectId>
       <RoutineKind>function</RoutineKind>
+      <SourceTextLength>435</SourceTextLength>
       <DependsOnIds>21473</DependsOnIds>
       <CreatedTimestamp>2018-09-12.14:02:10</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-12.14:05:11</ModifiedTimestamp>
@@ -488,6 +509,7 @@
     <routine id="87" parent="2" name="SHIPPEDORDERSDIFF">
       <ObjectId>21648</ObjectId>
       <RoutineKind>procedure</RoutineKind>
+      <SourceTextLength>472</SourceTextLength>
       <DependsOnIds>4973,21498</DependsOnIds>
       <CreatedTimestamp>2018-09-11.16:24:08</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-11.16:29:14</ModifiedTimestamp>
@@ -495,7 +517,8 @@
     <routine id="88" parent="2" name="SUBORDINATIONINFO">
       <ObjectId>21649</ObjectId>
       <RoutineKind>procedure</RoutineKind>
-      <DependsOnIds>21473,4973</DependsOnIds>
+      <SourceTextLength>376</SourceTextLength>
+      <DependsOnIds>4973,21473</DependsOnIds>
       <CreatedTimestamp>2018-09-11.18:28:36</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-11.18:32:34</ModifiedTimestamp>
     </routine>
@@ -566,7 +589,8 @@
     </check>
     <trigger id="101" parent="27" name="APEX$_ACL_T1">
       <ObjectId>20143</ObjectId>
-      <DependsOnIds>18095,117,1255</DependsOnIds>
+      <SourceTextLength>663</SourceTextLength>
+      <DependsOnIds>117,1255,18095</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:33</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:33</ModifiedTimestamp>
       <Events>IU</Events>
@@ -701,7 +725,8 @@ WEBPAGE_ID</ColNames>
     </check>
     <trigger id="127" parent="28" name="APEX$_WS_FILES_T1">
       <ObjectId>20149</ObjectId>
-      <DependsOnIds>18095,117,1255</DependsOnIds>
+      <SourceTextLength>917</SourceTextLength>
+      <DependsOnIds>117,1255,18095</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:34</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:34</ModifiedTimestamp>
       <Events>IU</Events>
@@ -873,7 +898,8 @@ WEBPAGE_ID</ColNames>
     </check>
     <trigger id="160" parent="30" name="APEX$_WS_LINKS_T1">
       <ObjectId>20147</ObjectId>
-      <DependsOnIds>18095,117,1255</DependsOnIds>
+      <SourceTextLength>630</SourceTextLength>
+      <DependsOnIds>117,1255,18095</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:34</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:34</ModifiedTimestamp>
       <Events>IU</Events>
@@ -974,7 +1000,8 @@ WEBPAGE_ID</ColNames>
     </check>
     <trigger id="178" parent="31" name="APEX$_WS_NOTES_T1">
       <ObjectId>20146</ObjectId>
-      <DependsOnIds>18095,117,1255</DependsOnIds>
+      <SourceTextLength>630</SourceTextLength>
+      <DependsOnIds>117,1255,18095</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:34</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:34</ModifiedTimestamp>
       <Events>IU</Events>
@@ -1674,7 +1701,8 @@ DATA_GRID_ID</ColNames>
     </key>
     <trigger id="348" parent="32" name="APEX$_WS_ROWS_T1">
       <ObjectId>20145</ObjectId>
-      <DependsOnIds>20113,18095,117,16506,18177,1255,4958,18323</DependsOnIds>
+      <SourceTextLength>28756</SourceTextLength>
+      <DependsOnIds>117,1255,4958,16506,18095,18177,18323,20113</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:33</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:33</ModifiedTimestamp>
       <Events>IU</Events>
@@ -1775,7 +1803,8 @@ WEBPAGE_ID</ColNames>
     </check>
     <trigger id="366" parent="33" name="APEX$_WS_TAGS_T1">
       <ObjectId>20148</ObjectId>
-      <DependsOnIds>18095,117,1255</DependsOnIds>
+      <SourceTextLength>628</SourceTextLength>
+      <DependsOnIds>117,1255,18095</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:34</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:34</ModifiedTimestamp>
       <Events>IU</Events>
@@ -1922,7 +1951,8 @@ WEBPAGE_ID</ColNames>
     </check>
     <trigger id="398" parent="34" name="APEX$_WS_WEBPG_SECTIONS_T1">
       <ObjectId>20144</ObjectId>
-      <DependsOnIds>18095,117,16506,1255,4958,20126</DependsOnIds>
+      <SourceTextLength>3293</SourceTextLength>
+      <DependsOnIds>117,1255,4958,16506,18095,20126</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:33</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:33</ModifiedTimestamp>
       <Events>IU</Events>
@@ -2028,7 +2058,8 @@ SECTION_ID</ColNames>
     </key>
     <trigger id="418" parent="36" name="CATEGORIES_ID">
       <ObjectId>21636</ObjectId>
-      <DependsOnIds>21630,117</DependsOnIds>
+      <SourceTextLength>233</SourceTextLength>
+      <DependsOnIds>117,21630</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:25:51</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:51</ModifiedTimestamp>
       <Events>I</Events>
@@ -2479,6 +2510,7 @@ CUST_FIRST_NAME</ColNames>
     </check>
     <trigger id="500" parent="45" name="INSERT_DEMO_CUST">
       <ObjectId>20082</ObjectId>
+      <SourceTextLength>219</SourceTextLength>
       <Invalid>1</Invalid>
       <DependsOnIds>117</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:31</CreatedTimestamp>
@@ -2609,6 +2641,7 @@ CUST_FIRST_NAME</ColNames>
     </foreign-key>
     <trigger id="521" parent="47" name="INSERT_DEMO_ORDER_ITEMS">
       <ObjectId>20093</ObjectId>
+      <SourceTextLength>254</SourceTextLength>
       <Invalid>1</Invalid>
       <DependsOnIds>117</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:31</CreatedTimestamp>
@@ -2618,6 +2651,7 @@ CUST_FIRST_NAME</ColNames>
     </trigger>
     <trigger id="522" parent="47" name="DEMO_ORDER_ITEMS_GET_PRICE">
       <ObjectId>20095</ObjectId>
+      <SourceTextLength>443</SourceTextLength>
       <DependsOnIds>20086</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:31</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:31</ModifiedTimestamp>
@@ -2626,6 +2660,7 @@ CUST_FIRST_NAME</ColNames>
     </trigger>
     <trigger id="523" parent="47" name="UPDATE_ORDER_TOTAL">
       <ObjectId>20094</ObjectId>
+      <SourceTextLength>321</SourceTextLength>
       <DependsOnIds>20083</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:31</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:31</ModifiedTimestamp>
@@ -2690,6 +2725,7 @@ CUST_FIRST_NAME</ColNames>
     </key>
     <trigger id="536" parent="48" name="INSERT_DEMO_PROD">
       <ObjectId>20090</ObjectId>
+      <SourceTextLength>221</SourceTextLength>
       <Invalid>1</Invalid>
       <DependsOnIds>117</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:31</CreatedTimestamp>
@@ -2755,6 +2791,7 @@ CUST_FIRST_NAME</ColNames>
     </key>
     <trigger id="549" parent="50" name="BI_DEMO_USERS">
       <ObjectId>20077</ObjectId>
+      <SourceTextLength>289</SourceTextLength>
       <Invalid>1</Invalid>
       <DependsOnIds>117</DependsOnIds>
       <CreatedTimestamp>2018-04-10.15:23:30</CreatedTimestamp>
@@ -2764,6 +2801,7 @@ CUST_FIRST_NAME</ColNames>
     </trigger>
     <trigger id="550" parent="50" name="DEMO_USERS_T1">
       <ObjectId>20078</ObjectId>
+      <SourceTextLength>143</SourceTextLength>
       <CreatedTimestamp>2018-04-10.15:23:31</CreatedTimestamp>
       <ModifiedTimestamp>2018-04-10.15:23:31</ModifiedTimestamp>
       <Events>IU</Events>
@@ -2981,7 +3019,8 @@ CUST_FIRST_NAME</ColNames>
     </foreign-key>
     <trigger id="591" parent="53" name="EMPLOYEES_ID">
       <ObjectId>21635</ObjectId>
-      <DependsOnIds>21629,117</DependsOnIds>
+      <SourceTextLength>229</SourceTextLength>
+      <DependsOnIds>117,21629</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:25:51</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:51</ModifiedTimestamp>
       <Events>I</Events>
@@ -3062,7 +3101,7 @@ TERRITORYID</ColNames>
     <column id="605" parent="55" name="FREIGHT">
       <Position>8</Position>
       <DataType>NUMBER(12,2 digit)|0s</DataType>
-      <DefaultExpression>0 </DefaultExpression>
+      <DefaultExpression>0</DefaultExpression>
     </column>
     <column id="606" parent="55" name="SHIPNAME">
       <Position>9</Position>
@@ -3171,6 +3210,7 @@ TERRITORYID</ColNames>
     </foreign-key>
     <trigger id="623" parent="55" name="ORDERS_ID">
       <ObjectId>21639</ObjectId>
+      <SourceTextLength>214</SourceTextLength>
       <DependsOnIds>117,21633</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:25:51</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:51</ModifiedTimestamp>
@@ -3201,7 +3241,7 @@ TERRITORYID</ColNames>
       <Position>5</Position>
       <DataType>FLOAT(63 digit)|0s</DataType>
       <DefaultExpression>0
-    </DefaultExpression>
+</DefaultExpression>
     </column>
     <index id="629" parent="56" name="PK_ORDER_DETAILS">
       <ObjectId>21510</ObjectId>
@@ -3318,7 +3358,7 @@ PRODUCTID</ColNames>
       <Position>10</Position>
       <DataType>NUMBER(*)|0s</DataType>
       <DefaultExpression>0
-    </DefaultExpression>
+</DefaultExpression>
     </column>
     <index id="649" parent="57" name="PK_PRODUCTS">
       <ObjectId>21507</ObjectId>
@@ -3408,7 +3448,8 @@ PRODUCTID</ColNames>
     </check>
     <trigger id="662" parent="57" name="PRODUCTS_ID">
       <ObjectId>21640</ObjectId>
-      <DependsOnIds>21634,117</DependsOnIds>
+      <SourceTextLength>224</SourceTextLength>
+      <DependsOnIds>117,21634</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:25:51</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:51</ModifiedTimestamp>
       <Events>I</Events>
@@ -3470,6 +3511,7 @@ PRODUCTID</ColNames>
     </key>
     <trigger id="672" parent="59" name="SHIPPERS_ID">
       <ObjectId>21637</ObjectId>
+      <SourceTextLength>224</SourceTextLength>
       <DependsOnIds>117,21631</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:25:51</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:51</ModifiedTimestamp>
@@ -3589,6 +3631,7 @@ PRODUCTID</ColNames>
     </key>
     <trigger id="695" parent="61" name="SUPPLIERS_ID">
       <ObjectId>21638</ObjectId>
+      <SourceTextLength>229</SourceTextLength>
       <DependsOnIds>117,21632</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:25:51</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:51</ModifiedTimestamp>
@@ -3659,6 +3702,7 @@ PRODUCTID</ColNames>
     </key>
     <trigger id="706" parent="63" name="MY_TRIGGER">
       <ObjectId>21662</ObjectId>
+      <SourceTextLength>122</SourceTextLength>
       <DependsOnIds>21659</DependsOnIds>
       <CreatedTimestamp>2018-09-26.15:51:43</CreatedTimestamp>
       <ModifiedTimestamp>2018-10-01.19:02:37</ModifiedTimestamp>
@@ -4121,7 +4165,8 @@ PRODUCTID</ColNames>
     </column>
     <body id="813" parent="82" name="SOUTHWIND_PKG">
       <ObjectId>21618</ObjectId>
-      <DependsOnIds>21509,21473,21498,21600,21506,21481,21486</DependsOnIds>
+      <SourceTextLength>3753</SourceTextLength>
+      <DependsOnIds>21473,21481,21486,21498,21506,21509,21600</DependsOnIds>
       <CreatedTimestamp>2018-09-10.19:25:50</CreatedTimestamp>
       <ModifiedTimestamp>2018-09-10.19:25:50</ModifiedTimestamp>
     </body>

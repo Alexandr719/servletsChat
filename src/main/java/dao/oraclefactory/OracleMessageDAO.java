@@ -6,6 +6,7 @@ import entity.Message;
 import java.util.List;
 
 public class OracleMessageDAO implements MessageDAO {
+
     @Override
     public void sentMessage(Message message) {
 

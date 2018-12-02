@@ -1,46 +1,34 @@
 package dao.oraclefactory;
 
+import dao.PropertyWorker;
 import oracle.jdbc.pool.OracleDataSource;
+import org.apache.log4j.Logger;
+
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Locale;
 import java.util.Properties;
 
 
-public class DataSourceFactory {
 
+class DataSourceFactory {
+    private final static Logger logger = Logger.getLogger(DataSourceFactory.class);
 
-    public static DataSource getOracleDataSource() {
-        Properties props = new Properties();
-        FileInputStream fis = null;
+    static DataSource getOracleDataSource() {
+        PropertyWorker pw = new PropertyWorker();
+        Properties props = pw.getDBProperties();
         OracleDataSource oracleDS = null;
         try {
-            fis = new FileInputStream("src/main/resources/db.properties");
-            props.load(fis);
             oracleDS = new OracleDataSource();
-            oracleDS.setURL(props.getProperty("ORACLE_DB_URL"));
-            oracleDS.setUser(props.getProperty("ORACLE_DB_USERNAME"));
-            oracleDS.setPassword(props.getProperty("ORACLE_DB_PASSWORD"));
-        } catch (IOException e) {
-            e.printStackTrace();
+            oracleDS.setURL(props.getProperty("ORACLE_DB_URL_HOME"));
+            oracleDS.setUser(props.getProperty("ORACLE_DB_USERNAME_HOME"));
+            oracleDS.setPassword(props.getProperty("ORACLE_DB_PASSWORD_HOME"));
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
         return oracleDS;
     }
 
-//    public static void main(String[] args) {
-//        DataSource  ds = DataSourceFactory.getOracleDataSource();
-//        try {
-//            Locale.setDefault(Locale.ENGLISH);
-//            Connection con = ds.getConnection();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
 
 }
