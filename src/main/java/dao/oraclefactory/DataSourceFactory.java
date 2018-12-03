@@ -20,9 +20,9 @@ class DataSourceFactory {
         OracleDataSource oracleDS = null;
         try {
             oracleDS = new OracleDataSource();
-            oracleDS.setURL(props.getProperty("ORACLE_DB_URL_HOME"));
-            oracleDS.setUser(props.getProperty("ORACLE_DB_USERNAME_HOME"));
-            oracleDS.setPassword(props.getProperty("ORACLE_DB_PASSWORD_HOME"));
+            oracleDS.setURL(props.getProperty("ORACLE_DB_URL"));
+            oracleDS.setUser(props.getProperty("ORACLE_DB_USERNAME"));
+            oracleDS.setPassword(props.getProperty("ORACLE_DB_PASSWORD"));
         } catch (SQLException e) {
             logger.error(e.getMessage());
         }

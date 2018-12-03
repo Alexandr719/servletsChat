@@ -19,20 +19,34 @@ $('input[type=radio][name=type_log]').change(function() {
 });
 
 
+$.postJSON = function(url, data, callback) {
+    return jQuery.ajax({
+        'type': 'POST',
+        'url': url,
+        'contentType': 'application/json',
+        'data': data,
+        'dataType': 'json',
+        'success': callback
+    });
+};
+
+
 
 $("#singIn").click(function () {
-      $.post( "registration", {data: regBlock.serialize() }, function(data ) {
-        $( ".result" ).html( data );
+    let data = getFormData(regBlock);
+    console.log(data);
+      $.postJSON( "registration",  data , function(data ) {
+      //toDO
     });
 });
 
 $("#LogIn").click(function () {
 
-    let data = getFormData(logBlock);
-
-    $.post( "login",  data, function(data ) {
-        $( ".result" ).html( data );
-    },"json");
+    let data = logBlock.serializeArray();
+    console.log(data);
+    $.postJSON( "login",  data, function(data ) {
+       //toDO
+    });
 });
 
 
