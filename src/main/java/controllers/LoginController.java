@@ -2,10 +2,17 @@ package controllers;
 
 
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.Thing;
+import entity.User;
+import mapper.EntityMapper;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 
@@ -16,19 +23,17 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//ToDO auto parse add
-//        EntityMapper entityMapper = new EntityMapper();
-//        User user = entityMapper.getLoginUser(request);
 
-        String s = request.getParameter("login");
-        System.out.println(s);
+        EntityMapper mapper = new EntityMapper();
+        User user = mapper.getUser(request);
+        System.out.println(user);
 
 
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameter("login"));
-;
+
+
     }
 }

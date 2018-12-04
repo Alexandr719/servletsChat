@@ -34,7 +34,6 @@ $.postJSON = function(url, data, callback) {
 
 $("#singIn").click(function () {
     let data = getFormData(regBlock);
-    console.log(data);
       $.postJSON( "registration",  data , function(data ) {
       //toDO
     });
@@ -42,8 +41,7 @@ $("#singIn").click(function () {
 
 $("#LogIn").click(function () {
 
-    let data = logBlock.serializeArray();
-    console.log(data);
+    let data = getFormData(logBlock);
     $.postJSON( "login",  data, function(data ) {
        //toDO
     });
@@ -52,14 +50,12 @@ $("#LogIn").click(function () {
 
 
 function getFormData($form){
-    var unindexed_array = $form.serializeArray();
-    var indexed_array = {};
-
+    let unindexed_array = $form.serializeArray();
+    let indexed_array = {};
     $.map(unindexed_array, function(n, i){
         indexed_array[n['name']] = n['value'];
     });
-
-    return indexed_array;
+    return JSON.stringify(indexed_array);
 }
 
 

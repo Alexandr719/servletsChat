@@ -7,6 +7,16 @@
         <element id="directory" name="classes">
           <element id="module-output" name="Chatv31" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.oracle:ojdbc6:11.2.0" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.11.1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.11.1" />
+          <element id="library" level="project" name="Maven: org.json:json:20180813" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.9.4" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.4" />
+        </element>
       </element>
     </root>
   </artifact>
