@@ -16,10 +16,7 @@ import org.apache.logging.log4j.Logger;
 //TODO javadoc
 @Data
 @ToString
-@Log4j2
 public class User {
-
-    private final static Logger logger = LogManager.getLogger(User.class);
 
     private int id;
     private String login;
