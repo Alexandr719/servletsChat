@@ -18,3 +18,36 @@ function getFormData($form){
     });
     return JSON.stringify(indexed_array);
 }
+
+function changeHash(id) {
+
+    try {
+        history.replaceState(null,null,'?id='+ id);
+    }
+    catch(e) {
+        location.hash = '#id_'+id;
+    }
+
+}
+
+
+function showMain(user) {
+    $("#login_page").hide();
+    $("#main_page").show();
+    innerUserInfo(user);
+
+}
+function showRegistration() {
+    $("#main_page").hide();
+    $("#login_page").show();
+}
+
+$("#exit_button").click(function () {
+    showRegistration();
+    });
+
+function innerUserInfo(user) {
+    $("#main_page_login").text(user.login);
+
+
+}

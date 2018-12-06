@@ -1,8 +1,9 @@
 package dao.oraclefactory;
 
 import dao.PropertyWorker;
+import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.pool.OracleDataSource;
-import org.apache.log4j.Logger;
+
 
 
 import javax.sql.DataSource;
@@ -10,13 +11,14 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 
-
+@Log4j2
 class DataSourceFactory {
-    private final static Logger logger = Logger.getLogger(DataSourceFactory.class);
 
     static DataSource getOracleDataSource() {
+        log.info("get oracle ds");
         PropertyWorker pw = new PropertyWorker();
         Properties props = pw.getDBProperties();
+        log.info(props);
         OracleDataSource oracleDS = null;
         try {
             oracleDS = new OracleDataSource();
@@ -24,11 +26,9 @@ class DataSourceFactory {
             oracleDS.setUser(props.getProperty("ORACLE_DB_USERNAME"));
             oracleDS.setPassword(props.getProperty("ORACLE_DB_PASSWORD"));
         } catch (SQLException e) {
-            logger.error(e.getMessage());
+            log.error(e.getMessage());
         }
         return oracleDS;
     }
-
-
 
 }

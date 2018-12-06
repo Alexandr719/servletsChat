@@ -28,10 +28,11 @@ $("#singIn").click(function () {
 });
 
 $("#LogIn").click(function () {
-
     let data = getFormData(logBlock);
-    $.postJSON( "login",  data, function(data ) {
-       //toDO
+    $.postJSON( "login",  data, function(data) {
+       changeHash(data.id);
+       showMain(data);
+       console.log(data);
     });
 });
 

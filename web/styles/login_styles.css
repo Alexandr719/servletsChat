@@ -2,23 +2,24 @@ body,html{
     width: 100%;
     height: 100%;
 }
-body{
-     font-size: 100%;
+body #login_page{
+    font-size: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.container{
+#login_page .container{
+    margin: 15% auto;
     width: 300px;
 }
-.filds{
+#login_page .filds{
     width: 100%;
     height: auto;
     display: inline-block;
     position: relative;
     margin-bottom: 20px
 }
-input{
+#login_page input{
     width: 100%;
     height: 46px;
     border: 0px;
@@ -27,7 +28,7 @@ input{
 }
 
 
-form button{
+#login_page form button{
     cursor: pointer;
     width: 100px;
     background-color: white;
@@ -36,7 +37,7 @@ form button{
     float: left;
 
 }
-form button:hover{
+#login_page form button:hover{
     border: solid 2px #a90200;
 }
 .registration{
@@ -47,13 +48,13 @@ form button:hover{
 }
 
 
-.container_header{
+#login_page .container_header{
     float: right;
     padding: 20px;
     flex-direction: row;
     justify-content: end;
 }
-.container_header label{
+#login_page .container_header label{
 
     padding: 10px 16px;
     border: #9e9e9e solid 2px;
@@ -63,15 +64,15 @@ form button:hover{
 }
 
 
-.container_header input[type=radio]:checked+label{
+#login_page .container_header input[type=radio]:checked+label{
     border:  #a90200 solid 2px;
 }
 
-.active_label{
+#login_page .active_label{
     border:  #a90200 solid 2px;
 }
 
-.registration label, .log label {
+#login_page .registration label, .log label {
     position: absolute;
     top: 0;
     left: 0;
@@ -84,29 +85,29 @@ form button:hover{
 }
 
 
-#error{
+#login_page #error{
     margin-left: 110px;
     color: #a90200;
 }
-input:focus{
+#login_page input:focus{
     border-bottom: 1px solid #a90200;
     box-shadow: 0 1px 0 0 #a90200;
     outline: 1px solid transparent;
 }
-input:focus + label{
+#login_page input:focus + label{
     transform: translateY(-14px) scale(.8);
     color: #a90200;
 }
-input::-webkit-input-placeholder,
-input::-moz-input-placeholder{
+#login_page input::-webkit-input-placeholder,
+#login_page input::-moz-input-placeholder{
     color: transparent;
 }
-input::placeholder{
+#login_page input::placeholder{
     color: transparent;
 }
-input:not(:placeholder-shown){
+#login_page input:not(:placeholder-shown){
     border-bottom: 1px solid #9e9e9e;
 }
-input:not(:placeholder-shown) + label{
+#login_page input:not(:placeholder-shown) + label{
     transform: translateY(-14px) scale(.8);
 }

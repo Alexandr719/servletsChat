@@ -1,6 +1,7 @@
 package mapper;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import entity.Message;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+//Todo javaDoc
 public class EntityMapper {
 
     public User getUser(HttpServletRequest req) {
@@ -40,6 +42,19 @@ public class EntityMapper {
         return message;
     }
 
+    public String objectToJSON(Object o){
+        ObjectMapper om = new ObjectMapper();
+        String json = null;
+        try {
+            json = om.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            //TODO log
+            e.printStackTrace();
+        }
+        System.out.println(json);
+        return json;
+    }
+
     private String parceRequest(HttpServletRequest req) {
         StringBuffer jb = new StringBuffer();
         String line = null;
@@ -50,8 +65,13 @@ public class EntityMapper {
         } catch (Exception e) {
             //TODO log
         }
+
         return jb.toString();
     }
+
+
+
+
 
 }
 

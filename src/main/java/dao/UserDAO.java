@@ -23,7 +23,7 @@ public interface UserDAO {
 
         List<User> getAllLogged();
 
-        User getUserByNick(String nick);
+        User getUser(User user);
 
         void updateUser(User user);
 
