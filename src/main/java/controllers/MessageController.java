@@ -4,6 +4,8 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 
+//TODO Add java doc
+
 @ServerEndpoint("/websocket")
 public class MessageController {
 
