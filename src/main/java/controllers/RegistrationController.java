@@ -16,13 +16,23 @@ import java.io.IOException;
 @Log4j2
 @WebServlet(name = "controllers.RegistrationController", urlPatterns = "/registration")
 public class RegistrationController extends HttpServlet {
+
+    private UserDAO userDAO;
+
+    @Override
+    public void init() throws ServletException {
+        DAOFactory dao = DAOFactory.getDAOFactory();
+        userDAO = dao.getUserDAO();
+    }
+
+
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
         log.info("New register user = " + user);
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        UserDAO userDAO = dao.getUserDAO();
         userDAO.login(user);
 
 

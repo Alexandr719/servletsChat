@@ -50,7 +50,23 @@ public class OracleUserDAO implements UserDAO {
 
     @Override
     public boolean isLogged(User user) {
-        return false;
+        Locale.setDefault(Locale.ENGLISH);
+
+        DataSource dataSource = DataSourceFactory.getOracleDataSource();
+        PropertyWorker pw = new PropertyWorker();
+        Properties prop = pw.getStatementsProperties();
+        try {
+            Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(prop.getProperty("SQL_WAS_LOGGED"));
+            preparedStatement.setString(1, user.getLogin());
+            ResultSet rs = preparedStatement.executeQuery();
+            if (!rs.isBeforeFirst()) {
+               return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    return true;
     }
 
     @Override
