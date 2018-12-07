@@ -18,6 +18,7 @@ function sendMessage() {
 }
 
 let webSocket = new WebSocket('ws://localhost:8081//websocket');
+// let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
 
 webSocket.onerror = function (event) {
     onError(event)

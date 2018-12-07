@@ -61,17 +61,47 @@ public class OracleUserDAO implements UserDAO {
             preparedStatement.setString(1, user.getLogin());
             ResultSet rs = preparedStatement.executeQuery();
             if (!rs.isBeforeFirst()) {
-               return false;
+                return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    return true;
+        return true;
     }
 
     @Override
     public boolean checkLogIn(User user) {
-        return false;
+        Locale.setDefault(Locale.ENGLISH);
+
+        User checkedUser = new User();
+        DataSource dataSource = DataSourceFactory.getOracleDataSource();
+        PropertyWorker pw = new PropertyWorker();
+        Properties prop = pw.getStatementsProperties();
+        try {
+            Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(prop.getProperty("SQL_WAS_LOGGE"));
+            preparedStatement.setString(1, user.getLogin());
+            ResultSet rs = preparedStatement.executeQuery();
+            if (!rs.isBeforeFirst()) {
+                return false;
+            } else {
+
+                while (rs.next()) {
+                    checkedUser.setId(rs.getInt("ID"));
+                    checkedUser.setPassword(rs.getString("PASSWORD"));
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (user.getPassword().equals(checkedUser.getPassword())
+                && user.getLogin().equals(checkedUser.getLogin())) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override

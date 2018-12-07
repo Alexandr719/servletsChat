@@ -23,8 +23,10 @@ $('input[type=radio][name=type_log]').change(function() {
 $("#singIn").click(function () {
     let data = getFormData(regBlock);
       $.postJSON( "registration",  data , function(data ) {
-      //toDO
-    });
+
+    },function (e) {
+          $("#error").text("User with this login already exist");
+      });
 });
 
 $("#LogIn").click(function () {
@@ -33,6 +35,8 @@ $("#LogIn").click(function () {
        changeHash(data.id);
        showMain(data);
        console.log(data);
+    },function (e) {
+        $("#error").text("Correct you password or login. Maybe sing in?");
     });
 });
 

@@ -1,11 +1,12 @@
-$.postJSON = function(url, data, callback) {
+$.postJSON = function(url, data, callback, error) {
     return jQuery.ajax({
         'type': 'POST',
         'url': url,
         'contentType': 'application/json',
         'data': data,
         'dataType': 'json',
-        'success': callback
+        'success': callback,
+        'error': error
     });
 };
 
