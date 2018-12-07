@@ -22,13 +22,13 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-        EntityMapper mapper = new EntityMapper();
-        User user = mapper.getUser(request);
-        if (userDAO.checkLogIn(user)) {
+       // EntityMapper mapper = new EntityMapper();
+       // User user = mapper.getUser(request);
+       // if (userDAO.checkLogIn(user)) {
             chain.doFilter(req, resp);
-        } else {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        }
+       // } else {
+       //     response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+      //  }
 
 
     }

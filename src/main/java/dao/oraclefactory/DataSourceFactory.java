@@ -15,10 +15,8 @@ import java.util.Properties;
 class DataSourceFactory {
 
     static DataSource getOracleDataSource() {
-        log.info("get oracle ds");
         PropertyWorker pw = new PropertyWorker();
         Properties props = pw.getDBProperties();
-        log.info(props);
         OracleDataSource oracleDS = null;
         try {
             oracleDS = new OracleDataSource();
