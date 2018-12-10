@@ -19,11 +19,9 @@ import java.util.Properties;
 public class OracleUserDAO implements UserDAO {
 
     private static final String USER_ROLE = "USER";
-    private static final String ADMIN_ROLE = "ADMIN";
-
 
     @Override
-    public void login(User loginingUser) {
+    public void login(User loginUser) {
         Locale.setDefault(Locale.ENGLISH);
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
@@ -32,18 +30,18 @@ public class OracleUserDAO implements UserDAO {
         try {
             Connection con = dataSource.getConnection();
             PreparedStatement psUser = con.prepareStatement(prop.getProperty("SQL_ADD_NEW_USER"));
-            psUser.setString(1, loginingUser.getLogin());
-            psUser.setString(2, loginingUser.getFirstName());
-            psUser.setString(3, loginingUser.getLastName());
-            psUser.setString(4, loginingUser.getEmail());
-            psUser.setString(5, loginingUser.getPassword());
+            psUser.setString(1, loginUser.getLogin());
+            psUser.setString(2, loginUser.getFirstName());
+            psUser.setString(3, loginUser.getLastName());
+            psUser.setString(4, loginUser.getEmail());
+            psUser.setString(5, loginUser.getPassword());
             psUser.setString(6, USER_ROLE);
             psUser.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-//TODO finally
+
 
     }
 
@@ -100,25 +98,7 @@ public class OracleUserDAO implements UserDAO {
 
     }
 
-    @Override
-    public void kick(User kickableUser) {
 
-    }
-
-    @Override
-    public void unkick(User user) {
-
-    }
-
-    @Override
-    public boolean isKicked(User user) {
-        return false;
-    }
-
-    @Override
-    public void logout(User logoutingUser) {
-
-    }
 
     @Override
     public List<User> getAllLogged() {
@@ -149,16 +129,11 @@ public class OracleUserDAO implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
         return user;
 
     }
 
-    @Override
-    public void updateUser(User user) {
 
-    }
 
 
     public static void main(String[] args) {

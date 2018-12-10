@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 @Log4j2
+//TODO resource bundle
 public class PropertyWorker {
 
 

@@ -7,9 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Message;
 import entity.User;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 //Todo javaDoc
 public class EntityMapper {
@@ -56,14 +60,25 @@ public class EntityMapper {
     }
 
     private String parceRequest(HttpServletRequest req) {
-        StringBuffer jb = new StringBuffer();
+        HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(req);
+        ServletInputStream reqBody = null;
+        try {
+            reqBody = wrapper.getInputStream();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedReader brReq =
+                new BufferedReader(new InputStreamReader(reqBody));
+       StringBuffer jb = new StringBuffer();
         String line = null;
         try {
-            BufferedReader reader = req.getReader();
-            while ((line = reader.readLine()) != null)
+                while ((line = brReq.readLine()) != null)
                 jb.append(line);
         } catch (Exception e) {
             //TODO log
+        }finally {
+
+
         }
 
         return jb.toString();

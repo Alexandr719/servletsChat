@@ -32,7 +32,6 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         log.info(user);
 
         User logUser = userDAO.getUser(user);
-        userDAO.isLogged(user);
         log.info(logUser);
 
         PrintWriter out = response.getWriter();
