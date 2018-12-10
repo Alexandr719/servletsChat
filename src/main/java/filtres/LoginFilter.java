@@ -2,6 +2,7 @@ package filtres;
 
 import dao.DAOFactory;
 import dao.UserDAO;
+import entity.RequestWrapper;
 import entity.User;
 import lombok.extern.log4j.Log4j2;
 import mapper.EntityMapper;
@@ -28,11 +29,11 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         //HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(request);
-        HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(request);
+        RequestWrapper wrapper = new RequestWrapper(request);
         StringBuffer jb = new StringBuffer();
         String line = null;
         try {
-            BufferedReader reader = request.getReader();
+            BufferedReader reader = wrapper.getReader();
             while ((line = reader.readLine()) != null)
                 jb.append(line);
 
