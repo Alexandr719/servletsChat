@@ -1,16 +1,4 @@
 let user = null;
-
-
-$("#exit_button").click(function () {
-    $.postJSON("exit", null, function (data) {
-        console.log("Click exit!!!");
-        showRegistration();
-    }, function (e) {
-        alert("Error with exit");
-    });
-});
-
-
 $.postJSON = function (url, data, callback, error) {
     return jQuery.ajax({
         'type': 'POST',
@@ -22,6 +10,17 @@ $.postJSON = function (url, data, callback, error) {
         'error': error
     });
 };
+
+checkLogIn();
+
+$("#exit_button").click(function () {
+    $.postJSON("exit", null, function (data) {
+        console.log("Click exit!!!");
+        showRegistration();
+    }, function (e) {
+        alert("Error with exit");
+    });
+});
 
 
 function getFormData($form) {
@@ -67,7 +66,7 @@ function innerUserInfo(user) {
 function fillMessages() {
     $.postJSON("getmessages", null, function (data) {
         data.forEach(function (item) {
-            $("#main_messages_list").append("<li>" + item.user.login + " : "+  item.message+ "</li>");
+            $("#main_messages_list").append("<li>" + item.user.login + " : " + item.message + "</li>");
         })
     }, function (e) {
         alert("Error with messages");
@@ -82,5 +81,14 @@ function fillUsers() {
         })
     }, function (e) {
         alert("Error with users");
+    });
+}
+
+function checkLogIn() {
+    $.postJSON("checklog", null, function (data) {
+        user = data;
+      showMain(user)
+    }, function (e) {
+        showRegistration(user);
     });
 }
