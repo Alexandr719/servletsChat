@@ -1,5 +1,12 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dao.DAOFactory;
+import dao.MessageDAO;
+import entity.Message;
+import entity.User;
+import mapper.EntityMapper;
+
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -10,24 +17,32 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint("/websocket")
 public class MessageController {
- private Session session;
- private static Set<MessageController> chatEndpoints = new CopyOnWriteArraySet<>();
+    private MessageDAO messageDAO;
+    private Session session;
+    private static Set<MessageController> chatEndpoints = new CopyOnWriteArraySet<>();
+
+
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
-        System.out.println("User input: " + message);
+        ObjectMapper om = new ObjectMapper();
+
         try {
-            broadcast(message);
-        } catch (EncodeException e) {
+            Message msg = om.readValue(message, Message.class);
+            messageDAO.sentMessage(msg);
+            broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
+        } catch (IOException | EncodeException e) {
+            //TODO log
             e.printStackTrace();
         }
-
 
     }
 
     @OnOpen
     public void onOpen(Session session) {
-        System.out.println("Client connected");
+        DAOFactory dao = DAOFactory.getDAOFactory();
+        messageDAO = dao.getMessageDAO();
+
         this.session = session;
         chatEndpoints.add(this);
     }
@@ -46,14 +61,12 @@ public class MessageController {
                 try {
                     endpoint.session.getBasicRemote().sendText(message);
 
-                } catch (IOException  e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
-
-
 
 
 }

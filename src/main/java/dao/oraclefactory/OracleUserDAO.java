@@ -1,6 +1,7 @@
 package dao.oraclefactory;
 
 import dao.DAOFactory;
+import dao.MessageDAO;
 import dao.PropertyWorker;
 import dao.UserDAO;
 import entity.User;
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -40,7 +42,6 @@ public class OracleUserDAO implements UserDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -82,27 +83,53 @@ public class OracleUserDAO implements UserDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs != null) {
-                log.info("Result set in not null");
+                log.info("ResultSet isn't null");
                 while (rs.next()) {
-                    checkedUser.setId(rs.getInt("ID"));
+                    checkedUser.setLogin(rs.getString("LOGIN"));
                     checkedUser.setPassword(rs.getString("PASSWORD"));
                 }
             }
-
+            return (user.getPassword().equals(checkedUser.getPassword())
+                    && user.getLogin().equals(checkedUser.getLogin()));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return (user.getPassword().equals(checkedUser.getPassword())
-                && user.getLogin().equals(checkedUser.getLogin()));
+
+        return false;
 
     }
 
 
-
     @Override
-    public List<User> getAllLogged() {
-        return null;
+    public List<User> getAllLogged(int count) {
+        Locale.setDefault(Locale.ENGLISH);
+
+        List<User> loggedUsers = new ArrayList<>();
+        DataSource dataSource = DataSourceFactory.getOracleDataSource();
+        PropertyWorker pw = new PropertyWorker();
+        Properties prop = pw.getStatementsProperties();
+        try {
+            Connection con = dataSource.getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(prop.getProperty("SQL_GET_USER_LIST"));
+            preparedStatement.setInt(1, count);
+                      ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("ID"));
+                user.setLogin(rs.getString("LOGIN"));
+                user.setFirstName(rs.getString("FIRSTNAME"));
+                user.setLastName(rs.getString("LASTNAME"));
+                user.setEmail(rs.getString("EMAIL"));
+                user.setRole(rs.getString("ROLE"));
+                loggedUsers.add(user);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return loggedUsers;
+
     }
 
     @Override
@@ -134,12 +161,13 @@ public class OracleUserDAO implements UserDAO {
     }
 
 
-
-
     public static void main(String[] args) {
         DAOFactory dao = DAOFactory.getDAOFactory();
-        UserDAO userDAO = dao.getUserDAO();
-        userDAO.login(new User());
+//        UserDAO userDAO = dao.getUserDAO();
+//        userDAO.getAllLogged().forEach(System.out::println);
+
+        MessageDAO userDAO = dao.getMessageDAO();
+        userDAO.getLastMessages(100).forEach(System.out::println);
 
     }
 

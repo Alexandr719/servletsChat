@@ -13,7 +13,7 @@ public interface UserDAO {
 
         boolean checkLogIn(User user);
 
-        List<User> getAllLogged();
+        List<User> getAllLogged(int count);
 
         User getUser(User user);
 

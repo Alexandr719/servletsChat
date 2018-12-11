@@ -7,23 +7,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.Message;
 import entity.User;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+
 
 //Todo javaDoc
 public class EntityMapper {
 
     public User getUser(HttpServletRequest req) {
-        String userString = parceRequest(req);
         ObjectMapper om = new ObjectMapper();
         User user = null;
         try {
-            user = om.readValue(userString, User.class);
+            user = om.readValue(req.getInputStream(), User.class);
         } catch (IOException e) {
             //TODO log
             e.printStackTrace();
@@ -33,11 +28,10 @@ public class EntityMapper {
 
 
     public Message getMessage(HttpServletRequest req) {
-        String messageString = parceRequest(req);
         ObjectMapper om = new ObjectMapper();
         Message message = null;
         try {
-            message = om.readValue(messageString, Message.class);
+            message = om.readValue(req.getInputStream(), Message.class);
 
         } catch (IOException e) {
             //TODO log
@@ -55,33 +49,7 @@ public class EntityMapper {
             //TODO log
             e.printStackTrace();
         }
-        System.out.println(json);
         return json;
-    }
-
-    private String parceRequest(HttpServletRequest req) {
-        HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper(req);
-        ServletInputStream reqBody = null;
-        try {
-            reqBody = wrapper.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        BufferedReader brReq =
-                new BufferedReader(new InputStreamReader(reqBody));
-       StringBuffer jb = new StringBuffer();
-        String line = null;
-        try {
-                while ((line = brReq.readLine()) != null)
-                jb.append(line);
-        } catch (Exception e) {
-            //TODO log
-        }finally {
-
-
-        }
-
-        return jb.toString();
     }
 
 

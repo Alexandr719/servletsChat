@@ -1,4 +1,4 @@
-package controllers;
+package controllers.autorization;
 
 
 import dao.DAOFactory;
@@ -20,6 +20,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
     private UserDAO userDAO;
 
+
     @Override
     public void init() throws ServletException {
         DAOFactory dao = DAOFactory.getDAOFactory();
@@ -28,21 +29,18 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityMapper mapper = new EntityMapper();
-        User user = mapper.getUser(request);
-        log.info(user);
 
-        User logUser = userDAO.getUser(user);
+        User logUser = userDAO.getUser((User) request.getAttribute("user"));
+        request.getSession().setAttribute("user", logUser);
         log.info(logUser);
 
-        PrintWriter out = response.getWriter();
+
+
         response.setContentType("application/json");
-        out.println(mapper.objectToJSON(logUser));
-
-
+        response.getWriter().println(mapper.objectToJSON(logUser));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
-
     }
 }

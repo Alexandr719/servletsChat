@@ -6,19 +6,15 @@ import entity.User;
 import lombok.extern.log4j.Log4j2;
 import mapper.EntityMapper;
 
-
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
 @Log4j2
-@WebFilter(filterName = "LoginFilter", servletNames = "controllers.LoginController")
-public class LoginFilter implements Filter {
-
+@WebFilter(filterName = "RegistrationFilter", servletNames = "controllers.RegistrationController")
+public class RegistrationFilter implements Filter {
     private UserDAO userDAO;
 
     public void destroy() {
@@ -30,21 +26,23 @@ public class LoginFilter implements Filter {
 
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
-        if (userDAO.isLogged(user) && userDAO.checkLogIn(user)) {
-            log.info("User login and password right!!!");
-            request.setAttribute("user", user);
-            log.info("User with login:" + user.getLogin() + "inter into chat");
+        if (!userDAO.isLogged(user)) {
+            log.info("User with this login doesn't exist");
+            userDAO.login(user);
+            request.setAttribute("regUser", user);
+            log.info("Success registration");
         } else {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-    }
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+
+
         chain.doFilter(req, resp);
-
-
     }
 
     public void init(FilterConfig config) throws ServletException {
         DAOFactory dao = DAOFactory.getDAOFactory();
         userDAO = dao.getUserDAO();
+
     }
 
 }

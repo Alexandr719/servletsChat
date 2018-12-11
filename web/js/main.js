@@ -1,4 +1,17 @@
-$.postJSON = function(url, data, callback, error) {
+let user = null;
+
+
+$("#exit_button").click(function () {
+    $.postJSON("exit", null, function (data) {
+        console.log("Click exit!!!");
+        showRegistration();
+    }, function (e) {
+        alert("Error with exit");
+    });
+});
+
+
+$.postJSON = function (url, data, callback, error) {
     return jQuery.ajax({
         'type': 'POST',
         'url': url,
@@ -11,10 +24,10 @@ $.postJSON = function(url, data, callback, error) {
 };
 
 
-function getFormData($form){
+function getFormData($form) {
     let unindexed_array = $form.serializeArray();
     let indexed_array = {};
-    $.map(unindexed_array, function(n, i){
+    $.map(unindexed_array, function (n, i) {
         indexed_array[n['name']] = n['value'];
     });
     return JSON.stringify(indexed_array);
@@ -23,32 +36,51 @@ function getFormData($form){
 function changeHash(id) {
 
     try {
-        history.replaceState(null,null,'?id='+ id);
+        history.replaceState(null, null, '?id=' + id);
     }
-    catch(e) {
-        location.hash = '#id_'+id;
+    catch (e) {
+        location.hash = '#id_' + id;
     }
 
 }
 
 
 function showMain(user) {
+    fillMessages();
+    fillUsers();
     $("#login_page").hide();
     $("#main_page").show();
     innerUserInfo(user);
 
 }
+
 function showRegistration() {
     $("#main_page").hide();
     $("#login_page").show();
 }
 
-$("#exit_button").click(function () {
-    showRegistration();
-    });
 
 function innerUserInfo(user) {
     $("#main_page_login").text(user.login);
+}
 
+function fillMessages() {
+    $.postJSON("getmessages", null, function (data) {
+        data.forEach(function (item) {
+            $("#main_messages_list").append("<li>" + item.user.login + " : "+  item.message+ "</li>");
+        })
+    }, function (e) {
+        alert("Error with messages");
+    });
+}
 
+function fillUsers() {
+    $.postJSON("getusers", null, function (data) {
+        console.log(data[0]);
+        data.forEach(function (item) {
+            $("#user_list").append("<li>" + item.login + "</li>");
+        })
+    }, function (e) {
+        alert("Error with users");
+    });
 }

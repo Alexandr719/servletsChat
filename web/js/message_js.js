@@ -1,5 +1,6 @@
 let msgBlock = $("#message");
-
+//let webSocket = new WebSocket('ws://localhost:8081//websocket');
+ let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
 
 $("#message_sent").click(function () {
     sendMessage();
@@ -13,12 +14,15 @@ $("#message").keydown(function (event) {
 
 
 function sendMessage() {
-    webSocket.send(msgBlock.val());
+    let message = {};
+    message.user = user;
+    message.message = msgBlock.val();
+    webSocket.send(JSON.stringify(message));
     msgBlock.val("");
 }
 
-let webSocket = new WebSocket('ws://localhost:8081//websocket');
-// let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
+
+
 
 webSocket.onerror = function (event) {
     onError(event)
@@ -39,13 +43,11 @@ function onMessage(event) {
 
 function onOpen(event) {
     console.log("Now Connection established");
-
 }
 
 function onError(event) {
     alert(event.data);
 }
-
 
 $(document).ready(function () {
     $(window).keydown(function (event) {
