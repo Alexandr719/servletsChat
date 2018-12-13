@@ -37,8 +37,8 @@ webSocket.onmessage = function (event) {
 };
 
 function onMessage(event) {
-    $("#main_messages_list").append("<li>" + event.data + "</li>");
-    console.log("Event data" + event.data);
+    $("#main_messages_list").append("<li>" + escapeHtml(event.data) + "</li>");
+
 }
 
 function onOpen(event) {

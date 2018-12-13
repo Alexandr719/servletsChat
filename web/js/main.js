@@ -1,4 +1,14 @@
 let user = null;
+var entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+};
 $.postJSON = function (url, data, callback, error) {
     return jQuery.ajax({
         'type': 'POST',
@@ -66,7 +76,7 @@ function innerUserInfo(user) {
 function fillMessages() {
     $.postJSON("getmessages", null, function (data) {
         data.forEach(function (item) {
-            $("#main_messages_list").append("<li>" + item.user.login + " : " + item.message + "</li>");
+            $("#main_messages_list").append("<li>" + escapeHtml(item.user.login + " : " + item.message) + "</li>");
         })
     }, function (e) {
         alert("Error with messages");
@@ -75,10 +85,9 @@ function fillMessages() {
 
 function fillUsers() {
     $.postJSON("getusers", null, function (data) {
-        console.log(data[0]);
         data.forEach(function (item) {
-            $("#user_list").append("<li>" + item.login + "</li>");
-        })
+            $("#user_list").append("<li>" + escapeHtml(item.login) + "</li>");
+        });
     }, function (e) {
         alert("Error with users");
     });
@@ -87,8 +96,15 @@ function fillUsers() {
 function checkLogIn() {
     $.postJSON("checklog", null, function (data) {
         user = data;
-      showMain(user)
+        showMain(user)
     }, function (e) {
         showRegistration(user);
+    });
+}
+
+
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+        return entityMap[s];
     });
 }
