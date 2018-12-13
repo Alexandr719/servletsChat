@@ -18,6 +18,7 @@ import java.io.IOException;
 @WebServlet(name = "controllers.RegistrationController", urlPatterns = "/registration")
 public class RegistrationController extends HttpServlet {
 
+
     private UserDAO userDAO;
 
     @Override
@@ -28,19 +29,21 @@ public class RegistrationController extends HttpServlet {
 
 
 
+       protected void doPost (HttpServletRequest request, HttpServletResponse response) throws
+        ServletException, IOException {
+            EntityMapper mapper = new EntityMapper();
+            User user = userDAO.getUser((User) request.getAttribute("regUser"));
+            request.getSession().setAttribute("user", user);
+            log.info(user);
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        EntityMapper mapper = new EntityMapper();
-        User user = userDAO.getUser((User) request.getAttribute("regUser"));
-        request.getSession().setAttribute("user", user);
-        log.info(user);
 
+            response.setContentType("application/json");
+            response.getWriter().println(mapper.objectToJSON(user));
+        }
 
-        response.setContentType("application/json");
-        response.getWriter().println(mapper.objectToJSON(user));
+        protected void doGet (HttpServletRequest request, HttpServletResponse response) throws
+        ServletException, IOException {
+            doPost(request, response);
+        }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
-}

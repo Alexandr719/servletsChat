@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <link rel="stylesheet" href="styles/login_styles.css">
+    <link rel="stylesheet" href="styles/main_page_styles.css">
+    <link rel="stylesheet" href="styles/main_styles.css">
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+
+</head>
+<body>
+<div id="wrapper">
+
+    <div id="login_page">
+        <div class="container">
+            <div class="container_header">
+                <input class="radiobtn" name="type_log" id="radio_reg" type="radio" value="reg">
+                <label for="radio_reg">S</label>
+
+                <input class="radiobtn" name="type_log" id="radio_log" type="radio" value="log" checked>
+                <label for="radio_log">L</label>
+            </div>
+
+
+            <form class="registration">
+                <div class="filds">
+                    <input type="text" id="reg_login" name="login" placeholder="Login" maxlength="19">
+                    <label for="reg_login">Login</label>
+                </div>
+
+                <div class="filds">
+                    <input type="text" id="firstName" name="firstName" placeholder="Firt Name">
+                    <label for="firstName">First Name</label>
+                </div>
+
+                <div class="filds">
+                    <input type="text" id="lastName" name="lastName" placeholder="Last Name">
+                    <label for="lastName">Last Name</label>
+                </div>
+
+                <div class="filds">
+                    <input type="email" id="email" name="email" placeholder="Email">
+                    <label for="email">Email</label>
+                </div>
+
+
+                <div class="filds">
+                    <input type="password" id="password" name="password" placeholder="Password">
+                    <label for="password">Password</label>
+                </div>
+                <button id="singIn" type="button">Sign in</button>
+
+            </form>
+            <form class="log">
+                <div class="filds">
+                    <input type="text" id="log_login" name="login" placeholder="Login" maxlength="19">
+                    <label for="log_login">Login</label>
+                </div>
+
+
+                <div class="filds">
+                    <input type="password" id="log_password" name="password" placeholder="Password">
+                    <label for="log_password">Password</label>
+                </div>
+                <button id="LogIn" type="button">Log in</button>
+            </form>
+
+
+            <div id="error"></div>
+        </div>
+    </div>
+      <div id="main_page">
+           <header class="main-header">
+               <span class="logo">Chat V3</span>
+               <nav class="main-nav">
+                   <span id="main_page_login" >User name</span>
+                   <span id="exit_button">E</span>
+
+
+               </nav>
+           </header>
+           <div class="content">
+               <div class="main col">
+                   <div class="main_messages">
+                       <ul id="main_messages_list">
+
+                       </ul>
+
+                   </div>
+                   <form class="main_messages_field">
+                       <input id="message" type="text" name="message"   placeholder="You message can be here...">
+                       <button id="message_sent" type="button">Send</button>
+                   </form>
+
+               </div>
+               <div class="secondary col">
+                   <ul id="user_list">
+
+                   </ul>
+               </div>
+
+           </div>
+           <footer class="main-footer">
+
+           </footer>
+
+       </div>
+
+</div>
+<script src="js/main.js"></script>
+<script src="js/login_js.js"></script>
+<script src="js/message_js.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+body,html{
+    width: 100%;
+    height: 100%;
+}
+body #login_page{
+    font-size: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#login_page .container{
+    margin: 15% auto;
+    width: 300px;
+}
+#login_page .filds{
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    position: relative;
+    margin-bottom: 20px
+}
+#login_page input{
+    width: 100%;
+    height: 46px;
+    border: 0px;
+    border-bottom: 1px solid #9e9e9e;
+    transition: border-bottom, box-shadow .25s ease-in-out;
+}
+
+
+#login_page form button{
+    cursor: pointer;
+    width: 100px;
+    background-color: white;
+    border: solid 1px #9e9e9e;
+    border-radius: 3px;
+    float: left;
+
+}
+#login_page form button:hover{
+    border: solid 2px #a90200;
+}
+.registration{
+    display: none;
+}
+.radiobtn{
+    display: none;
+}
+
+
+#login_page .container_header{
+    float: right;
+    padding: 20px;
+    flex-direction: row;
+    justify-content: end;
+}
+#login_page .container_header label{
+
+    padding: 10px 16px;
+    border: #9e9e9e solid 2px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+
+#login_page .container_header input[type=radio]:checked+label{
+    border:  #a90200 solid 2px;
+}
+
+#login_page .active_label{
+    border:  #a90200 solid 2px;
+}
+
+#login_page .registration label, .log label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: text;
+    color: #9e9e9e;
+    transform: translateY(18px);
+    transition: transform .25s ease-in-out;
+    transform-origin: 0% 100%;
+
+}
+
+
+#login_page #error{
+    margin-left: 110px;
+    color: #a90200;
+}
+#login_page input:focus{
+    border-bottom: 1px solid #a90200;
+    box-shadow: 0 1px 0 0 #a90200;
+    outline: 1px solid transparent;
+}
+#login_page input:focus + label{
+    transform: translateY(-14px) scale(.8);
+    color: #a90200;
+}
+#login_page input::-webkit-input-placeholder,
+#login_page input::-moz-input-placeholder{
+    color: transparent;
+}
+#login_page input::placeholder{
+    color: transparent;
+}
+#login_page input:not(:placeholder-shown){
+    border-bottom: 1px solid #9e9e9e;
+}
+#login_page input:not(:placeholder-shown) + label{
+    transform: translateY(-14px) scale(.8);
+}

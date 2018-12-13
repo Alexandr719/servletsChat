@@ -1,0 +1,170 @@
+
+* {
+    box-sizing: border-box;
+}
+
+#main_page {
+    margin: auto;
+
+}
+
+.main-header {
+
+    text-align: center;
+}
+
+#exit_button {
+    margin-left: 10px;
+    padding: 4px 10px;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: #a90200 solid 2px;
+
+}
+
+#user_list li:before {
+    content: '';
+    border: #a90200 solid 1px;
+    border-radius: 10px;
+    font-size: 1px;
+    padding: 4.56px 5px;
+    position: relative;
+    top: -4px;
+    margin-right: 10px;
+
+}
+li {
+    list-style-type: none; /* Убираем маркеры */
+}
+
+.content,
+.main-header {
+    overflow: hidden;
+}
+
+.col {
+    height: 100%;
+}
+
+.main {
+
+    height: 75vh;
+}
+
+.main-footer {
+    background: #95A5A6;
+}
+
+.main-header,
+.main-footer,
+.col {
+    margin-bottom: 15px;
+    padding: 0 1.25%;
+
+}
+.main-header{
+    padding: 2%;
+}
+
+.main_messages{
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    height: 80%;
+    overflow-y: scroll;
+}
+
+
+.main_messages::-webkit-scrollbar {
+    border-radius: 1px;
+    width: 5px;}
+
+.main_messages::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+
+.main_messages::-webkit-scrollbar-thumb {
+    background-color: #a90200;
+    outline: 1px solid slategrey;
+    border-radius: 10px;
+}
+#message{
+
+    width: 80%;
+    border: none;
+    border-bottom: 1px solid #9e9e9e;
+}
+
+.main input:focus{
+    border-bottom: 1px solid #a90200;
+    box-shadow: 0 1px 0 0 #a90200;
+    outline:none;
+
+}
+#message_sent{
+
+    width: 15%;
+    margin-left: 4%;
+    cursor: pointer;
+    background-color: white;
+    border: solid 1px #9e9e9e;
+    border-radius: 3px;
+}
+
+
+#message_sent:hover{
+    border: solid 2px #a90200;
+}
+.main_messages_field{
+    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);*/
+    margin-top: 40px;
+    padding: 1%;
+
+}
+
+
+/*==================================
+   Media Queries
+==================================*/
+
+/* Phones to Tablets */
+
+@media only screen and (min-width: 481px) {
+    .col {
+        float: left;
+    }
+
+    .main {
+        width: 65.957446808511%;
+    }
+
+    .secondary,
+    .extra {
+        margin-left: 2.127659574468%;
+    }
+}
+
+/* Tablets to Desktop */
+
+@media only screen and (min-width: 769px) {
+    .logo {
+        float: left;
+    }
+
+    .main-nav {
+        float: right;
+    }
+
+    .main {
+        width: 70%;
+    }
+
+    .extra {
+        display: block;
+        width: 10%;
+    }
+}
+
+/* @media not screen and (monochrome) {
+	body {
+   		background: red; */

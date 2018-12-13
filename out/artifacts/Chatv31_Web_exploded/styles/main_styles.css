@@ -1,0 +1,17 @@
+body,html{
+    margin: 0;
+    padding: 0;
+    font-family:Itim Cyrillic, Arial, Helvetica, sans-serif ;
+    font-size: 20px;
+
+}
+
+@font-face {
+    font-family: Itim Cyrillic;
+    src: url(fonts/11988.otf); /
+}
+
+#main_page{
+    display: none;
+}
+

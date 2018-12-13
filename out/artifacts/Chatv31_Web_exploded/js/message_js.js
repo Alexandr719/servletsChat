@@ -20,10 +20,12 @@ function sendMessage() {
     let message = {};
     message.user = user;
     message.message = msgBlock.val();
-    console.log(message);
     webSocket.send(JSON.stringify(message));
     msgBlock.val("");
 
+
+    webSocket.send(msgBlock.val());
+    msgBlock.val("");
 }
 
 

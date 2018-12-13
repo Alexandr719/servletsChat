@@ -51,6 +51,7 @@ public class OracleUserDAO implements UserDAO {
     public boolean isLogged(User user) {
         Locale.setDefault(Locale.ENGLISH);
 
+
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         PropertyWorker pw = new PropertyWorker();
         Properties prop = pw.getStatementsProperties();
@@ -60,13 +61,18 @@ public class OracleUserDAO implements UserDAO {
             preparedStatement.setString(1, user.getLogin());
             ResultSet rs = preparedStatement.executeQuery();
             if (!rs.isBeforeFirst()) {
-                return false;
+               return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return true;
+    return true;
     }
+
+
+
+
+
 
     @Override
     public boolean checkLogIn(User user) {
