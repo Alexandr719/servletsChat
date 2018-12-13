@@ -1,28 +1,25 @@
 package dao.oraclefactory;
 
-import dao.PropertyWorker;
+import dao.ResourceInspector;
 import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.pool.OracleDataSource;
 
-
-
 import javax.sql.DataSource;
 import java.sql.SQLException;
-import java.util.Properties;
+
 
 
 @Log4j2
 class DataSourceFactory {
 
     static DataSource getOracleDataSource() {
-        PropertyWorker pw = new PropertyWorker();
-        Properties props = pw.getDBProperties();
+
         OracleDataSource oracleDS = null;
         try {
             oracleDS = new OracleDataSource();
-            oracleDS.setURL(props.getProperty("ORACLE_DB_URL"));
-            oracleDS.setUser(props.getProperty("ORACLE_DB_USERNAME"));
-            oracleDS.setPassword(props.getProperty("ORACLE_DB_PASSWORD"));
+            oracleDS.setURL(ResourceInspector.getInstance().getString("ORACLE_DB_URL"));
+            oracleDS.setUser(ResourceInspector.getInstance().getString("ORACLE_DB_USERNAME"));
+            oracleDS.setPassword(ResourceInspector.getInstance().getString("ORACLE_DB_PASSWORD"));
         } catch (SQLException e) {
             log.error(e.getMessage());
         }

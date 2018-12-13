@@ -1,21 +1,19 @@
 package dao.oraclefactory;
 
-import dao.DAOFactory;
-import dao.MessageDAO;
-import dao.PropertyWorker;
-import dao.UserDAO;
+import dao.*;
 import entity.User;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Properties;
+import java.util.*;
 
 @Log4j2
 public class OracleUserDAO implements UserDAO {
@@ -27,11 +25,10 @@ public class OracleUserDAO implements UserDAO {
         Locale.setDefault(Locale.ENGLISH);
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        PropertyWorker pw = new PropertyWorker();
-        Properties prop = pw.getStatementsProperties();
+
         try {
             Connection con = dataSource.getConnection();
-            PreparedStatement psUser = con.prepareStatement(prop.getProperty("SQL_ADD_NEW_USER"));
+            PreparedStatement psUser = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_ADD_NEW_USER"));
             psUser.setString(1, loginUser.getLogin());
             psUser.setString(2, loginUser.getFirstName());
             psUser.setString(3, loginUser.getLastName());
@@ -53,11 +50,9 @@ public class OracleUserDAO implements UserDAO {
 
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        PropertyWorker pw = new PropertyWorker();
-        Properties prop = pw.getStatementsProperties();
         try {
             Connection con = dataSource.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement(prop.getProperty("SQL_WAS_LOGGED"));
+            PreparedStatement preparedStatement = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_WAS_LOGGED"));
             preparedStatement.setString(1, user.getLogin());
             ResultSet rs = preparedStatement.executeQuery();
             if (!rs.isBeforeFirst()) {
@@ -80,11 +75,9 @@ public class OracleUserDAO implements UserDAO {
 
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        PropertyWorker pw = new PropertyWorker();
-        Properties prop = pw.getStatementsProperties();
         try {
             Connection con = dataSource.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement(prop.getProperty("SQL_WAS_LOGGED"));
+            PreparedStatement preparedStatement = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_WAS_LOGGED"));
             preparedStatement.setString(1, user.getLogin());
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -113,11 +106,10 @@ public class OracleUserDAO implements UserDAO {
 
         List<User> loggedUsers = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        PropertyWorker pw = new PropertyWorker();
-        Properties prop = pw.getStatementsProperties();
+
         try {
             Connection con = dataSource.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement(prop.getProperty("SQL_GET_USER_LIST"));
+            PreparedStatement preparedStatement = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_GET_USER_LIST"));
             preparedStatement.setInt(1, count);
                       ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -143,11 +135,10 @@ public class OracleUserDAO implements UserDAO {
         Locale.setDefault(Locale.ENGLISH);
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        PropertyWorker pw = new PropertyWorker();
-        Properties prop = pw.getStatementsProperties();
+
         try {
             Connection con = dataSource.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement(prop.getProperty("SQL_GET_USER"));
+            PreparedStatement preparedStatement = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_GET_USER"));
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
             ResultSet rs = preparedStatement.executeQuery();
@@ -168,12 +159,23 @@ public class OracleUserDAO implements UserDAO {
 
 
     public static void main(String[] args) {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-//        UserDAO userDAO = dao.getUserDAO();
-//        userDAO.getAllLogged().forEach(System.out::println);
 
-        MessageDAO userDAO = dao.getMessageDAO();
-        userDAO.getLastMessages(100).forEach(System.out::println);
+
+
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+       Validator validator = factory.getValidator();
+        User user = new User();
+        user.setLogin("12345678912345678");
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+
+        for (ConstraintViolation<User> violation : violations) {
+            log.info(violation.getMessage());
+        }
+
+
+
+//        MessageDAO userDAO = dao.getMessageDAO();
+//        userDAO.getLastMessages(100).forEach(System.out::println);
 
     }
 

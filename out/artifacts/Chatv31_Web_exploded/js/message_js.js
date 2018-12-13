@@ -20,12 +20,10 @@ function sendMessage() {
     let message = {};
     message.user = user;
     message.message = msgBlock.val();
+    console.log(message);
     webSocket.send(JSON.stringify(message));
     msgBlock.val("");
 
-
-    webSocket.send(msgBlock.val());
-    msgBlock.val("");
 }
 
 
@@ -41,6 +39,9 @@ webSocket.onopen = function (event) {
 
 webSocket.onmessage = function (event) {
     onMessage(event)
+};
+webSocket.onclose = function (event) {
+   console.log("Connection closed");
 };
 
 function onMessage(event) {

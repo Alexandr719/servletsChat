@@ -40,6 +40,9 @@ webSocket.onopen = function (event) {
 webSocket.onmessage = function (event) {
     onMessage(event)
 };
+webSocket.onclose = function (event) {
+   console.log("Connection closed");
+};
 
 function onMessage(event) {
 

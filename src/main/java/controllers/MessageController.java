@@ -32,7 +32,7 @@ public class MessageController {
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException | EncodeException e) {
-            //TODO log
+            //            //TODO log
             e.printStackTrace();
         }
 
@@ -48,8 +48,10 @@ public class MessageController {
     }
 
     @OnClose
-    public void onClose() {
-        System.out.println("Connection closed");
+    public void onClose(Session session) throws IOException {
+
+        chatEndpoints.remove(this);
+
     }
 
 

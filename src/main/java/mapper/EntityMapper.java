@@ -4,7 +4,7 @@ package mapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import entity.Message;
+
 import entity.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,19 +26,6 @@ public class EntityMapper {
         return user;
     }
 
-
-    public Message getMessage(HttpServletRequest req) {
-        ObjectMapper om = new ObjectMapper();
-        Message message = null;
-        try {
-            message = om.readValue(req.getInputStream(), Message.class);
-
-        } catch (IOException e) {
-            //TODO log
-            e.printStackTrace();
-        }
-        return message;
-    }
 
     public String objectToJSON(Object o){
         ObjectMapper om = new ObjectMapper();
