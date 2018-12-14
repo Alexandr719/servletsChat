@@ -6,12 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import entity.User;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 
 //Todo javaDoc
+@Log4j2
 public class EntityMapper {
 
     public User getUser(HttpServletRequest req) {
@@ -20,27 +22,22 @@ public class EntityMapper {
         try {
             user = om.readValue(req.getInputStream(), User.class);
         } catch (IOException e) {
-            //TODO log
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return user;
     }
 
 
-    public String objectToJSON(Object o){
+    public String objectToJSON(Object object) {
         ObjectMapper om = new ObjectMapper();
-        String json = null;
+        String objectInJson = null;
         try {
-            json = om.writeValueAsString(o);
+            objectInJson = om.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            //TODO log
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
-        return json;
+        return objectInJson;
     }
-
-
-
 
 
 }

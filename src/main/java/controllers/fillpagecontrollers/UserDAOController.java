@@ -16,11 +16,11 @@ import java.util.List;
 
 @WebServlet(name = "UserDAOController" ,urlPatterns = "/getusers")
 public class UserDAOController extends HttpServlet {
+    private final static int MAX_LENGTH_USERLIST = 100;
     private UserDAO userDAO;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityMapper mapper = new EntityMapper();
-        //TODO
-        List<User> users = userDAO.getAllLogged(100);
+        List<User> users = userDAO.getAllLogged(MAX_LENGTH_USERLIST);
 
         response.setContentType("application/json");
         response.getWriter().println(mapper.objectToJSON(users));

@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface UserDAO {
 
-
         void login(User loginingUser);
 
         boolean isLogged(User user);
@@ -16,7 +15,5 @@ public interface UserDAO {
         List<User> getAllLogged(int count);
 
         User getUser(User user);
-
-
 
 }

@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.DAOFactory;
 import dao.MessageDAO;
 import entity.Message;
-import entity.User;
-import mapper.EntityMapper;
+import lombok.extern.log4j.Log4j2;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -14,7 +13,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 //TODO Add java doc
-
+@Log4j2
 @ServerEndpoint("/websocket")
 public class MessageController {
     private MessageDAO messageDAO;
@@ -32,8 +31,7 @@ public class MessageController {
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException | EncodeException e) {
-            //            //TODO log
-            e.printStackTrace();
+          log.info(e.getMessage());
         }
 
     }
