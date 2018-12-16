@@ -18,16 +18,18 @@ $('input[type=radio][name=type_log]').change(function () {
 
 
 $("#singIn").click(function () {
-    let data = getFormData(regBlock);
-    $.postJSON("registration", data, function (data) {
-        user = data;
-        changeHash(user.id);
-        showMain(user);
 
-    }, function (e) {
-        $("#error").text("User with this login already exist");
-    });
-});
+        let data = getFormData(regBlock);
+        $.postJSON("registration", data, function (data) {
+            user = data;
+            changeHash(user.id);
+            showMain(user);
+
+        }, function (e) {
+            $("#error").text("User with this login already exist or fields is wrong");
+        });
+    }
+);
 
 $("#LogIn").click(function () {
     let data = getFormData(logBlock);
@@ -37,7 +39,7 @@ $("#LogIn").click(function () {
         showMain(user);
 
     }, function (e) {
-        $("#error").text("Correct you password or login. Maybe sing in?");
+        $("#error").text("Correct you password or login.?");
     });
 });
 
