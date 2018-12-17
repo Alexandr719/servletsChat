@@ -43,7 +43,7 @@ public class RegistrationController extends HttpServlet {
 
 
             response.setContentType("application/json");
-            response.getWriter().println(mapper.objectToJSON(user));
+            response.getWriter().println(mapper.convertObjectToJSON(user));
         }
 
         protected void doGet (HttpServletRequest request, HttpServletResponse response) throws

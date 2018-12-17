@@ -1,5 +1,6 @@
-package com.epam.entity;
+package com.epam.validation;
 
+import com.epam.entity.User;
 import lombok.extern.log4j.Log4j2;
 
 import javax.validation.ConstraintViolation;

@@ -1,9 +1,10 @@
-package com.epam.fillpagecontrollers;
+package com.epam.controllers.mainpage;
 
 import com.epam.dao.DAOFactory;
-import com.epam.dao.MessageDAO;
-import com.epam.entity.Message;
+import com.epam.dao.UserDAO;
+import com.epam.entity.User;
 import com.epam.mapper.EntityMapper;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,20 +14,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "MessageDAOController", urlPatterns = "/getmessages")
-public class MessageDAOController extends HttpServlet {
-    private final static int MAX_LENGTH_MESSAGESLIST = 100;
+/**
+ * Servlet  UserListController
+ *
+ * @author Alexander_Filatov
+ * Gets users from dataBase
+ */
+@Log4j2
+@WebServlet(name = "UserListController", urlPatterns = "/getusers")
+public class UserListController extends HttpServlet {
 
-    private MessageDAO messageDAO;
+    private final static int MAX_LENGTH_USERLIST = 100;
+    private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         EntityMapper mapper = new EntityMapper();
-        List<Message> messages = messageDAO.getLastMessages(MAX_LENGTH_MESSAGESLIST);
+        List<User> users = userDAO.getAllLogged(MAX_LENGTH_USERLIST);
+        log.debug(MAX_LENGTH_USERLIST + " users took from db");
 
         response.setContentType("application/json");
-        response.getWriter().println(mapper.objectToJSON(messages));
-
+        response.getWriter().println(mapper.convertObjectToJSON(users));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,6 +43,6 @@ public class MessageDAOController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         DAOFactory dao = DAOFactory.getDAOFactory();
-        messageDAO = dao.getMessageDAO();
+        userDAO = dao.getUserDAO();
     }
 }

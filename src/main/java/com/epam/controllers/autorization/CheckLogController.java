@@ -33,7 +33,7 @@ public class CheckLogController extends HttpServlet {
         } else {
             log.debug("User with id=" + user.getId() + "entered into chat");
             response.setContentType("application/json");
-            response.getWriter().println(new EntityMapper().objectToJSON(user));
+            response.getWriter().println(new EntityMapper().convertObjectToJSON(user));
         }
     }
 

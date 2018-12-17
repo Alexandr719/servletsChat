@@ -40,7 +40,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
 
         response.setContentType("application/json");
-        response.getWriter().println(mapper.objectToJSON(logUser));
+        response.getWriter().println(mapper.convertObjectToJSON(logUser));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -6,10 +6,6 @@ import com.epam.mapper.ResourceInspector;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -160,38 +156,6 @@ public class OracleUserDAO implements UserDAO {
     }
 
 
-    public static void main(String[] args) {
-
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        Validator validator = factory.getValidator();
-        User user = new User();
-
-        //Validate bean
-        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
-        if (constraintViolations.size() > 0) {
-            for (ConstraintViolation<User> violation : constraintViolations) {
-                log.info(violation.getMessage());
-            }
-        } else {
-            System.out.println("Valid Object");
-        }
-    }
-
-
-//        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-//       Validator validator = factory.getValidator();
-//        User user = new User();
-//        user.setLogin("12345678912345678");
-//        Set<ConstraintViolation<User>> violations = validator.validate(user);
-//
-//        for (ConstraintViolation<User> violation : violations) {
-//            log.info(violation.getMessage());
-//        }
-
-
-//        MessageDAO userDAO = com.epam.dao.getMessageDAO();
-//        userDAO.getLastMessages(100).forEach(System.out::println);
-
-    }
+}
 
 
