@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info">
     <Appenders>
-        <RollingFile name="RollingFile" fileName="D://Filatov/Chatv31/logs/app.log"
+        <RollingFile name="RollingFile" fileName="logs/app.log"
                      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
 
             <PatternLayout pattern="%d{DEFAULT} [%tp] %-6level %logger{36} : %msg%n"/>
@@ -21,7 +21,7 @@
         <Root level="info">
             <AppenderRef ref="STDOUT" level="info"/>
         </Root>
-        <Logger name="com.epam.cardgenerator" level="debug">
+        <Logger name="com.epam" level="debug">
             <AppenderRef ref="RollingFile" level="debug"/>
         </Logger>
 

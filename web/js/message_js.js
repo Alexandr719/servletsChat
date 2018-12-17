@@ -1,7 +1,8 @@
 let msgBlock = $("#message");
 
 //let webSocket = new WebSocket('ws://localhost:8081//websocket');
- let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
+ //let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
+let webSocket = new WebSocket('ws://1d60a975.ngrok.io//websocket');
 
 
 $("#message_sent").click(function () {
