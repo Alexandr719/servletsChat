@@ -26,7 +26,7 @@ import java.util.Set;
  * @author Alexander_Filatov
  */
 @Log4j2
-@WebFilter(filterName = "LoginFilter", servletNames = "controllers.LoginController")
+@WebFilter(filterName = "LoginFilter", servletNames = "LoginController")
 public class LoginFilter implements Filter {
 
     private UserDAO userDAO;
@@ -40,11 +40,11 @@ public class LoginFilter implements Filter {
         User user = mapper.getUser(request);
 
         if (validateUser(user) && userDAO.isLogged(user) && userDAO.checkLogIn(user)) {
-            log.info("User login and password are right");
+            log.debug("User login and password are right");
             request.setAttribute("user", user);
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            log.info("User login and password  are wrong");
+            log.debug("User login and password  are wrong");
         }
         chain.doFilter(req, resp);
 
@@ -53,11 +53,12 @@ public class LoginFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
         DAOFactory dao = DAOFactory.getDAOFactory();
         userDAO = dao.getUserDAO();
-        log.info("Init method was start");
+        log.debug("Init method was start");
     }
 
 
     private boolean validateUser(User user) {
+
         return new InputsValidator().validateUser(user);
     }
 

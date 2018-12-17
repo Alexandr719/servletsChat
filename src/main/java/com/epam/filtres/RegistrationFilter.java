@@ -24,7 +24,7 @@ import java.util.Set;
  * @author Alexander_Filatov
  */
 @Log4j2
-@WebFilter(filterName = "RegistrationFilter", servletNames = "controllers.RegistrationController")
+@WebFilter(filterName = "RegistrationFilter", servletNames = "RegistrationController")
 public class RegistrationFilter implements Filter {
     private UserDAO userDAO;
 
@@ -40,10 +40,10 @@ public class RegistrationFilter implements Filter {
         User user = mapper.getUser(request);
 
         if (validateUser(user) && !userDAO.isLogged(user)) {
-            log.info("User with this login doesn't exist");
+            log.debug("User with this login doesn't exist");
             userDAO.login(user);
             request.setAttribute("regUser", user);
-            log.info("Success registration");
+            log.debug("Success registration");
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
@@ -53,6 +53,7 @@ public class RegistrationFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
         DAOFactory dao = DAOFactory.getDAOFactory();
         userDAO = dao.getUserDAO();
+        log.debug("Init method was start");
 
     }
 

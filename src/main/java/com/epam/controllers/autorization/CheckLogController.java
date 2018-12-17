@@ -12,6 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
+/**
+ * Servlet  CheckLogController
+ * @author Alexander_Filatov
+ * Ckeck if user is into session show  main page, else put SC_UNAUTHORIZED exaption
+ */
 @Log4j2
 @WebServlet(name = "CheckLogController", urlPatterns = "/checklog")
 public class CheckLogController extends HttpServlet {

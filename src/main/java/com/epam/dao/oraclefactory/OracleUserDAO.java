@@ -2,6 +2,7 @@ package com.epam.dao.oraclefactory;
 
 import com.epam.dao.*;
 import com.epam.entity.User;
+import com.epam.mapper.ResourceInspector;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
@@ -15,6 +16,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * OracleMessageDAO
+ *
+ * @author Alexander_Filatov
+ */
 @Log4j2
 public class OracleUserDAO implements UserDAO {
 

@@ -14,8 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Servlet  RegistrationController
+ * @author Alexander_Filatov
+ * Add new user into db, show main page
+ */
 @Log4j2
-@WebServlet(name = "controllers.RegistrationController", urlPatterns = "/registration")
+@WebServlet(name = "RegistrationController", urlPatterns = "/registration")
 public class RegistrationController extends HttpServlet {
 
 
@@ -34,7 +39,7 @@ public class RegistrationController extends HttpServlet {
             EntityMapper mapper = new EntityMapper();
             User user = userDAO.getUser((User) request.getAttribute("regUser"));
             request.getSession().setAttribute("user", user);
-            log.info(user);
+            log.info("User is enter into chat: "+ user);
 
 
             response.setContentType("application/json");

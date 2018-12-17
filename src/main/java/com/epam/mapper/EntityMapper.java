@@ -11,8 +11,11 @@ import lombok.extern.log4j.Log4j2;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
-//Todo javaDoc
+/**
+ * EntityMapper
+ * Get user class from json/gets json back
+ * @author Alexander_Filatov
+ */
 @Log4j2
 public class EntityMapper {
 

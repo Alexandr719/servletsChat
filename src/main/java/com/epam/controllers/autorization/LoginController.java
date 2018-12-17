@@ -12,9 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/**
+ * Servlet  LoginController
+ * @author Alexander_Filatov
+ * Get full user data from db, by login and password. Also show main page.
+ */
 @Log4j2
-@WebServlet(name = "controllers.LoginController", urlPatterns = "/login")
+@WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends javax.servlet.http.HttpServlet {
 
     private UserDAO userDAO;
@@ -31,7 +35,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
         User logUser = userDAO.getUser((User) request.getAttribute("user"));
         request.getSession().setAttribute("user", logUser);
-        log.info(logUser);
+        log.info("User is enter into chat: "+ logUser);
 
 
 

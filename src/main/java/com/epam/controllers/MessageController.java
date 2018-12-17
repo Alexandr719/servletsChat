@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-//TODO Add java doc
+/**
+ * Servlet  MessageController
+ * @author Alexander_Filatov
+ * WebSocket controller, who rules user's messagegs into chat.
+ */
 @Log4j2
 @ServerEndpoint("/websocket")
 public class MessageController {
@@ -31,13 +35,14 @@ public class MessageController {
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException | EncodeException e) {
-          log.info(e.getMessage());
+          log.error(e.getMessage());
         }
 
     }
 
     @OnOpen
     public void onOpen(Session session) {
+        log.debug(session + " - session opened");
         DAOFactory dao = DAOFactory.getDAOFactory();
         messageDAO = dao.getMessageDAO();
 
@@ -47,7 +52,7 @@ public class MessageController {
 
     @OnClose
     public void onClose(Session session) throws IOException {
-
+        log.debug(session +" - session removed");
         chatEndpoints.remove(this);
 
     }
@@ -60,9 +65,8 @@ public class MessageController {
             synchronized (endpoint) {
                 try {
                     endpoint.session.getBasicRemote().sendText(message);
-
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                 }
             }
         });

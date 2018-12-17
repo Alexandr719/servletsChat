@@ -1,8 +1,8 @@
 let msgBlock = $("#message");
 
-//let webSocket = new WebSocket('ws://localhost:8081//websocket');
- //let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
-let webSocket = new WebSocket('ws://1d60a975.ngrok.io//websocket');
+let webSocket = new WebSocket('ws://localhost:8081//websocket');
+//let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
+//let webSocket = new WebSocket('ws://1d60a975.ngrok.io//websocket');
 
 
 $("#message_sent").click(function () {
@@ -21,12 +21,9 @@ function sendMessage() {
     let message = {};
     message.user = user;
     message.message = msgBlock.val();
-    console.log(message);
     webSocket.send(JSON.stringify(message));
     msgBlock.val("");
-
 }
-
 
 
 

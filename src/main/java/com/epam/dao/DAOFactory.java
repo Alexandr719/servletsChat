@@ -1,5 +1,10 @@
 package com.epam.dao;
 
+/**
+ * DAOFactory
+ *
+ * @author Alexander_Filatov
+ */
 public abstract class DAOFactory {
 
     public abstract MessageDAO getMessageDAO();
