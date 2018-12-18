@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 /**
  * Entity user
@@ -15,7 +16,7 @@ import javax.validation.constraints.Size;
 //TODO javadoc
 @Data
 @ToString
-public class User {
+public class User implements Serializable {
     /** Field id  creating by data base*/
     private int id;
 

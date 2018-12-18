@@ -14,6 +14,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Servlet  MessageController
+ *
  * @author Alexander_Filatov
  * WebSocket controller, who rules user's messagegs into chat.
  */
@@ -25,7 +26,6 @@ public class MessageController {
     private static Set<MessageController> chatEndpoints = new CopyOnWriteArraySet<>();
 
 
-
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         ObjectMapper om = new ObjectMapper();
@@ -35,7 +35,7 @@ public class MessageController {
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException | EncodeException e) {
-          log.error(e.getMessage());
+            log.error(e.getMessage());
         }
 
     }
@@ -45,14 +45,17 @@ public class MessageController {
         log.debug(session + " - session opened");
         DAOFactory dao = DAOFactory.getDAOFactory();
         messageDAO = dao.getMessageDAO();
+        synchronized (this) {
+            this.session = session;
+            chatEndpoints.add(this);
+        }
 
-        this.session = session;
-        chatEndpoints.add(this);
+
     }
 
     @OnClose
     public void onClose(Session session) throws IOException {
-        log.debug(session +" - session removed");
+        log.debug(session + " - session removed");
         chatEndpoints.remove(this);
 
     }

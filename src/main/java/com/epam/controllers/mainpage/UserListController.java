@@ -25,7 +25,7 @@ import java.util.List;
 public class UserListController extends HttpServlet {
 
     private final static int MAX_LENGTH_USERLIST = 100;
-    private UserDAO userDAO;
+    private static UserDAO userDAO;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityMapper mapper = new EntityMapper();

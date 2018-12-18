@@ -26,7 +26,7 @@ import java.util.List;
 public class MessageListController extends HttpServlet {
 
     private final static int MAX_LENGTH_MESSAGESLIST = 100;
-    private MessageDAO messageDAO;
+    private static MessageDAO messageDAO;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

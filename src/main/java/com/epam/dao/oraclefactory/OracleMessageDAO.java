@@ -27,17 +27,30 @@ public class OracleMessageDAO implements MessageDAO {
 
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-
+        Connection con = null;
+        PreparedStatement ps = null;
         try {
-            Connection con = dataSource.getConnection();
-            PreparedStatement psUser = con.prepareStatement(ResourceInspector.getInstance()
+            con = dataSource.getConnection();
+            ps = con.prepareStatement(ResourceInspector.getInstance()
                     .getString("SQL_ADD_NEW_MESSAGE"));
-            psUser.setInt(1, message.getUser().getId());
-            psUser.setString(2, message.getMessage());
+            ps.setInt(1, message.getUser().getId());
+            ps.setString(2, message.getMessage());
 
-            psUser.execute();
+            ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                assert ps != null;
+                ps.close();
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+            try {
+                con.close();
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
         }
 
     }
@@ -48,13 +61,15 @@ public class OracleMessageDAO implements MessageDAO {
 
         List<Message> messages = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
-            Connection con = dataSource.getConnection();
-            PreparedStatement preparedStatement = con.prepareStatement(ResourceInspector.getInstance()
+            con = dataSource.getConnection();
+            ps = con.prepareStatement(ResourceInspector.getInstance()
                     .getString("SQL_GET_MESSAGES"));
-            preparedStatement.setInt(1, count);
-            ResultSet rs = preparedStatement.executeQuery();
+            ps.setInt(1, count);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Message message = new Message();
                 User user = new User();
@@ -72,6 +87,23 @@ public class OracleMessageDAO implements MessageDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                assert rs != null;
+                rs.close();
+            } catch (SQLException e) {
+                log.error(e.getMessage());
+            }
+            try {
+                ps.close();
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+            try {
+                con.close();
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
         }
         return messages;
 
