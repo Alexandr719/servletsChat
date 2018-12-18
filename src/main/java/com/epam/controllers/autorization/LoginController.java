@@ -4,8 +4,8 @@ package com.epam.controllers.autorization;
 import com.epam.dao.DAOFactory;
 import com.epam.dao.UserDAO;
 import com.epam.entity.User;
-import lombok.extern.log4j.Log4j2;
 import com.epam.mapper.EntityMapper;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

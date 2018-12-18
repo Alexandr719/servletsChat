@@ -4,7 +4,6 @@ import com.epam.dao.DAOFactory;
 import com.epam.dao.MessageDAO;
 import com.epam.entity.Message;
 import com.epam.mapper.EntityMapper;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;

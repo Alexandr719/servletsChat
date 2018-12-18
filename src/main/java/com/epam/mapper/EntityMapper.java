@@ -1,11 +1,9 @@
 package com.epam.mapper;
 
 
+import com.epam.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
-import com.epam.entity.User;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.http.HttpServletRequest;

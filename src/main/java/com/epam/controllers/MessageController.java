@@ -1,9 +1,9 @@
 package com.epam.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.epam.dao.DAOFactory;
 import com.epam.dao.MessageDAO;
 import com.epam.entity.Message;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
 import javax.websocket.*;

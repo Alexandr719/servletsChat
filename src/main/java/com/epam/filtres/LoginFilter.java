@@ -2,16 +2,14 @@ package com.epam.filtres;
 
 import com.epam.dao.DAOFactory;
 import com.epam.dao.UserDAO;
-import com.epam.validation.InputsValidator;
 import com.epam.entity.User;
-import lombok.extern.log4j.Log4j2;
 import com.epam.mapper.EntityMapper;
-
+import com.epam.validation.InputsValidator;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 

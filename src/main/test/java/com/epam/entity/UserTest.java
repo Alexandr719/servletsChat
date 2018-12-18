@@ -1,6 +1,6 @@
 package com.epam.entity;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class UserTest {
 
