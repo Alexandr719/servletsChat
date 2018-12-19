@@ -5,6 +5,7 @@ import com.epam.dao.MessageDAO;
 import com.epam.entity.Message;
 import com.epam.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
+import org.owasp.encoder.Encode;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,18 +24,18 @@ import java.util.List;
 @Log4j2
 @WebServlet(name = "MessageListController", urlPatterns = "/getmessages")
 public class MessageListController extends HttpServlet {
-
+    private final long serialVersionUID = 1;
     private final static int MAX_LENGTH_MESSAGESLIST = 100;
     private static MessageDAO messageDAO;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         EntityMapper mapper = new EntityMapper();
-        List<Message> messages = messageDAO.getLastMessages(MAX_LENGTH_MESSAGESLIST);
+        List<Message> messages = MessageListController.messageDAO.getLastMessages(MAX_LENGTH_MESSAGESLIST);
         log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
 
         response.setContentType("application/json");
-        response.getWriter().println(mapper.convertObjectToJSON(messages));
+        response.getWriter().println(Encode.forHtmlContent(mapper.convertObjectToJSON(messages)));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +45,6 @@ public class MessageListController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         DAOFactory dao = DAOFactory.getDAOFactory();
-        messageDAO = dao.getMessageDAO();
+        MessageListController.messageDAO = dao.getMessageDAO();
     }
 }

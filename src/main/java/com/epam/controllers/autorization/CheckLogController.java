@@ -3,6 +3,7 @@ package com.epam.controllers.autorization;
 import com.epam.entity.User;
 import com.epam.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
+import org.owasp.encoder.Encode;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,8 +22,12 @@ import java.io.IOException;
 @Log4j2
 @WebServlet(name = "CheckLogController", urlPatterns = "/checklog")
 public class CheckLogController extends HttpServlet {
+
+    private final long serialVersionUID = 1;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
+
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
@@ -33,7 +38,7 @@ public class CheckLogController extends HttpServlet {
         } else {
             log.debug("User with id=" + user.getId() + "entered into chat");
             response.setContentType("application/json");
-            response.getWriter().println(new EntityMapper().convertObjectToJSON(user));
+            response.getWriter().write(Encode.forHtmlContent(new EntityMapper().convertObjectToJSON(user)));
         }
     }
 

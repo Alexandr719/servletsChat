@@ -6,6 +6,7 @@ import com.epam.dao.UserDAO;
 import com.epam.entity.User;
 import com.epam.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
+import org.owasp.encoder.Encode;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +24,7 @@ import java.io.IOException;
 @WebServlet(name = "RegistrationController", urlPatterns = "/registration")
 public class RegistrationController extends HttpServlet {
 
-
+    private final long serialVersionUID = 1;
     private static UserDAO userDAO;
 
     @Override
@@ -44,7 +45,7 @@ public class RegistrationController extends HttpServlet {
 
 
             response.setContentType("application/json");
-            response.getWriter().println(mapper.convertObjectToJSON(user));
+            response.getWriter().write(Encode.forHtmlContent(mapper.convertObjectToJSON(user)));
         }
 
         protected void doGet (HttpServletRequest request, HttpServletResponse response) throws

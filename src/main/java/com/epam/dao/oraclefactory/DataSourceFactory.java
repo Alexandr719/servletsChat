@@ -28,7 +28,7 @@ class DataSourceFactory {
             oracleDS.setUser(ResourceInspector.getInstance().getString("ORACLE_DB_USERNAME"));
             oracleDS.setPassword(ResourceInspector.getInstance().getString("ORACLE_DB_PASSWORD"));
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e);
         }
         return oracleDS;
     }
