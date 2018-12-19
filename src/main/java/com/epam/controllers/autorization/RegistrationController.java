@@ -24,22 +24,19 @@ import java.io.IOException;
 @WebServlet(name = "RegistrationController", urlPatterns = "/registration")
 public class RegistrationController extends HttpServlet {
 
-    private final long serialVersionUID = 1;
-    private static UserDAO userDAO;
+    private static final long serialVersionUID = 1;
 
-    @Override
-    public void init() throws ServletException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        RegistrationController.userDAO = dao.getUserDAO();
-    }
+
+
 
 
 
        protected void doPost (HttpServletRequest request, HttpServletResponse response) throws
         ServletException, IOException {
-
+           DAOFactory dao = DAOFactory.getDAOFactory();
+           UserDAO userDAO = dao.getUserDAO();
             EntityMapper mapper = new EntityMapper();
-            User user = RegistrationController.userDAO.getUser((User) request.getAttribute("regUser"));
+            User user = userDAO.getUser((User) request.getAttribute("regUser"));
             request.getSession().setAttribute("user", user);
             log.info("User is enter into chat: "+ user);
 

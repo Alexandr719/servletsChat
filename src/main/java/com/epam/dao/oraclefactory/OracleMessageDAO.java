@@ -88,7 +88,7 @@ public class OracleMessageDAO implements MessageDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         } finally {
             try {
                 assert rs != null;

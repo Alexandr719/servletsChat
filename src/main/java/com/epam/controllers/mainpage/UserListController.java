@@ -24,12 +24,15 @@ import java.util.List;
 @Log4j2
 @WebServlet(name = "UserListController", urlPatterns = "/getusers")
 public class UserListController extends HttpServlet {
-    private final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
     private final static int MAX_LENGTH_USERLIST = 100;
-    private static UserDAO userDAO;
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        DAOFactory dao = DAOFactory.getDAOFactory();
+        UserDAO userDAO = dao.getUserDAO();
         EntityMapper mapper = new EntityMapper();
+
         List<User> users = userDAO.getAllLogged(MAX_LENGTH_USERLIST);
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
 
@@ -43,7 +46,6 @@ public class UserListController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        UserListController.userDAO = dao.getUserDAO();
+
     }
 }

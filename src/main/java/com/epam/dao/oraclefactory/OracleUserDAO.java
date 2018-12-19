@@ -42,7 +42,8 @@ public class OracleUserDAO implements UserDAO {
             ps.setString(6, USER_ROLE);
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
+
         } finally {
             try {
                 assert ps != null;
@@ -79,7 +80,7 @@ public class OracleUserDAO implements UserDAO {
                 return false;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         } finally {
             try {
                 assert rs != null;
@@ -179,23 +180,23 @@ public class OracleUserDAO implements UserDAO {
             }
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e);
         } finally {
             try {
                 assert rs != null;
                 rs.close();
             } catch (SQLException e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
             try {
                 ps.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
             try {
                 con.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
         }
 
@@ -226,23 +227,23 @@ public class OracleUserDAO implements UserDAO {
             }
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e);
         } finally {
             try {
                 assert rs != null;
                 rs.close();
             } catch (SQLException e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
             try {
                 ps.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
             try {
                 con.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
         }
         return user;

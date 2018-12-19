@@ -22,20 +22,18 @@ import java.io.IOException;
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1;
-    private static UserDAO userDAO;
 
 
-    @Override
-    public void init() throws ServletException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        LoginController.userDAO = dao.getUserDAO();
-    }
+
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
+        DAOFactory dao = DAOFactory.getDAOFactory();
+        UserDAO userDAO = dao.getUserDAO();
         EntityMapper mapper = new EntityMapper();
 
-        User logUser = LoginController.userDAO.getUser((User) request.getAttribute("user"));
+        User logUser = userDAO.getUser((User) request.getAttribute("user"));
         request.getSession().setAttribute("user", logUser);
         log.info("User is enter into chat: "+ logUser);
 

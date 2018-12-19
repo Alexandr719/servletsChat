@@ -18,7 +18,7 @@ import java.io.Serializable;
 @ToString
 public class User implements Serializable {
 
-    private final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
     /** Field id  creating by data base*/
     private int id;
 
