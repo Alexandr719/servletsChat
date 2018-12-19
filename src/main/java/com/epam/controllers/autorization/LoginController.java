@@ -21,7 +21,7 @@ import java.io.IOException;
 @Log4j2
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends javax.servlet.http.HttpServlet {
-    private final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
     private static UserDAO userDAO;
 
 

@@ -23,7 +23,7 @@ import java.io.IOException;
 @WebServlet(name = "CheckLogController", urlPatterns = "/checklog")
 public class CheckLogController extends HttpServlet {
 
-    private final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {

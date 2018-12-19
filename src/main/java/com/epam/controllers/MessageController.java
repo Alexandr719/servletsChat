@@ -35,7 +35,7 @@ public class MessageController {
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException | EncodeException e) {
-            log.error(e.getMessage());
+            log.error(e);
         }
 
     }

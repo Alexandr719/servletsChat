@@ -20,7 +20,7 @@ import java.io.IOException;
 @WebServlet(name = "ExitController", urlPatterns = "/exit")
 public class ExitController extends HttpServlet {
 
-    private final long serialVersionUID = 1;
+    private static final long serialVersionUID = 1;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
