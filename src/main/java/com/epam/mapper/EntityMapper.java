@@ -28,7 +28,7 @@ public class EntityMapper {
             user = om.readValue(req.getInputStream(), User.class);
             log.debug("Get user from request" + user);
         } catch (IOException e) {
-            log.error(e.getMessage());
+            log.error(e);
         }
         return user;
     }
@@ -44,7 +44,7 @@ public class EntityMapper {
         try {
             objectInJson = om.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            log.error(e.getMessage());
+            log.error(e);
         }
         log.debug("Put java object into json format: " + objectInJson);
         return objectInJson;

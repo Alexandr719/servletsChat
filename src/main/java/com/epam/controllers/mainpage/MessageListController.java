@@ -23,14 +23,14 @@ import java.util.List;
 @Log4j2
 @WebServlet(name = "MessageListController", urlPatterns = "/getmessages")
 public class MessageListController extends HttpServlet {
-
+    private final long serialVersionUID = 1;
     private final static int MAX_LENGTH_MESSAGESLIST = 100;
     private static MessageDAO messageDAO;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         EntityMapper mapper = new EntityMapper();
-        List<Message> messages = messageDAO.getLastMessages(MAX_LENGTH_MESSAGESLIST);
+        List<Message> messages = MessageListController.messageDAO.getLastMessages(MAX_LENGTH_MESSAGESLIST);
         log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
 
         response.setContentType("application/json");
@@ -44,6 +44,6 @@ public class MessageListController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         DAOFactory dao = DAOFactory.getDAOFactory();
-        messageDAO = dao.getMessageDAO();
+        MessageListController.messageDAO = dao.getMessageDAO();
     }
 }

@@ -40,18 +40,18 @@ public class OracleMessageDAO implements MessageDAO {
 
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         } finally {
             try {
                 assert ps != null;
                 ps.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
             try {
                 con.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
         }
 
@@ -94,17 +94,17 @@ public class OracleMessageDAO implements MessageDAO {
                 assert rs != null;
                 rs.close();
             } catch (SQLException e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
             try {
                 ps.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
             try {
                 con.close();
             } catch (Exception e) {
-                log.error(e.getMessage());
+                log.error(e);
             }
         }
         return messages;

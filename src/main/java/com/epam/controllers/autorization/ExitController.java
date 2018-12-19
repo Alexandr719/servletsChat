@@ -19,6 +19,9 @@ import java.io.IOException;
 @Log4j2
 @WebServlet(name = "ExitController", urlPatterns = "/exit")
 public class ExitController extends HttpServlet {
+
+    private final long serialVersionUID = 1;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         if (!session.isNew()) {

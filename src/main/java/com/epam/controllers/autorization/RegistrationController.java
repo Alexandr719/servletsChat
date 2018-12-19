@@ -23,7 +23,7 @@ import java.io.IOException;
 @WebServlet(name = "RegistrationController", urlPatterns = "/registration")
 public class RegistrationController extends HttpServlet {
 
-
+    private final long serialVersionUID = 1;
     private static UserDAO userDAO;
 
     @Override

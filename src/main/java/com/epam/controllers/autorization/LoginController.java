@@ -20,7 +20,7 @@ import java.io.IOException;
 @Log4j2
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends javax.servlet.http.HttpServlet {
-
+    private final long serialVersionUID = 1;
     private static UserDAO userDAO;
 
 
@@ -30,7 +30,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         LoginController.userDAO = dao.getUserDAO();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         EntityMapper mapper = new EntityMapper();
 
         User logUser = LoginController.userDAO.getUser((User) request.getAttribute("user"));
@@ -43,7 +44,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         response.getWriter().println(mapper.convertObjectToJSON(logUser));
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+            IOException {
         doPost(request, response);
     }
 }

@@ -48,6 +48,7 @@ public class MessageController {
         synchronized (this) {
             this.session = session;
             chatEndpoints.add(this);
+            log.debug("Queue contains " + chatEndpoints.size() + " elements");
         }
 
 
@@ -57,6 +58,7 @@ public class MessageController {
     public void onClose(Session session) throws IOException {
         log.debug(session + " - session removed");
         chatEndpoints.remove(this);
+        log.debug("Queue contains " + chatEndpoints.size() + " elements");
 
     }
 
@@ -69,7 +71,7 @@ public class MessageController {
                 try {
                     endpoint.session.getBasicRemote().sendText(message);
                 } catch (IOException e) {
-                    log.error(e.getMessage());
+                    log.error(e);
                 }
             }
         });
