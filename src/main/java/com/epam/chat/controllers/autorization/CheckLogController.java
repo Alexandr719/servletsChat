@@ -1,7 +1,7 @@
-package com.epam.controllers.autorization;
+package com.epam.chat.controllers.autorization;
 
-import com.epam.entity.User;
-import com.epam.mapper.EntityMapper;
+import com.epam.chat.entity.User;
+import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 import org.owasp.encoder.Encode;
 
@@ -26,8 +26,8 @@ public class CheckLogController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
 
-    protected void doPost(HttpServletRequest request
-            , HttpServletResponse response) throws ServletException,
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) throws ServletException,
             IOException {
 
         HttpSession session = request.getSession();
@@ -44,9 +44,9 @@ public class CheckLogController extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request
-            , HttpServletResponse response) throws ServletException,
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException,
             IOException {
-        doPost(request, response);
+
     }
 }

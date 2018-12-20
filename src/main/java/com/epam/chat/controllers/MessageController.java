@@ -1,19 +1,17 @@
-package com.epam.controllers;
+package com.epam.chat.controllers;
 
-import com.epam.dao.DAOFactory;
-import com.epam.dao.MessageDAO;
-import com.epam.entity.Message;
+import com.epam.chat.dao.DAOFactory;
+import com.epam.chat.dao.MessageDAO;
+import com.epam.chat.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
  * Servlet  MessageController

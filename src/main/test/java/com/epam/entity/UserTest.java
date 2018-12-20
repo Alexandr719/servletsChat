@@ -1,4 +1,4 @@
-package com.epam.entity;
+package com.epam.chat.entity;
 
 import static org.junit.Assert.assertEquals;
 

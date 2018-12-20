@@ -1,9 +1,9 @@
-package com.epam.dao.oraclefactory;
+package com.epam.chat.dao.oraclefactory;
 
-import com.epam.dao.MessageDAO;
-import com.epam.entity.Message;
-import com.epam.entity.User;
-import com.epam.mapper.ResourceInspector;
+import com.epam.chat.dao.MessageDAO;
+import com.epam.chat.entity.Message;
+import com.epam.chat.entity.User;
+import com.epam.chat.mapper.ResourceInspector;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;

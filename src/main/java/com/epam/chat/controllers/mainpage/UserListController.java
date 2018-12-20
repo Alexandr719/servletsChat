@@ -1,9 +1,9 @@
-package com.epam.controllers.mainpage;
+package com.epam.chat.controllers.mainpage;
 
-import com.epam.dao.DAOFactory;
-import com.epam.dao.UserDAO;
-import com.epam.entity.User;
-import com.epam.mapper.EntityMapper;
+import com.epam.chat.dao.DAOFactory;
+import com.epam.chat.dao.UserDAO;
+import com.epam.chat.entity.User;
+import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 import org.owasp.encoder.Encode;
 
@@ -43,10 +43,10 @@ public class UserListController extends HttpServlet {
                 .convertToJSON(users)));
     }
 
-    protected void doGet(HttpServletRequest request
-            , HttpServletResponse response) throws ServletException
-            , IOException {
-        doPost(request, response);
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException,
+            IOException {
+
     }
 
     @Override

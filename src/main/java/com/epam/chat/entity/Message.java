@@ -1,4 +1,4 @@
-package com.epam.entity;
+package com.epam.chat.entity;
 
 import lombok.Data;
 import lombok.ToString;

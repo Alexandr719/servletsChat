@@ -1,10 +1,10 @@
-package com.epam.controllers.autorization;
+package com.epam.chat.controllers.autorization;
 
 
-import com.epam.dao.DAOFactory;
-import com.epam.dao.UserDAO;
-import com.epam.entity.User;
-import com.epam.mapper.EntityMapper;
+import com.epam.chat.dao.DAOFactory;
+import com.epam.chat.dao.UserDAO;
+import com.epam.chat.entity.User;
+import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 import org.owasp.encoder.Encode;
 
@@ -23,12 +23,8 @@ import java.io.IOException;
 public class LoginController extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1;
 
-
-
-
-
-    protected void doPost(HttpServletRequest request
-            , HttpServletResponse response) throws ServletException,
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) throws ServletException,
             IOException {
         DAOFactory dao = DAOFactory.getDAOFactory();
         UserDAO userDAO = dao.getUserDAO();
@@ -44,9 +40,9 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                 .convertToJSON(logUser)));
     }
 
-    protected void doGet(HttpServletRequest request
-            , HttpServletResponse response) throws ServletException,
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException,
             IOException {
-        doPost(request, response);
+
     }
 }

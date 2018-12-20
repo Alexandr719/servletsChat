@@ -1,4 +1,4 @@
-package com.epam.mapper;
+package com.epam.chat.mapper;
 
 import lombok.extern.log4j.Log4j2;
 

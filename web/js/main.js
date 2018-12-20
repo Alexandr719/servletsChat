@@ -112,4 +112,3 @@ function escapeHtml(string) {
     });
 }
 let timerUsers = setInterval(fillUsers, 60000);
-let timerMessages = setInterval(fillMessages, 60000);

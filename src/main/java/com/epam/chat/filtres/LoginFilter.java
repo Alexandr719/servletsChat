@@ -1,10 +1,10 @@
-package com.epam.filtres;
+package com.epam.chat.filtres;
 
-import com.epam.dao.DAOFactory;
-import com.epam.dao.UserDAO;
-import com.epam.entity.User;
-import com.epam.mapper.EntityMapper;
-import com.epam.validation.InputsValidator;
+import com.epam.chat.dao.DAOFactory;
+import com.epam.chat.dao.UserDAO;
+import com.epam.chat.entity.User;
+import com.epam.chat.mapper.EntityMapper;
+import com.epam.chat.validation.InputsValidator;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.*;

@@ -1,4 +1,4 @@
-package com.epam.dao;
+package com.epam.chat.dao;
 
 /**
  * DAOFactory

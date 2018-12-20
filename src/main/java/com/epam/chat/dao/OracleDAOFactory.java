@@ -1,7 +1,7 @@
-package com.epam.dao;
+package com.epam.chat.dao;
 
-import com.epam.dao.oraclefactory.OracleMessageDAO;
-import com.epam.dao.oraclefactory.OracleUserDAO;
+import com.epam.chat.dao.oraclefactory.OracleMessageDAO;
+import com.epam.chat.dao.oraclefactory.OracleUserDAO;
 
 /**
  * OracleDAOFactory

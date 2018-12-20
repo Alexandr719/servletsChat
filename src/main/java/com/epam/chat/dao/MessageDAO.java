@@ -1,6 +1,6 @@
-package com.epam.dao;
+package com.epam.chat.dao;
 
-import com.epam.entity.Message;
+import com.epam.chat.entity.Message;
 
 import java.util.List;
 

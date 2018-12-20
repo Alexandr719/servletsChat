@@ -1,7 +1,7 @@
-package com.epam.mapper;
+package com.epam.chat.mapper;
 
 
-import com.epam.entity.User;
+import com.epam.chat.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
