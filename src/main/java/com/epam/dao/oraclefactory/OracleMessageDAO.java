@@ -22,11 +22,10 @@ import java.util.Locale;
  */
 @Log4j2
 public class OracleMessageDAO implements MessageDAO {
-
+//TODO sql annotation + key
     @Override
     public void sentMessage(Message message) {
         Locale.setDefault(Locale.ENGLISH);
-
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         Connection con = null;
@@ -37,16 +36,17 @@ public class OracleMessageDAO implements MessageDAO {
                     .getString("SQL_ADD_NEW_MESSAGE"));
             ps.setInt(1, message.getUser().getId());
             ps.setString(2, message.getMessage());
-
+//Todo exeption
             ps.execute();
         } catch (SQLException e) {
             log.error(e);
         } finally {
+            //Todo try(res)
             try {
                 assert ps != null;
                 ps.close();
             } catch (Exception e) {
-                log.error(e);
+                log.error("msg",e);
             }
             try {
                 con.close();

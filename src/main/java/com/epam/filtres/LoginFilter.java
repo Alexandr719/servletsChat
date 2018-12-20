@@ -38,6 +38,7 @@ public class LoginFilter implements Filter {
             log.debug("User login and password are right");
             request.setAttribute("user", user);
         } else {
+            //toDo another error
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             log.debug("User login and password  are wrong");
         }

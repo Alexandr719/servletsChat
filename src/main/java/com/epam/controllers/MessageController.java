@@ -26,6 +26,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class MessageController {
     private MessageDAO messageDAO;
     private Session session;
+    //Todo not static
     private static Set<MessageController> chatEndpoints = Collections
             .synchronizedSet(new HashSet<>());
 
@@ -54,8 +55,6 @@ public class MessageController {
             chatEndpoints.add(this);
             log.debug("Queue contains " + chatEndpoints.size() + " elements");
         }
-
-
     }
 
     @OnClose

@@ -40,7 +40,7 @@ public class UserListController extends HttpServlet {
 
         response.setContentType("application/json");
         response.getWriter().println(Encode.forHtmlContent(mapper
-                .convertObjectToJSON(users)));
+                .convertToJSON(users)));
     }
 
     protected void doGet(HttpServletRequest request

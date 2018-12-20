@@ -17,7 +17,7 @@ public class Message {
 
     private User user;
 
-    @Size(min = 1, max = 255, message= "Message length must be between " +
-            "1 and 255 characters")
+    @Size(min = 1, max = 255,
+            message= "Message length must be between 1 and 255 characters")
     private String message;
 }

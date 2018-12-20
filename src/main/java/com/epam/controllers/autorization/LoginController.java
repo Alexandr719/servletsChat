@@ -39,11 +39,9 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         request.getSession().setAttribute("user", logUser);
         log.info("User is enter into chat: "+ logUser);
 
-
-
         response.setContentType("application/json");
         response.getWriter().write(Encode.forHtmlContent(mapper
-                .convertObjectToJSON(logUser)));
+                .convertToJSON(logUser)));
     }
 
     protected void doGet(HttpServletRequest request

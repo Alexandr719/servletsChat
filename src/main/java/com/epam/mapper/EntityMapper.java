@@ -38,12 +38,12 @@ public class EntityMapper {
      *
      * @return string
      */
-    public String convertObjectToJSON(Object object) {
+    public String convertToJSON(Object object) {
         ObjectMapper om = new ObjectMapper();
         String objectInJson = null;
         try {
             objectInJson = om.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException  e) {
             log.error(e);
         }
         log.debug("Put java object into json format: " + objectInJson);

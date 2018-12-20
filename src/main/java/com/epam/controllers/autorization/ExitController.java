@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
 /**
  * Servlet  ExitController
+ *
  * @author Alexander_Filatov
  * If user click on exit button, delete user's session
  */
@@ -26,11 +28,11 @@ public class ExitController extends HttpServlet {
             , HttpServletResponse response) throws ServletException
             , IOException {
         HttpSession session = request.getSession();
-        if (!session.isNew()) {
-            User user = (User) session.getAttribute("user");
-            log.info("Deleted session user id = " + user.getId());
-            session.invalidate();
-        }
+        //Todo null!!!
+        User user = (User) session.getAttribute("user");
+        log.info("Deleted session user id = " + user.getId());
+        session.invalidate();
+
     }
 
     protected void doGet(HttpServletRequest request

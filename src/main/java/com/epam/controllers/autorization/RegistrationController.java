@@ -26,32 +26,28 @@ public class RegistrationController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
 
-
-
-
-
-
-       protected void doPost (HttpServletRequest request
-               , HttpServletResponse response) throws
+       protected void doPost (HttpServletRequest request,
+                              HttpServletResponse response) throws
         ServletException, IOException {
            DAOFactory dao = DAOFactory.getDAOFactory();
            UserDAO userDAO = dao.getUserDAO();
             EntityMapper mapper = new EntityMapper();
             User user = userDAO.getUser((User) request
-                    .getAttribute("regUser"));
+                   .getAttribute("regUser"));
+            //ToDO regUser - const(class req or session)
             request.getSession().setAttribute("user", user);
             log.info("User is enter into chat: "+ user);
 
 
             response.setContentType("application/json");
             response.getWriter().write(Encode.forHtmlContent(mapper
-                    .convertObjectToJSON(user)));
+                    .convertToJSON(user)));
         }
 
         protected void doGet (HttpServletRequest request
                 , HttpServletResponse response) throws
         ServletException, IOException {
-            doPost(request, response);
+           
         }
     }
 

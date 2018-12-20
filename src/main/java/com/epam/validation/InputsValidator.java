@@ -27,6 +27,8 @@ public class InputsValidator {
         Set<ConstraintViolation<User>> constraintViolations
                 = validator.validate(user);
         //Wrong validation
+
+        //ToDo field return
         if (constraintViolations.size() > 0) {
             for (ConstraintViolation<User> violation : constraintViolations) {
                 log.debug(violation.getMessage());

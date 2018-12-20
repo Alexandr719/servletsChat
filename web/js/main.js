@@ -75,6 +75,7 @@ function innerUserInfo(user) {
 
 function fillMessages() {
     $.postJSON("getmessages", null, function (data) {
+        $("#main_messages_list").empty();
         data.forEach(function (item) {
             $("#main_messages_list").append("<li>" + escapeHtml(item.user.login
                 + " : " + item.message) + "</li>");
@@ -86,6 +87,7 @@ function fillMessages() {
 
 function fillUsers() {
     $.postJSON("getusers", null, function (data) {
+        $("#user_list").empty();
         data.forEach(function (item) {
             $("#user_list").append("<li>" + escapeHtml(item.login) + "</li>");
         });
@@ -109,3 +111,5 @@ function escapeHtml(string) {
         return entityMap[s];
     });
 }
+let timerUsers = setInterval(fillUsers, 60000);
+let timerMessages = setInterval(fillMessages, 60000);
