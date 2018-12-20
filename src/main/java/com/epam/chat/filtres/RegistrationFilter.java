@@ -1,5 +1,6 @@
 package com.epam.chat.filtres;
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
@@ -37,7 +38,7 @@ public class RegistrationFilter implements Filter {
         if (validateUser(user) && !userDAO.isLogged(user)) {
             log.debug("User with this login doesn't exist");
             userDAO.login(user);
-            request.setAttribute("regUser", user);
+            request.setAttribute(ChatConstants.REG_USER, user);
             log.debug("Success registration");
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);

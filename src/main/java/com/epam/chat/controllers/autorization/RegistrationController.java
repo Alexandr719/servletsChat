@@ -1,12 +1,11 @@
 package com.epam.chat.controllers.autorization;
 
 
-import com.epam.chat.dao.DAOFactory;
+import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
-import org.owasp.encoder.Encode;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,12 +29,11 @@ public class RegistrationController extends HttpServlet {
                               HttpServletResponse response) throws
         ServletException, IOException {
            UserDAO userDAO = (UserDAO) request.getServletContext()
-                   .getAttribute("userDAO");
+                   .getAttribute(ChatConstants.USER_DAO);
             EntityMapper mapper = new EntityMapper();
             User user = userDAO.getUser((User) request
-                   .getAttribute("regUser"));
-            //ToDO regUser - const(class req or session)
-            request.getSession().setAttribute("user", user);
+                   .getAttribute(ChatConstants.REG_USER));
+            request.getSession().setAttribute(ChatConstants.SESSION_USER, user);
             log.info("User is enter into chat: "+ user);
 
 

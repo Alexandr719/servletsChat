@@ -13,7 +13,7 @@ import java.io.Serializable;
  * Entity user
  * @author Alexander_Filatov
  */
-//TODO javadoc
+
 @Data
 @ToString
 public class User implements Serializable {

@@ -21,6 +21,7 @@ public class InputsValidator {
      * @return true if user passed validation
      */
     public boolean validateUser(User user) {
+        boolean validationResult = false;
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         //Validate bean
@@ -28,15 +29,15 @@ public class InputsValidator {
                 = validator.validate(user);
         //Wrong validation
 
-        //ToDo field return
+        //If validations errors > 0  bad validation
         if (constraintViolations.size() > 0) {
             for (ConstraintViolation<User> violation : constraintViolations) {
                 log.debug(violation.getMessage());
             }
-            return false;
         } else {
             log.debug(user.getLogin() + " successfully passed validation");
-            return true;
+            validationResult = true;
         }
+        return validationResult;
     }
 }

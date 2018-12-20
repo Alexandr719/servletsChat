@@ -28,10 +28,16 @@ public class ExitController extends HttpServlet {
                           HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession();
-        //Todo null!!!
+
         User user = (User) session.getAttribute("user");
-        log.info("Deleted session user id = " + user.getId());
-        session.invalidate();
+        if(user == null){
+            //Todo null!!!
+            response.sendError(404);
+        }else{
+            log.info("Deleted session user id = " + user.getId());
+            session.invalidate();
+        }
+
 
     }
 

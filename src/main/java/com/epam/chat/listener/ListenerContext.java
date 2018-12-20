@@ -1,5 +1,6 @@
-package com.epam.chat;
+package com.epam.chat.listener;
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.MessageDAO;
 import com.epam.chat.dao.UserDAO;
@@ -32,8 +33,8 @@ public class ListenerContext implements ServletContextListener{
         DAOFactory dao = DAOFactory.getDAOFactory();
         UserDAO userDAO = dao.getUserDAO();
         MessageDAO messageDAO = dao.getMessageDAO();
-        sc.setAttribute("userDAO",userDAO);
-        sc.setAttribute("messageDAO",messageDAO);
+        sc.setAttribute(ChatConstants.USER_DAO,userDAO);
+        sc.setAttribute(ChatConstants.MESSAGE_DAO,messageDAO);
 
 
 
