@@ -30,7 +30,6 @@ public class CheckLogController extends HttpServlet {
             , HttpServletResponse response) throws ServletException,
             IOException {
 
-
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 

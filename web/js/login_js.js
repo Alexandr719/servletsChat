@@ -26,7 +26,8 @@ $("#singIn").click(function () {
             showMain(user);
 
         }, function (e) {
-            $("#error").text("User with this login already exist or fields is wrong");
+            $("#error").text("User with this login" +
+                " already exist or fields is wrong");
         });
     }
 );

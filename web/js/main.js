@@ -1,5 +1,5 @@
 let user = null;
-var entityMap = {
+let entityMap = {
     '&': '&amp;',
     '<': '&lt;',
     '>': '&gt;',
@@ -76,7 +76,8 @@ function innerUserInfo(user) {
 function fillMessages() {
     $.postJSON("getmessages", null, function (data) {
         data.forEach(function (item) {
-            $("#main_messages_list").append("<li>" + escapeHtml(item.user.login + " : " + item.message) + "</li>");
+            $("#main_messages_list").append("<li>" + escapeHtml(item.user.login
+                + " : " + item.message) + "</li>");
         })
     }, function (e) {
         alert("Error with messages");
