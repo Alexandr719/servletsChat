@@ -29,8 +29,8 @@ public class RegistrationController extends HttpServlet {
        protected void doPost (HttpServletRequest request,
                               HttpServletResponse response) throws
         ServletException, IOException {
-           DAOFactory dao = DAOFactory.getDAOFactory();
-           UserDAO userDAO = dao.getUserDAO();
+           UserDAO userDAO = (UserDAO) request.getServletContext()
+                   .getAttribute("userDAO");
             EntityMapper mapper = new EntityMapper();
             User user = userDAO.getUser((User) request
                    .getAttribute("regUser"));
@@ -40,8 +40,7 @@ public class RegistrationController extends HttpServlet {
 
 
             response.setContentType("application/json");
-            response.getWriter().write(Encode.forHtmlContent(mapper
-                    .convertToJSON(user)));
+            response.getWriter().write(mapper.convertToJSON(user));
         }
 
         protected void doGet (HttpServletRequest request,

@@ -28,19 +28,18 @@ public class UserListController extends HttpServlet {
     private final static int MAX_LENGTH_USERLIST = 100;
 
 
-    protected void doPost(HttpServletRequest request
-            , HttpServletResponse response) throws ServletException
-            , IOException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        UserDAO userDAO = dao.getUserDAO();
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response) throws ServletException,
+            IOException {
+        UserDAO userDAO = (UserDAO) request.getServletContext()
+                .getAttribute("userDAO");
         EntityMapper mapper = new EntityMapper();
 
         List<User> users = userDAO.getAllLogged(MAX_LENGTH_USERLIST);
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
 
         response.setContentType("application/json");
-        response.getWriter().println(Encode.forHtmlContent(mapper
-                .convertToJSON(users)));
+        response.getWriter().println(mapper.convertToJSON(users));
     }
 
     protected void doGet(HttpServletRequest request,
