@@ -25,14 +25,16 @@ public class LoginFilter implements Filter {
     private UserDAO userDAO;
 
 
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(ServletRequest req, ServletResponse resp
+            , FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
 
-        if (validateUser(user) && userDAO.isLogged(user) && userDAO.checkLogIn(user)) {
+        if (validateUser(user) && userDAO.isLogged(user)
+                && userDAO.checkLogIn(user)) {
             log.debug("User login and password are right");
             request.setAttribute("user", user);
         } else {

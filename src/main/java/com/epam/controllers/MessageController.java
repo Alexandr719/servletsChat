@@ -9,6 +9,9 @@ import lombok.extern.log4j.Log4j2;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -23,7 +26,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
 public class MessageController {
     private MessageDAO messageDAO;
     private Session session;
-    private static Set<MessageController> chatEndpoints = new CopyOnWriteArraySet<>();
+    private static Set<MessageController> chatEndpoints = Collections
+            .synchronizedSet(new HashSet<>());
 
 
     @OnMessage

@@ -22,7 +22,9 @@ public class ExitController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException
+            , IOException {
         HttpSession session = request.getSession();
         if (!session.isNew()) {
             User user = (User) session.getAttribute("user");
@@ -31,7 +33,9 @@ public class ExitController extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException
+            , IOException {
         doPost(request, response);
     }
 }

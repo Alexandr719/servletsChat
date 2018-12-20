@@ -17,7 +17,8 @@ import java.io.IOException;
 /**
  * Servlet  CheckLogController
  * @author Alexander_Filatov
- * Ckeck if user is into session show  main page, else put SC_UNAUTHORIZED exaption
+ * Ckeck if user is into session show  main page, else put SC_UNAUTHORIZED
+ * exaption
  */
 @Log4j2
 @WebServlet(name = "CheckLogController", urlPatterns = "/checklog")
@@ -25,7 +26,8 @@ public class CheckLogController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+    protected void doPost(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException,
             IOException {
 
 
@@ -38,11 +40,13 @@ public class CheckLogController extends HttpServlet {
         } else {
             log.debug("User with id=" + user.getId() + "entered into chat");
             response.setContentType("application/json");
-            response.getWriter().write(Encode.forHtmlContent(new EntityMapper().convertObjectToJSON(user)));
+            response.getWriter().write(Encode.forHtmlContent(new EntityMapper()
+                    .convertObjectToJSON(user)));
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+    protected void doGet(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException,
             IOException {
         doPost(request, response);
     }

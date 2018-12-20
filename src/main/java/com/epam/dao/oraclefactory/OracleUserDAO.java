@@ -33,7 +33,8 @@ public class OracleUserDAO implements UserDAO {
         PreparedStatement ps = null;
         try {
             con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_ADD_NEW_USER"));
+            ps = con.prepareStatement(ResourceInspector.getInstance()
+                    .getString("SQL_ADD_NEW_USER"));
             ps.setString(1, loginUser.getLogin());
             ps.setString(2, loginUser.getFirstName());
             ps.setString(3, loginUser.getLastName());
@@ -73,7 +74,8 @@ public class OracleUserDAO implements UserDAO {
         ResultSet rs = null;
         try {
             con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_WAS_LOGGED"));
+            ps = con.prepareStatement(ResourceInspector.getInstance()
+                    .getString("SQL_WAS_LOGGED"));
             ps.setString(1, user.getLogin());
             rs = ps.executeQuery();
             if (!rs.isBeforeFirst()) {
@@ -114,7 +116,8 @@ public class OracleUserDAO implements UserDAO {
         ResultSet rs = null;
         try {
             con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_WAS_LOGGED"));
+            ps = con.prepareStatement(ResourceInspector.getInstance()
+                    .getString("SQL_WAS_LOGGED"));
             ps.setString(1, user.getLogin());
             rs = ps.executeQuery();
 
@@ -165,7 +168,8 @@ public class OracleUserDAO implements UserDAO {
         ResultSet rs = null;
         try {
             con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_GET_USER_LIST"));
+            ps = con.prepareStatement(ResourceInspector.getInstance()
+                    .getString("SQL_GET_USER_LIST"));
             ps.setInt(1, count);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -214,7 +218,8 @@ public class OracleUserDAO implements UserDAO {
         ResultSet rs = null;
         try {
             con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance().getString("SQL_GET_USER"));
+            ps = con.prepareStatement(ResourceInspector.getInstance()
+                    .getString("SQL_GET_USER"));
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getPassword());
             rs = ps.executeQuery();

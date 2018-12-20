@@ -28,18 +28,24 @@ public class MessageListController extends HttpServlet {
     private final static int MAX_LENGTH_MESSAGESLIST = 100;
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException
+            , IOException {
         DAOFactory dao = DAOFactory.getDAOFactory();
         MessageDAO messageDAO = dao.getMessageDAO();
         EntityMapper mapper = new EntityMapper();
-        List<Message> messages = messageDAO.getLastMessages(MAX_LENGTH_MESSAGESLIST);
+        List<Message> messages = messageDAO
+                .getLastMessages(MAX_LENGTH_MESSAGESLIST);
         log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
 
         response.setContentType("application/json");
-        response.getWriter().println(Encode.forHtmlContent(mapper.convertObjectToJSON(messages)));
+        response.getWriter().println(Encode.forHtmlContent(mapper
+                .convertObjectToJSON(messages)));
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException
+            , IOException {
         doPost(request, response);
     }
 

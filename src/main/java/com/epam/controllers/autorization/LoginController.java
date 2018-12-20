@@ -27,23 +27,27 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+    protected void doPost(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException,
             IOException {
         DAOFactory dao = DAOFactory.getDAOFactory();
         UserDAO userDAO = dao.getUserDAO();
         EntityMapper mapper = new EntityMapper();
 
-        User logUser = userDAO.getUser((User) request.getAttribute("user"));
+        User logUser = userDAO.getUser((User) request
+                .getAttribute("user"));
         request.getSession().setAttribute("user", logUser);
         log.info("User is enter into chat: "+ logUser);
 
 
 
         response.setContentType("application/json");
-        response.getWriter().write(Encode.forHtmlContent(mapper.convertObjectToJSON(logUser)));
+        response.getWriter().write(Encode.forHtmlContent(mapper
+                .convertObjectToJSON(logUser)));
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
+    protected void doGet(HttpServletRequest request
+            , HttpServletResponse response) throws ServletException,
             IOException {
         doPost(request, response);
     }

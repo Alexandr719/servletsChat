@@ -24,9 +24,12 @@ class DataSourceFactory {
         OracleDataSource oracleDS = null;
         try {
             oracleDS = new OracleDataSource();
-            oracleDS.setURL(ResourceInspector.getInstance().getString("ORACLE_DB_URL"));
-            oracleDS.setUser(ResourceInspector.getInstance().getString("ORACLE_DB_USERNAME"));
-            oracleDS.setPassword(ResourceInspector.getInstance().getString("ORACLE_DB_PASSWORD"));
+            oracleDS.setURL(ResourceInspector.getInstance()
+                    .getString("ORACLE_DB_URL"));
+            oracleDS.setUser(ResourceInspector.getInstance()
+                    .getString("ORACLE_DB_USERNAME"));
+            oracleDS.setPassword(ResourceInspector.getInstance()
+                    .getString("ORACLE_DB_PASSWORD"));
         } catch (SQLException e) {
             log.error(e);
         }

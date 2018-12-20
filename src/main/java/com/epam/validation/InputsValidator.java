@@ -24,7 +24,8 @@ public class InputsValidator {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         //Validate bean
-        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
+        Set<ConstraintViolation<User>> constraintViolations
+                = validator.validate(user);
         //Wrong validation
         if (constraintViolations.size() > 0) {
             for (ConstraintViolation<User> violation : constraintViolations) {
