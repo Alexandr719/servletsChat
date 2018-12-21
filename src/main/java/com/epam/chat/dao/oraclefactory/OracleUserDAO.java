@@ -3,9 +3,11 @@ package com.epam.chat.dao.oraclefactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.ResourceInspector;
+import lombok.NonNull;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
+import javax.validation.constraints.NotNull;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,12 +31,11 @@ public class OracleUserDAO implements UserDAO {
         Locale.setDefault(Locale.ENGLISH);
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        Connection con = null;
-        PreparedStatement ps = null;
-        try {
-            con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance()
-                    .getString("SQL_ADD_NEW_USER"));
+        String sql = ResourceInspector.getInstance()
+                .getString("SQL_ADD_NEW_USER");
+        try(Connection con = dataSource.getConnection(); PreparedStatement ps =
+                con.prepareStatement(sql)) {
+
             ps.setString(1, loginUser.getLogin());
             ps.setString(2, loginUser.getFirstName());
             ps.setString(3, loginUser.getLastName());
@@ -45,18 +46,6 @@ public class OracleUserDAO implements UserDAO {
         } catch (SQLException e) {
             log.error(e);
 
-        } finally {
-            try {
-                assert ps != null;
-                ps.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
-            try {
-                con.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
         }
 
 
@@ -67,39 +56,19 @@ public class OracleUserDAO implements UserDAO {
     public boolean isLogged(User user) {
         Locale.setDefault(Locale.ENGLISH);
 
-
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance()
-                    .getString("SQL_WAS_LOGGED"));
-            ps.setString(1, user.getLogin());
-            rs = ps.executeQuery();
+
+        String sql = ResourceInspector.getInstance()
+                .getString("SQL_WAS_LOGGED");
+        try(Connection con = dataSource.getConnection(); PreparedStatement ps
+                = createPreparedStatement(con, sql, user.getLogin());ResultSet rs =
+                    ps.executeQuery()) {
+
             if (!rs.isBeforeFirst()) {
                 return false;
             }
         } catch (SQLException e) {
             log.error(e);
-        } finally {
-            try {
-                assert rs != null;
-                rs.close();
-            } catch (SQLException e) {
-                log.error(e);
-            }
-            try {
-                ps.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
-            try {
-                con.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
         }
         return true;
     }
@@ -111,17 +80,13 @@ public class OracleUserDAO implements UserDAO {
 
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance()
-                    .getString("SQL_WAS_LOGGED"));
-            ps.setString(1, user.getLogin());
-            rs = ps.executeQuery();
+        String sql = ResourceInspector.getInstance()
+                .getString("SQL_WAS_LOGGED");
 
-            if (rs != null) {
+        try(Connection con = dataSource.getConnection(); PreparedStatement ps
+        = createPreparedStatement(con, sql, user.getLogin());ResultSet rs =
+                ps.executeQuery()) {
+                       if (rs != null) {
                 log.info("ResultSet isn't null");
                 while (rs.next()) {
                     checkedUser.setLogin(rs.getString("LOGIN"));
@@ -133,24 +98,8 @@ public class OracleUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error(e);
-        } finally {
-            try {
-                assert rs != null;
-                rs.close();
-            } catch (SQLException e) {
-                log.error(e);
-            }
-            try {
-                ps.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
-            try {
-                con.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
         }
+
 
         return false;
 
@@ -163,16 +112,12 @@ public class OracleUserDAO implements UserDAO {
 
         List<User> loggedUsers = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance()
-                    .getString("SQL_GET_USER_LIST"));
-            ps.setInt(1, count);
-            rs = ps.executeQuery();
-            while (rs.next()) {
+
+        String sql = ResourceInspector.getInstance()
+                .getString("SQL_GET_USER_LIST");
+        try(Connection con = dataSource.getConnection(); PreparedStatement ps
+        = createPreparedStatement(con, sql,count);ResultSet rs = ps.executeQuery()) {
+             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("ID"));
                 user.setLogin(rs.getString("LOGIN"));
@@ -185,24 +130,8 @@ public class OracleUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error(e);
-        } finally {
-            try {
-                assert rs != null;
-                rs.close();
-            } catch (SQLException e) {
-                log.error(e);
-            }
-            try {
-                ps.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
-            try {
-                con.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
         }
+
 
         return loggedUsers;
 
@@ -213,16 +142,16 @@ public class OracleUserDAO implements UserDAO {
         Locale.setDefault(Locale.ENGLISH);
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        try {
-            con = dataSource.getConnection();
-            ps = con.prepareStatement(ResourceInspector.getInstance()
-                    .getString("SQL_GET_USER"));
-            ps.setString(1, user.getLogin());
-            ps.setString(2, user.getPassword());
-            rs = ps.executeQuery();
+
+
+        String sql = ResourceInspector.getInstance()
+                .getString("SQL_GET_USER");
+        try (Connection con = dataSource.getConnection(); PreparedStatement ps
+                = createPreparedStatement(con, sql, user.getLogin(),
+                user.getPassword
+                        ()); ResultSet rs = ps.executeQuery()) {
+
+
             while (rs.next()) {
                 user.setId(rs.getInt("ID"));
                 user.setFirstName(rs.getString("FIRSTNAME"));
@@ -233,26 +162,37 @@ public class OracleUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error(e);
-        } finally {
-            try {
-                assert rs != null;
-                rs.close();
-            } catch (SQLException e) {
-                log.error(e);
-            }
-            try {
-                ps.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
-            try {
-                con.close();
-            } catch (Exception e) {
-                log.error(e);
-            }
+
         }
         return user;
 
+    }
+
+
+    private PreparedStatement createPreparedStatement(Connection con,
+                                                      String sql, int count)
+            throws SQLException {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, count);
+        return ps;
+    }
+
+
+    private PreparedStatement createPreparedStatement(Connection
+                                                              con, String
+                                                              sql, String login)
+            throws SQLException {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, login);
+        return ps;
+    }
+
+    private PreparedStatement createPreparedStatement(Connection con, String
+            sql, String login, String password) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, login);
+        ps.setString(2, password);
+        return ps;
     }
 
 }
