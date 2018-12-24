@@ -30,10 +30,9 @@ public class ExitController extends HttpServlet {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute("user");
-        if(user == null){
-            //Todo null!!!
-            response.sendError(404);
-        }else{
+        if (user == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        } else {
             log.info("Deleted session user id = " + user.getId());
             session.invalidate();
         }

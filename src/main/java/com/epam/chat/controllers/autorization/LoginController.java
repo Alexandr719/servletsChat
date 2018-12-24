@@ -52,18 +52,33 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
 
-        if (validateUser(user) && userDAO.isLogged(user)
-                && userDAO.checkLogIn(user)) {
-            log.debug("User login and password are right");
-            logUser = user;
-        } else {
-            //toDo another error
+        if (!validateUser(user) ) {
+            log.debug("User is invalid");
             try {
+                response.sendError(406);
+            } catch (IOException e) {
+                log.error("IOException with sendError method", e);
+            }
+
+        }else if(!userDAO.isLogged(user)){
+            try {
+                log.debug("User with this login already exist");
+                response.sendError(409);
+            } catch (IOException e) {
+                log.error("IOException with sendError method", e);
+            }
+
+        }else if(!userDAO.checkLogIn(user)){
+            try {
+                log.debug("User login and password  are wrong");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             } catch (IOException e) {
                 log.error("IOException with sendError method", e);
             }
-            log.debug("User login and password  are wrong");
+
+        }
+        else {
+            logUser = user;
         }
         return logUser;
     }

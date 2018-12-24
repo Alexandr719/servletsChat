@@ -65,6 +65,7 @@ public class OracleUserDAO implements UserDAO {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
+
         String sqlMessage = null;
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
@@ -80,7 +81,7 @@ public class OracleUserDAO implements UserDAO {
                 return false;
             }
         } catch (SQLException e) {
-            log.error("Can't ckeck is Logging " + e);
+            log.error("Can't check is Logging " + e);
         }
         return true;
     }
