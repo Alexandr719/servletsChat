@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,43 +27,54 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class OracleMessageDAO implements MessageDAO {
-    //TODO sql annotation + key
-    @SqlStatement(key = "two", value = "tro lo lo two")
+
+    @SqlStatement(value = "INSERT INTO SERVLETMESSAGE (ID, USERID, TEXTMESSAGE) VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
     public void sentMessage(Message message) {
         Locale.setDefault(Locale.ENGLISH);
+        String sqlMessage = null;
 
-        SqlStatement insertAnnotation = getAnnotation(SqlStatement.class,
-                "two");
-        log.info("MESSAGE" + insertAnnotation.value());
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+
+        sqlMessage = getAnnotationValue(methodName);
+        if (sqlMessage == null) {
+            log.error("SqlStatement is null");
+        }
+
+
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         try (Connection con = dataSource.getConnection(); PreparedStatement
-                ps = createPreparedStatement(con,
-                ResourceInspector.getInstance()
-                        .getString("SQL_ADD_NEW_MESSAGE"),
+                ps = createPreparedStatement(con, sqlMessage,
                 message.getUser().getId(), message.getMessage())) {
 
             ps.execute();
         } catch (SQLException e) {
-            log.error(e);
+            log.error("SQLExeption :" + e);
         }
 
     }
 
-    @SqlStatement(key = "one", value = "tro lo lo")
+    @SqlStatement(value = "SELECT * FROM SERVLETMESSAGE JOIN SERVLETUSER on SERVLETUSER.id = SERVLETMESSAGE.USERID WHERE 1=1 AND ROWNUM <= ?")
     @Override
     public List<Message> getLastMessages(int count) {
         Locale.setDefault(Locale.ENGLISH);
         String sqlMessage = null;
-        SqlStatement insertAnnotation =
-                getAnnotation(SqlStatement.class, "one");
-        log.info("MESSAGE" + insertAnnotation.value());
+
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+
+        sqlMessage = getAnnotationValue(methodName);
+        if (sqlMessage == null) {
+            log.error("SqlStatement is null");
+        }
+
+
         List<Message> messages = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = createPreparedStatement(con,
-                     ResourceInspector.getInstance().getString
-                             ("SQL_GET_MESSAGES"), count);
+                     sqlMessage, count);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Message message = new Message();
@@ -78,10 +90,10 @@ public class OracleMessageDAO implements MessageDAO {
                 message.setUser(user);
                 messages.add(message);
             }
-
         } catch (SQLException e) {
             log.error(e);
         }
+
         return messages;
 
     }
@@ -102,22 +114,12 @@ public class OracleMessageDAO implements MessageDAO {
         return ps;
     }
 
-    private SqlStatement getAnnotation(Class<? extends Annotation> annotation
-            , String key) {
-        List<Annotation> annotationList =
-                Arrays.stream(getClass().getMethods())
-                        .filter(method -> method
-                                .isAnnotationPresent(annotation))
-                        .map(method -> method.getAnnotation(annotation))
-                        .collect(Collectors.toList());
 
-        for (Annotation annotation1 : annotationList) {
-            SqlStatement insertAnnotation = (SqlStatement) annotation1;
-            if (insertAnnotation.key().equals(key)) {
-                return insertAnnotation;
-            }
-        }
-        return null;
+    private String getAnnotationValue(String methodName) throws NullPointerException {
+        SqlStatement sqlStatement = Arrays.stream(getClass().getMethods())
+                .filter(method -> method.getName().equals(methodName))
+                .map(method -> method.getAnnotation(SqlStatement.class))
+                .collect(Collectors.toList()).get(0);
+        return sqlStatement.value();
     }
-
 }

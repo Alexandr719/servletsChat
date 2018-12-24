@@ -1,5 +1,6 @@
 package com.epam.chat.dao.oraclefactory;
 
+import com.epam.chat.SqlStatement;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.ResourceInspector;
@@ -13,8 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 /**
  * OracleMessageDAO
@@ -26,15 +29,22 @@ public class OracleUserDAO implements UserDAO {
 
     private static final String USER_ROLE = "USER";
 
+    @SqlStatement(value = "INSERT INTO SERVLETUSER (ID, LOGIN, FIRSTNAME, LASTNAME, EMAIL, PASSWORD, ROLE) VALUES (SERVETUSERSSEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)")
     @Override
     public void login(User loginUser) {
         Locale.setDefault(Locale.ENGLISH);
-
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        String sql = ResourceInspector.getInstance()
-                .getString("SQL_ADD_NEW_USER");
-        try(Connection con = dataSource.getConnection(); PreparedStatement ps =
-                con.prepareStatement(sql)) {
+
+        String sqlMessage = null;
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        sqlMessage = getAnnotationValue(methodName);
+        if (sqlMessage == null) {
+            log.error("SqlStatement is null");
+        }
+
+        try (Connection con = dataSource.getConnection(); PreparedStatement ps =
+                con.prepareStatement(sqlMessage)) {
 
             ps.setString(1, loginUser.getLogin());
             ps.setString(2, loginUser.getFirstName());
@@ -47,22 +57,24 @@ public class OracleUserDAO implements UserDAO {
             log.error(e);
 
         }
-
-
     }
 
-
+    @SqlStatement(value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ?)")
     @Override
     public boolean isLogged(User user) {
         Locale.setDefault(Locale.ENGLISH);
-
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
-        String sql = ResourceInspector.getInstance()
-                .getString("SQL_WAS_LOGGED");
-        try(Connection con = dataSource.getConnection(); PreparedStatement ps
-                = createPreparedStatement(con, sql, user.getLogin());ResultSet rs =
-                    ps.executeQuery()) {
+        String sqlMessage = null;
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        sqlMessage = getAnnotationValue(methodName);
+        if (sqlMessage == null) {
+            log.error("SqlStatement is null");
+        }
+        try (Connection con = dataSource.getConnection(); PreparedStatement ps
+                = createPreparedStatement(con, sqlMessage, user.getLogin()); ResultSet rs =
+                     ps.executeQuery()) {
 
             if (!rs.isBeforeFirst()) {
                 return false;
@@ -73,20 +85,25 @@ public class OracleUserDAO implements UserDAO {
         return true;
     }
 
-
+    @SqlStatement(value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ?)")
     @Override
     public boolean checkLogIn(User user) {
         Locale.setDefault(Locale.ENGLISH);
 
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-        String sql = ResourceInspector.getInstance()
-                .getString("SQL_WAS_LOGGED");
+        String sqlMessage = null;
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        sqlMessage = getAnnotationValue(methodName);
+        if (sqlMessage == null) {
+            log.error("SqlStatement is null");
+        }
 
-        try(Connection con = dataSource.getConnection(); PreparedStatement ps
-        = createPreparedStatement(con, sql, user.getLogin());ResultSet rs =
-                ps.executeQuery()) {
-                       if (rs != null) {
+        try (Connection con = dataSource.getConnection(); PreparedStatement ps
+                = createPreparedStatement(con, sqlMessage, user.getLogin()); ResultSet rs =
+                     ps.executeQuery()) {
+            if (rs != null) {
                 log.info("ResultSet isn't null");
                 while (rs.next()) {
                     checkedUser.setLogin(rs.getString("LOGIN"));
@@ -105,19 +122,23 @@ public class OracleUserDAO implements UserDAO {
 
     }
 
-
+    @SqlStatement(value = "SELECT * FROM SERVLETUSER WHERE 1=1 AND ROWNUM <= ?")
     @Override
     public List<User> getAllLogged(int count) {
         Locale.setDefault(Locale.ENGLISH);
 
         List<User> loggedUsers = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
-
-        String sql = ResourceInspector.getInstance()
-                .getString("SQL_GET_USER_LIST");
-        try(Connection con = dataSource.getConnection(); PreparedStatement ps
-        = createPreparedStatement(con, sql,count);ResultSet rs = ps.executeQuery()) {
-             while (rs.next()) {
+        String sqlMessage = null;
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        sqlMessage = getAnnotationValue(methodName);
+        if (sqlMessage == null) {
+            log.error("SqlStatement is null");
+        }
+        try (Connection con = dataSource.getConnection(); PreparedStatement ps
+                = createPreparedStatement(con, sqlMessage, count); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt("ID"));
                 user.setLogin(rs.getString("LOGIN"));
@@ -137,21 +158,24 @@ public class OracleUserDAO implements UserDAO {
 
     }
 
+    @SqlStatement(value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ? AND PASSWORD = ?)")
     @Override
     public User getUser(User user) {
         Locale.setDefault(Locale.ENGLISH);
-
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
+        String sqlMessage = null;
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        sqlMessage = getAnnotationValue(methodName);
+        if (sqlMessage == null) {
+            log.error("SqlStatement is null");
+        }
 
-        String sql = ResourceInspector.getInstance()
-                .getString("SQL_GET_USER");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps
-                = createPreparedStatement(con, sql, user.getLogin(),
+                = createPreparedStatement(con, sqlMessage, user.getLogin(),
                 user.getPassword
                         ()); ResultSet rs = ps.executeQuery()) {
-
-
             while (rs.next()) {
                 user.setId(rs.getInt("ID"));
                 user.setFirstName(rs.getString("FIRSTNAME"));
@@ -162,10 +186,8 @@ public class OracleUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error(e);
-
         }
         return user;
-
     }
 
 
@@ -193,6 +215,14 @@ public class OracleUserDAO implements UserDAO {
         ps.setString(1, login);
         ps.setString(2, password);
         return ps;
+    }
+
+    private String getAnnotationValue(String methodName) throws NullPointerException {
+        SqlStatement sqlStatement = Arrays.stream(getClass().getMethods())
+                .filter(method -> method.getName().equals(methodName))
+                .map(method -> method.getAnnotation(SqlStatement.class))
+                .collect(Collectors.toList()).get(0);
+        return sqlStatement.value();
     }
 
 }

@@ -48,7 +48,8 @@ public class EntityMapper {
             log.error(e);
         }
         log.debug("Put java object into json format: " + objectInJson);
-        return Encode.forHtmlContent(objectInJson);
+      //  return Encode.forHtmlContent(objectInJson);
+        return objectInJson;
     }
 }
 
