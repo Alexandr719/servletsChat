@@ -4,6 +4,9 @@ import com.epam.chat.mapper.ResourceInspector;
 import lombok.extern.log4j.Log4j2;
 import oracle.jdbc.pool.OracleDataSource;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
@@ -20,20 +23,15 @@ class DataSourceFactory {
      * @return DataSource
      */
     static DataSource getOracleDataSource() {
-
-        OracleDataSource oracleDS = null;
+        Context ctx = null;
+        DataSource ds = null;
         try {
-            oracleDS = new OracleDataSource();
-            oracleDS.setURL(ResourceInspector.getInstance()
-                    .getString("ORACLE_DB_URL_HOME"));
-            oracleDS.setUser(ResourceInspector.getInstance()
-                    .getString("ORACLE_DB_USERNAME_HOME"));
-            oracleDS.setPassword(ResourceInspector.getInstance()
-                    .getString("ORACLE_DB_PASSWORD_HOME"));
-        } catch (SQLException e) {
-            log.error(e);
+            ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/MyLocalDB");
+        } catch (NamingException e) {
+            e.printStackTrace();
         }
-        return oracleDS;
+        return ds;
     }
 
 }
