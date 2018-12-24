@@ -50,7 +50,7 @@ public class OracleMessageDAO implements MessageDAO {
 
             ps.execute();
         } catch (SQLException e) {
-            log.error("SQLExeption :" + e);
+            log.error("Cant add new message into db :" + e);
         }
 
     }
@@ -91,7 +91,7 @@ public class OracleMessageDAO implements MessageDAO {
                 messages.add(message);
             }
         } catch (SQLException e) {
-            log.error(e);
+            log.error("Cant get last messages: " + e);
         }
 
         return messages;

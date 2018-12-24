@@ -54,7 +54,7 @@ public class OracleUserDAO implements UserDAO {
             ps.setString(6, USER_ROLE);
             ps.execute();
         } catch (SQLException e) {
-            log.error(e);
+            log.error("Can't add new user" + e);
 
         }
     }
@@ -80,7 +80,7 @@ public class OracleUserDAO implements UserDAO {
                 return false;
             }
         } catch (SQLException e) {
-            log.error(e);
+            log.error("Can't ckeck is Logging " + e);
         }
         return true;
     }
@@ -114,7 +114,7 @@ public class OracleUserDAO implements UserDAO {
                     && user.getLogin().equals(checkedUser.getLogin()));
 
         } catch (SQLException e) {
-            log.error(e);
+            log.error("Can't check user" + e);
         }
 
 
@@ -150,7 +150,7 @@ public class OracleUserDAO implements UserDAO {
             }
 
         } catch (SQLException e) {
-            log.error(e);
+            log.error("Can't take all users from db" + e);
         }
 
 
@@ -185,7 +185,7 @@ public class OracleUserDAO implements UserDAO {
             }
 
         } catch (SQLException e) {
-            log.error(e);
+            log.error("Can't take user from db " + e);
         }
         return user;
     }

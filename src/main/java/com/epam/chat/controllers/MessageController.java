@@ -38,7 +38,7 @@ public class MessageController {
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException | EncodeException e) {
-            log.error(e);
+            log.error("Error with sending message" +e);
         }
 
     }
@@ -73,7 +73,7 @@ public class MessageController {
                 try {
                     endpoint.session.getBasicRemote().sendText(message);
                 } catch (IOException e) {
-                    log.error(e);
+                    log.error("Error with notify"+e);
                 }
             }
         });
