@@ -54,17 +54,25 @@ public class RegistrationController extends HttpServlet {
         User user = mapper.getUser(request);
 
 
-        if (validateUser(user) && !userDAO.isLogged(user)) {
-            log.debug("User with this login doesn't exist");
+        if (!validateUser(user)) {
+            log.debug("User didn't pass validation");
+            try {
+                response.sendError(778, "User didn't pass validation");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }else if(userDAO.isLogged(user)){
+            log.debug("User with this login already exist");
+            try {
+                response.sendError(777, "User with this login already exist");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
             userDAO.login(user);
             regUser = user;
             log.debug("Success registration");
-        } else {
-            try {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            } catch (IOException e) {
-                log.error("IOException with sendError method", e);
-            }
         }
         return regUser;
     }
