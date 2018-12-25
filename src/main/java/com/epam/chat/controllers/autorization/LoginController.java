@@ -1,6 +1,7 @@
 package com.epam.chat.controllers.autorization;
 
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
@@ -33,11 +34,12 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         EntityMapper mapper = new EntityMapper();
         User logUser = checkLoginOpportunities(request, response);
 
-        if(logUser == null){
+        if (logUser == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        }else{
-            request.getSession().setAttribute("user", logUser);
-            log.info("User is enter into chat: " + logUser);
+        } else {
+            request.getSession()
+                    .setAttribute(ChatConstants.SESSION_USER, logUser);
+            log.info("Logged user is enter into chat: " + logUser);
 
             response.setContentType("application/json");
             response.getWriter().write(mapper.convertToJSON(logUser));
@@ -48,11 +50,11 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                                          HttpServletResponse response) {
         User logUser = null;
         UserDAO userDAO = (UserDAO) request.getServletContext()
-                .getAttribute("userDAO");
+                .getAttribute(ChatConstants.USER_DAO);
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
 
-        if (!validateUser(user) ) {
+        if (!validateUser(user)) {
             log.debug("User is invalid");
             try {
                 response.sendError(406);
@@ -60,7 +62,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                 log.error("IOException with sendError method", e);
             }
 
-        }else if(!userDAO.isLogged(user)){
+        } else if (!userDAO.isLogged(user)) {
             try {
                 log.debug("User with this login already exist");
                 response.sendError(409);
@@ -68,7 +70,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                 log.error("IOException with sendError method", e);
             }
 
-        }else if(!userDAO.checkLogIn(user)){
+        } else if (!userDAO.checkLogIn(user)) {
             try {
                 log.debug("User login and password  are wrong");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
@@ -76,8 +78,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                 log.error("IOException with sendError method", e);
             }
 
-        }
-        else {
+        } else {
             logUser = user;
         }
         return logUser;

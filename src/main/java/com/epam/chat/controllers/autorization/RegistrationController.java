@@ -37,7 +37,7 @@ public class RegistrationController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             request.getSession().setAttribute(ChatConstants.SESSION_USER, user);
-            log.info("User is enter into chat: " + user);
+            log.info("New user is enter into chat: " + user);
 
             response.setContentType("application/json");
             response.getWriter().write(mapper.convertToJSON(user));

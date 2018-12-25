@@ -4,12 +4,9 @@ import com.epam.chat.SqlStatement;
 import com.epam.chat.dao.MessageDAO;
 import com.epam.chat.entity.Message;
 import com.epam.chat.entity.User;
-import com.epam.chat.mapper.ResourceInspector;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +25,9 @@ import java.util.stream.Collectors;
 @Log4j2
 public class OracleMessageDAO implements MessageDAO {
 
-    @SqlStatement(value = "INSERT INTO SERVLETMESSAGE (ID, USERID, TEXTMESSAGE) VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
+    @SqlStatement(
+            value = "INSERT INTO SERVLETMESSAGE (ID, USERID, TEXTMESSAGE) " +
+                    "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
     public void sentMessage(Message message) {
         Locale.setDefault(Locale.ENGLISH);
@@ -55,7 +54,10 @@ public class OracleMessageDAO implements MessageDAO {
 
     }
 
-    @SqlStatement(value = "SELECT * FROM SERVLETMESSAGE JOIN SERVLETUSER on SERVLETUSER.id = SERVLETMESSAGE.USERID WHERE 1=1 AND ROWNUM <= ?")
+    @SqlStatement(
+            value = "SELECT * FROM SERVLETMESSAGE JOIN SERVLETUSER on " +
+                    "SERVLETUSER.id = SERVLETMESSAGE.USERID WHERE 1=1 " +
+                    "AND ROWNUM <= ?")
     @Override
     public List<Message> getLastMessages(int count) {
         Locale.setDefault(Locale.ENGLISH);
@@ -115,7 +117,8 @@ public class OracleMessageDAO implements MessageDAO {
     }
 
 
-    private String getAnnotationValue(String methodName) throws NullPointerException {
+    private String getAnnotationValue(String methodName)
+            throws NullPointerException {
         SqlStatement sqlStatement = Arrays.stream(getClass().getMethods())
                 .filter(method -> method.getName().equals(methodName))
                 .map(method -> method.getAnnotation(SqlStatement.class))

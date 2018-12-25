@@ -1,6 +1,7 @@
 package com.epam.chat.controllers.autorization;
 
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.entity.User;
 import lombok.extern.log4j.Log4j2;
 
@@ -29,7 +30,7 @@ public class ExitController extends HttpServlet {
             IOException {
         HttpSession session = request.getSession();
 
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
         if (user == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {

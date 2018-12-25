@@ -1,5 +1,6 @@
 package com.epam.chat.controllers.autorization;
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
@@ -31,7 +32,7 @@ public class CheckLogController extends HttpServlet {
             IOException {
 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
 
         if (user == null) {
             log.debug("New user entered into chat");

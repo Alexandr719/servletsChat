@@ -1,14 +1,11 @@
 package com.epam.chat.dao.oraclefactory;
 
-import com.epam.chat.mapper.ResourceInspector;
 import lombok.extern.log4j.Log4j2;
-import oracle.jdbc.pool.OracleDataSource;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 
 /**
