@@ -36,7 +36,7 @@ public class MessageController {
         try {
             Message msg = om.readValue(message, Message.class);
             messageDAO.sentMessage(msg);
-            broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
+             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException | EncodeException e) {
             log.error("Error with sending message" +e);
         }
@@ -49,11 +49,11 @@ public class MessageController {
         DAOFactory dao = DAOFactory.getDAOFactory();
         messageDAO = dao.getMessageDAO();
         //Todo
-        synchronized (this) {
+
             this.session = session;
             chatEndpoints.add(this);
             log.debug("Queue contains " + chatEndpoints.size() + " elements");
-        }
+
     }
 
     @OnClose
@@ -73,7 +73,7 @@ public class MessageController {
                 try {
                     endpoint.session.getBasicRemote().sendText(message);
                 } catch (IOException e) {
-                    log.error("Error with notify"+e);
+                    log.error("Error with notify", e);
                 }
             }
         });

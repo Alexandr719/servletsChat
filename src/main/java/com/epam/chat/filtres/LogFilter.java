@@ -13,7 +13,7 @@ import java.io.IOException;
 public class LogFilter implements Filter {
     public void destroy() {
     }
-
+//Todo getUsersList list only when session exist
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;

@@ -13,11 +13,11 @@ public interface UserDAO {
 
     void login(User loginingUser);
 
-    boolean isLogged(User user);
+    boolean isUserExist(User user);
 
-    boolean checkLogIn(User user);
+    boolean checkAuthorization(User user);
 
-    List<User> getAllLogged(int count);
+    List<User> getUsersList(int count);
 
     User getUser(User user);
 

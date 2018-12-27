@@ -1,11 +1,9 @@
 package com.epam.chat.controllers.mainpage;
 
-import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
-import org.owasp.encoder.Encode;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +25,7 @@ public class UserListController extends HttpServlet {
     private static final long serialVersionUID = 1;
     private final static int MAX_LENGTH_USERLIST = 100;
 
-
+//Todo goget
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
             IOException {
@@ -35,9 +33,9 @@ public class UserListController extends HttpServlet {
                 .getAttribute("userDAO");
         EntityMapper mapper = new EntityMapper();
 
-        List<User> users = userDAO.getAllLogged(MAX_LENGTH_USERLIST);
+        List<User> users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
-
+//todo
         response.setContentType("application/json");
         response.getWriter().println(mapper.convertToJSON(users));
     }

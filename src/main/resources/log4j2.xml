@@ -21,7 +21,7 @@
         <Root level="info">
             <AppenderRef ref="STDOUT" level="info"/>
         </Root>
-        <Logger name="com.epam" level="debug">
+        <Logger name="com.epam.chat" level="debug">
             <AppenderRef ref="RollingFile" level="debug"/>
         </Logger>
 

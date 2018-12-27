@@ -39,6 +39,7 @@ public class CheckLogController extends HttpServlet {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             log.debug("User with id=" + user.getId() + "entered into chat");
+            //ToDo new Class
             response.setContentType("application/json");
             response.getWriter().write(new EntityMapper().convertToJSON(user));
         }

@@ -26,7 +26,7 @@ public class OracleUserDAO implements UserDAO {
 
     private static final String USER_ROLE = "USER";
 
-    @SqlStatement(
+    @SqlStatement(key ="GET_MESSAGES",
             value = "INSERT INTO SERVLETUSER (ID, LOGIN, FIRSTNAME, LASTNAME," +
                     " EMAIL, PASSWORD, ROLE) VALUES " +
                     "(SERVETUSERSSEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)")
@@ -59,9 +59,10 @@ public class OracleUserDAO implements UserDAO {
         }
     }
 
-    @SqlStatement(value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ?)")
+    @SqlStatement(key ="GET_MESSAGES", value = "SELECT * FROM SERVLETUSER " +
+            "WHERE (LOGIN = ?)")
     @Override
-    public boolean isLogged(User user) {
+    public boolean isUserExist(User user) {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
@@ -73,23 +74,22 @@ public class OracleUserDAO implements UserDAO {
         if (sqlMessage == null) {
             log.error("SqlStatement is null");
         }
+        boolean isUserExist = false;
         try (Connection con = dataSource.getConnection(); PreparedStatement ps
                 = createPreparedStatement(con, sqlMessage, user.getLogin());
              ResultSet rs =
                      ps.executeQuery()) {
-
-            if (!rs.isBeforeFirst()) {
-                return false;
-            }
+             isUserExist = rs.isBeforeFirst();
         } catch (SQLException e) {
             log.error("Can't check is Logging " + e);
         }
-        return true;
+        return isUserExist;
     }
 
-    @SqlStatement(value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ?)")
+    @SqlStatement(key ="GET_MESSAGES", value = "SELECT * FROM SERVLETUSER " +
+            "WHERE (LOGIN = ?)")
     @Override
-    public boolean checkLogIn(User user) {
+    public boolean checkAuthorization(User user) {
         Locale.setDefault(Locale.ENGLISH);
 
         User checkedUser = new User();
@@ -125,9 +125,10 @@ public class OracleUserDAO implements UserDAO {
 
     }
 
-    @SqlStatement(value = "SELECT * FROM SERVLETUSER WHERE 1=1 AND ROWNUM <= ?")
+    @SqlStatement(key ="GET_MESSAGES", value = "SELECT * FROM SERVLETUSER " +
+            "WHERE 1=1 AND ROWNUM <= ?")
     @Override
-    public List<User> getAllLogged(int count) {
+    public List<User> getUsersList(int count) {
         Locale.setDefault(Locale.ENGLISH);
 
         List<User> loggedUsers = new ArrayList<>();
@@ -162,7 +163,7 @@ public class OracleUserDAO implements UserDAO {
 
     }
 
-    @SqlStatement(
+    @SqlStatement(key ="GET_MESSAGES",
             value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ? " +
                     "AND PASSWORD = ?)")
     @Override

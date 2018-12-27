@@ -62,10 +62,11 @@ public class RegistrationController extends HttpServlet {
                 e.printStackTrace();
             }
 
-        }else if(userDAO.isLogged(user)){
+        } else if (userDAO.isUserExist(user)) {
             log.debug("User with this login already exist");
             try {
-                response.sendError(777, "User with this login already exist");
+                response.sendError(777, "User with this login already" +
+                        " exist");
             } catch (IOException e) {
                 e.printStackTrace();
             }

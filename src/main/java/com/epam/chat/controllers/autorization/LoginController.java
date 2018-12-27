@@ -2,13 +2,11 @@ package com.epam.chat.controllers.autorization;
 
 
 import com.epam.chat.ChatConstants;
-import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
 import lombok.extern.log4j.Log4j2;
-import org.owasp.encoder.Encode;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -62,7 +60,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                 log.error("IOException with sendError method", e);
             }
 
-        } else if (!userDAO.isLogged(user)) {
+        } else if (!userDAO.isUserExist(user)) {
             try {
                 log.debug("User with this login already exist");
                 response.sendError(409);
@@ -70,7 +68,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                 log.error("IOException with sendError method", e);
             }
 
-        } else if (!userDAO.checkLogIn(user)) {
+        } else if (!userDAO.checkAuthorization(user)) {
             try {
                 log.debug("User login and password  are wrong");
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
