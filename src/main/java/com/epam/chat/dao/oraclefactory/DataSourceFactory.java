@@ -15,7 +15,6 @@ import javax.sql.DataSource;
  */
 @Log4j2
 class DataSourceFactory {
-
     /** Create connection to oracle DataBase
      * @return DataSource
      */
