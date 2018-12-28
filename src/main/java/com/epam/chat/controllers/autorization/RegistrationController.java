@@ -2,6 +2,7 @@ package com.epam.chat.controllers.autorization;
 
 
 import com.epam.chat.ChatConstants;
+import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
@@ -26,6 +27,7 @@ import java.io.IOException;
 public class RegistrationController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
+    private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws
@@ -48,8 +50,6 @@ public class RegistrationController extends HttpServlet {
     private User checkRegisteredOpportunities(HttpServletRequest request,
                                               HttpServletResponse response) {
         User regUser = null;
-        UserDAO userDAO = (UserDAO) request.getServletContext()
-                .getAttribute(ChatConstants.USER_DAO);
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
 
@@ -82,5 +82,10 @@ public class RegistrationController extends HttpServlet {
         return new InputsValidator().validateUser(user);
     }
 
+    @Override
+    public void init() throws ServletException {
+        DAOFactory dao = DAOFactory.getDAOFactory();
+        userDAO = dao.getUserDAO();
+    }
 }
 

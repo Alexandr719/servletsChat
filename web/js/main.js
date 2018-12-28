@@ -20,11 +20,24 @@ $.postJSON = function (url, data, callback, error) {
         'error': error
     });
 };
+$.doDelete = function (url, data, callback, error) {
+    return jQuery.ajax({
+        'type': 'DELETE',
+        'url': url,
+        'contentType': 'application/json',
+        'data': data,
+        'dataType': 'json',
+        'success': callback,
+        'error': error
+    });
+};
+
+
 
 checkLogIn();
 
 $("#exit_button").click(function () {
-    $.postJSON("exit", null, function (data) {
+    $.doDelete("exit", null, function (data) {
         console.log("Click exit!!!");
         showRegistration();
     }, function (e) {
@@ -74,25 +87,23 @@ function innerUserInfo(user) {
 }
 
 function fillMessages() {
-    $.postJSON("getmessages", null, function (data) {
+    $.get("getmessages", function (data) {
         $("#main_messages_list").empty();
         data.forEach(function (item) {
             $("#main_messages_list").append("<li>" + escapeHtml(item.user.login
                 + " : " + item.message) + "</li>");
         })
-    }, function (e) {
-        alert("Error with messages");
     });
 }
 
 function fillUsers() {
-    $.postJSON("getusers", null, function (data) {
+
+    $.get("getusers",  function (data) {
+        console.log("dsadasd");
         $("#user_list").empty();
         data.forEach(function (item) {
             $("#user_list").append("<li>" + escapeHtml(item.login) + "</li>");
         });
-    }, function (e) {
-        alert("Error with users");
     });
 }
 

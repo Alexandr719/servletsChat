@@ -2,6 +2,7 @@ package com.epam.chat.controllers.autorization;
 
 
 import com.epam.chat.ChatConstants;
+import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
@@ -25,8 +26,7 @@ import java.io.IOException;
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1;
-
-
+    private  UserDAO userDAO;
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
@@ -50,8 +50,6 @@ public class LoginController extends javax.servlet.http.HttpServlet {
     private User checkLoginOpportunities(HttpServletRequest request,
                                          HttpServletResponse response) {
         User logUser = null;
-        UserDAO userDAO = (UserDAO) request.getServletContext()
-                .getAttribute(ChatConstants.USER_DAO);
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
 
@@ -89,4 +87,9 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         return new InputsValidator().validateUser(user);
     }
 
+    @Override
+    public void init() throws ServletException {
+        DAOFactory dao = DAOFactory.getDAOFactory();
+        userDAO = dao.getUserDAO();
+    }
 }

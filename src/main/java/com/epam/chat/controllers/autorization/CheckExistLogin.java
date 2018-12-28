@@ -1,6 +1,7 @@
 package com.epam.chat.controllers.autorization;
 
-import com.epam.chat.ChatConstants;
+
+import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
@@ -17,10 +18,12 @@ import java.io.IOException;
 @Log4j2
 @WebServlet(name = "CheckExistLogin", urlPatterns = "/existlogin")
 public class CheckExistLogin extends HttpServlet {
+
+    private UserDAO userDAO;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        UserDAO userDAO = (UserDAO) request.getServletContext()
-                .getAttribute(ChatConstants.USER_DAO);
+
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
         ServiceMessage serviceMessage = null;
@@ -35,7 +38,9 @@ public class CheckExistLogin extends HttpServlet {
         response.getWriter().write(mapper.convertToJSON(serviceMessage));
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    @Override
+    public void init() throws ServletException {
+        DAOFactory dao = DAOFactory.getDAOFactory();
+        userDAO = dao.getUserDAO();
     }
 }

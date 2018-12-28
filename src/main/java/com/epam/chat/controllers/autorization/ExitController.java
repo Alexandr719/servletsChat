@@ -25,7 +25,7 @@ public class ExitController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
 
-    protected void doPost(HttpServletRequest request,
+    protected void doDelete(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
             IOException {
         HttpSession session = request.getSession();
@@ -41,9 +41,4 @@ public class ExitController extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request,
-                         HttpServletResponse response) throws ServletException,
-            IOException {
-
-    }
-}
+  }
