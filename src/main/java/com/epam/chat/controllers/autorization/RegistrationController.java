@@ -72,7 +72,7 @@ public class RegistrationController extends HttpServlet {
             }
         } else {
             userDAO.login(user);
-            regUser = user;
+            regUser = userDAO.getUser(user);
             log.debug("Success registration");
         }
         return regUser;

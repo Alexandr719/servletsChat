@@ -1,6 +1,9 @@
 package com.epam.chat.entity;
 
 
+import com.epam.chat.dao.DAOFactory;
+import com.epam.chat.dao.MessageDAO;
+import com.epam.chat.dao.UserDAO;
 import lombok.Data;
 import lombok.ToString;
 
@@ -48,6 +51,7 @@ public class User implements Serializable {
 
     /** Field role (ADMIN or USER) */
     private String role;
+
 
 
 }

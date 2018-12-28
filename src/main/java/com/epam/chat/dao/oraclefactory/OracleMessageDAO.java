@@ -7,7 +7,7 @@ import com.epam.chat.entity.User;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
-import java.io.IOException;
+
 import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,26 +32,27 @@ public class OracleMessageDAO implements MessageDAO {
                     "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
     public void sentMessage(Message message) {
-        Locale.setDefault(Locale.ENGLISH);
-        String sqlMessage = null;
 
+        DataSource dataSource = DataSourceFactory.getOracleDataSource();
+
+        String sqlMessage = null;
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
-
         sqlMessage = getAnnotationValue(methodName);
         if (sqlMessage == null) {
             log.error("SqlStatement is null");
         }
-
-        DataSource dataSource = DataSourceFactory.getOracleDataSource();
+        System.out.println(sqlMessage);
         try (Connection con = dataSource.getConnection(); PreparedStatement ps =
                 con.prepareStatement(sqlMessage)) {
             ps.setInt(1, message.getUser().getId());
             ps.setString(2, message.getMessage());
             ps.execute();
         } catch (SQLException e) {
-            log.error("Cant add new message into db :" + e);
+            log.error("Can't add new user" + e);
+
         }
+
 
     }
 
@@ -68,12 +69,8 @@ public class OracleMessageDAO implements MessageDAO {
         }.getClass().getEnclosingMethod().getName();
 
         sqlMessage = getAnnotationValue(methodName);
-        if (sqlMessage == null) {
-            log.error("SqlStatement is null");
-        }
 
-
-        List<Message> messages = new ArrayList<>();
+         List<Message> messages = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = createPreparedStatement(con,
@@ -82,8 +79,6 @@ public class OracleMessageDAO implements MessageDAO {
             while (rs.next()) {
                 Message message = new Message();
                 User user = new User();
-                //Todo goodResulSet
-
                 message.setId(rs.getInt("ID"));
                 user.setId(rs.getInt("USERID"));
                 message.setMessage(rs.getString("TEXTMESSAGE"));
@@ -98,6 +93,7 @@ public class OracleMessageDAO implements MessageDAO {
         } catch (SQLException e) {
             log.error("Cant get last messages: " , e);
         }
+        System.out.println(messages);
         return messages;
     }
 

@@ -4,7 +4,7 @@
     width: 30px;
     top: -34px;
     left: 110%;
-    z-index: -100;
+    z-index: -999;
 }
 
 .checkMark_true{

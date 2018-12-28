@@ -8,6 +8,7 @@ import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
 import lombok.extern.log4j.Log4j2;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ import java.io.IOException;
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1;
+
+
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
@@ -77,7 +80,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             }
 
         } else {
-            logUser = user;
+            logUser = userDAO.getUser(user);
         }
         return logUser;
     }
