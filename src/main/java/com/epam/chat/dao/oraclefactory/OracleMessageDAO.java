@@ -4,11 +4,10 @@ import com.epam.chat.SqlStatement;
 import com.epam.chat.dao.MessageDAO;
 import com.epam.chat.entity.Message;
 import com.epam.chat.entity.User;
+import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
-
-import java.security.InvalidParameterException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,9 +25,9 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class OracleMessageDAO implements MessageDAO {
-//Todo add key annotation
+    //Todo add key annotation
     @SqlStatement(key = "ADD_NEW_MESSAGE",
-            value = "INSERT INTO SERVLETMESSAGE (ID, USERID, TEXTMESSAGE) " +
+            value = "INSERT INTO SERVLETMESSAGE (MESSAGEID, USERID, TEXTMESSAGE) " +
                     "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
     public void sentMessage(Message message) {
@@ -36,41 +35,33 @@ public class OracleMessageDAO implements MessageDAO {
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
         String sqlMessage = null;
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        sqlMessage = getAnnotationValue(methodName);
-        if (sqlMessage == null) {
-            log.error("SqlStatement is null");
-        }
-        System.out.println(sqlMessage);
+        sqlMessage = getSQLstatement("ADD_NEW_MESSAGE");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps =
                 con.prepareStatement(sqlMessage)) {
             ps.setInt(1, message.getUser().getId());
             ps.setString(2, message.getMessage());
             ps.execute();
         } catch (SQLException e) {
-            log.error("Can't add new user" + e);
+            log.error("Can't add new user", e);
 
         }
-
-
     }
 
-    @SqlStatement(key ="GET_MESSAGES",
+    @SqlStatement(key = "GET_MESSAGES",
             value = "SELECT * FROM SERVLETMESSAGE JOIN SERVLETUSER on " +
-                    "SERVLETUSER.id = SERVLETMESSAGE.USERID WHERE 1=1 " +
+                    "SERVLETUSER.USERID = SERVLETMESSAGE.USERID WHERE 1=1 " +
                     "AND ROWNUM <= ?")
     @Override
     public List<Message> getLastMessages(int count) {
         Locale.setDefault(Locale.ENGLISH);
         String sqlMessage = null;
+        EntityMapper mapper = new EntityMapper();
 
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
 
-        sqlMessage = getAnnotationValue(methodName);
+        sqlMessage = getSQLstatement("GET_MESSAGES");
 
-         List<Message> messages = new ArrayList<>();
+
+        List<Message> messages = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         try (Connection con = dataSource.getConnection();
              PreparedStatement ps = createPreparedStatement(con,
@@ -78,22 +69,16 @@ public class OracleMessageDAO implements MessageDAO {
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 Message message = new Message();
-                User user = new User();
-                message.setId(rs.getInt("ID"));
-                user.setId(rs.getInt("USERID"));
+                User user = mapper.getUserFromDB(rs);
+                message.setId(rs.getInt("MESSAGEID"));
                 message.setMessage(rs.getString("TEXTMESSAGE"));
-                user.setLogin(rs.getString("LOGIN"));
-                user.setFirstName(rs.getString("FIRSTNAME"));
-                user.setLastName(rs.getString("LASTNAME"));
-                user.setEmail(rs.getString("EMAIL"));
-                user.setRole(rs.getString("ROLE"));
                 message.setUser(user);
                 messages.add(message);
             }
         } catch (SQLException e) {
-            log.error("Cant get last messages: " , e);
+            log.error("Cant get last messages: ", e);
         }
-        System.out.println(messages);
+
         return messages;
     }
 
@@ -105,16 +90,16 @@ public class OracleMessageDAO implements MessageDAO {
         return ps;
     }
 
-    private String getAnnotationValue(String methodName)
-            throws InvalidParameterException {
-        //todo get method name
-        SqlStatement sqlStatement = Arrays.stream(getClass().getMethods())
-                .filter(method -> method.getName().equals(methodName))
+    private String getSQLstatement(String key) {
+        List<SqlStatement> sqlStatements = Arrays.stream(getClass().getMethods())
                 .map(method -> method.getAnnotation(SqlStatement.class))
-                .collect(Collectors.toList()).get(0);
-        if(sqlStatement.value() == null){
-            throw new InvalidParameterException();
+                .collect(Collectors.toList());
+
+        for (SqlStatement sqlStatement : sqlStatements) {
+            if (key.equals(sqlStatement.key())) {
+                return sqlStatement.value();
+            }
         }
-        return sqlStatement.value();
+        return null;
     }
 }

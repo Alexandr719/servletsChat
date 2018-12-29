@@ -9,6 +9,8 @@ import org.owasp.encoder.Encode;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * EntityMapper
@@ -50,6 +52,17 @@ public class EntityMapper {
         log.debug("Put java object into json format: " + objectInJson);
       //  return Encode.forHtmlContent(objectInJson);
         return objectInJson;
+    }
+
+    public User getUserFromDB(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getInt("USERID"));
+        user.setLogin(rs.getString("LOGIN"));
+        user.setFirstName(rs.getString("FIRSTNAME"));
+        user.setLastName(rs.getString("LASTNAME"));
+        user.setEmail(rs.getString("EMAIL"));
+        user.setRole(rs.getString("ROLE"));
+        return user;
     }
 }
 

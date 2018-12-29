@@ -3,6 +3,7 @@ package com.epam.chat.dao.oraclefactory;
 import com.epam.chat.SqlStatement;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
+import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 
 import javax.sql.DataSource;
@@ -26,23 +27,17 @@ public class OracleUserDAO implements UserDAO {
 
     private static final String USER_ROLE = "USER";
 
-    @SqlStatement(key ="GET_MESSAGES",
-            value = "INSERT INTO SERVLETUSER (ID, LOGIN, FIRSTNAME, LASTNAME," +
+    @SqlStatement(key ="LOGIN_USER",
+            value = "INSERT INTO SERVLETUSER (USERID, LOGIN, FIRSTNAME, LASTNAME," +
                     " EMAIL, PASSWORD, ROLE) VALUES " +
                     "(SERVETUSERSSEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)")
     @Override
-    public void login(User loginUser) {
+    public void login(User loginUser) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
         String sqlMessage = null;
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        sqlMessage = getAnnotationValue(methodName);
-        if (sqlMessage == null) {
-            log.error("SqlStatement is null");
-        }
-
+        sqlMessage = getSQLstatement("LOGIN_USER");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps =
                 con.prepareStatement(sqlMessage)) {
 
@@ -54,12 +49,13 @@ public class OracleUserDAO implements UserDAO {
             ps.setString(6, USER_ROLE);
             ps.execute();
         } catch (SQLException e) {
-            log.error("Can't add new user" + e);
+            log.error("Can't add new user", e);
+            throw new SQLException();
 
         }
     }
 
-    @SqlStatement(key ="GET_MESSAGES", value = "SELECT * FROM SERVLETUSER " +
+    @SqlStatement(key ="IS_USER_EXIST", value = "SELECT * FROM SERVLETUSER " +
             "WHERE (LOGIN = ?)")
     @Override
     public boolean isUserExist(User user) {
@@ -68,9 +64,7 @@ public class OracleUserDAO implements UserDAO {
 
 
         String sqlMessage = null;
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        sqlMessage = getAnnotationValue(methodName);
+        sqlMessage = getSQLstatement("IS_USER_EXIST");
         if (sqlMessage == null) {
             log.error("SqlStatement is null");
         }
@@ -81,12 +75,12 @@ public class OracleUserDAO implements UserDAO {
                      ps.executeQuery()) {
              isUserExist = rs.isBeforeFirst();
         } catch (SQLException e) {
-            log.error("Can't check is Logging " + e);
+            log.error("Can't check is Logging ", e);
         }
         return isUserExist;
     }
 
-    @SqlStatement(key ="GET_MESSAGES", value = "SELECT * FROM SERVLETUSER " +
+    @SqlStatement(key ="CHECK_AUTORIZATION", value = "SELECT * FROM SERVLETUSER " +
             "WHERE (LOGIN = ?)")
     @Override
     public boolean checkAuthorization(User user) {
@@ -95,13 +89,7 @@ public class OracleUserDAO implements UserDAO {
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         String sqlMessage = null;
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        sqlMessage = getAnnotationValue(methodName);
-        if (sqlMessage == null) {
-            log.error("SqlStatement is null");
-        }
-
+        sqlMessage = getSQLstatement("CHECK_AUTORIZATION");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps
                 = createPreparedStatement(con, sqlMessage, user.getLogin());
              ResultSet rs =
@@ -117,7 +105,7 @@ public class OracleUserDAO implements UserDAO {
                     && user.getLogin().equals(checkedUser.getLogin()));
 
         } catch (SQLException e) {
-            log.error("Can't check user" + e);
+            log.error("Can't check user", e);
         }
 
 
@@ -125,7 +113,7 @@ public class OracleUserDAO implements UserDAO {
 
     }
 
-    @SqlStatement(key ="GET_MESSAGES", value = "SELECT * FROM SERVLETUSER " +
+    @SqlStatement(key ="GET_USER_LIST", value = "SELECT * FROM SERVLETUSER " +
             "WHERE 1=1 AND ROWNUM <= ?")
     @Override
     public List<User> getUsersList(int count) {
@@ -134,28 +122,18 @@ public class OracleUserDAO implements UserDAO {
         List<User> loggedUsers = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         String sqlMessage = null;
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        sqlMessage = getAnnotationValue(methodName);
-        if (sqlMessage == null) {
-            log.error("SqlStatement is null");
-        }
+        sqlMessage = getSQLstatement("GET_USER_LIST");
+        EntityMapper mapper = new EntityMapper();
         try (Connection con = dataSource.getConnection(); PreparedStatement ps
                 = createPreparedStatement(con, sqlMessage, count);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                User user = new User();
-                user.setId(rs.getInt("ID"));
-                user.setLogin(rs.getString("LOGIN"));
-                user.setFirstName(rs.getString("FIRSTNAME"));
-                user.setLastName(rs.getString("LASTNAME"));
-                user.setEmail(rs.getString("EMAIL"));
-                user.setRole(rs.getString("ROLE"));
+                User user = mapper.getUserFromDB(rs);
                 loggedUsers.add(user);
             }
 
         } catch (SQLException e) {
-            log.error("Can't take all users from db" + e);
+            log.error("Can't take all users from db", e);
         }
 
 
@@ -163,36 +141,26 @@ public class OracleUserDAO implements UserDAO {
 
     }
 
-    @SqlStatement(key ="GET_MESSAGES",
+    @SqlStatement(key ="GET_USER",
             value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ? " +
                     "AND PASSWORD = ?)")
     @Override
     public User getUser(User user) {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
+        EntityMapper mapper = new EntityMapper();
 
         String sqlMessage = null;
-        String methodName = new Object() {
-        }.getClass().getEnclosingMethod().getName();
-        sqlMessage = getAnnotationValue(methodName);
-        if (sqlMessage == null) {
-            log.error("SqlStatement is null");
-        }
-
+        sqlMessage = getSQLstatement("GET_USER");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps
                 = createPreparedStatement(con, sqlMessage, user.getLogin(),
                 user.getPassword
                         ()); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                user.setId(rs.getInt("ID"));
-                user.setFirstName(rs.getString("FIRSTNAME"));
-                user.setLastName(rs.getString("LASTNAME"));
-                user.setEmail(rs.getString("EMAIL"));
-                user.setRole(rs.getString("ROLE"));
+                 user = mapper.getUserFromDB(rs);
             }
-
         } catch (SQLException e) {
-            log.error("Can't take user from db " + e);
+            log.error("Can't take user from db " , e);
         }
         return user;
     }
@@ -224,13 +192,17 @@ public class OracleUserDAO implements UserDAO {
         return ps;
     }
 
-    private String getAnnotationValue(String methodName)
-            throws NullPointerException {
-        SqlStatement sqlStatement = Arrays.stream(getClass().getMethods())
-                .filter(method -> method.getName().equals(methodName))
+    private String getSQLstatement(String key) {
+        List<SqlStatement> sqlStatements = Arrays.stream(getClass().getMethods())
                 .map(method -> method.getAnnotation(SqlStatement.class))
-                .collect(Collectors.toList()).get(0);
-        return sqlStatement.value();
+                .collect(Collectors.toList());
+
+        for (SqlStatement sqlStatement : sqlStatements) {
+            if (key.equals(sqlStatement.key())) {
+                return sqlStatement.value();
+            }
+        }
+        return null;
     }
 
 }

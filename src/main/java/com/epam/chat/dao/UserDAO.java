@@ -2,6 +2,7 @@ package com.epam.chat.dao;
 
 import com.epam.chat.entity.User;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface UserDAO {
 
-    void login(User loginingUser);
+    void login(User loginingUser) throws SQLException;
 
     boolean isUserExist(User user);
 
