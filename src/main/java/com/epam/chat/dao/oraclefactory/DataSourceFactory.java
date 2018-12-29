@@ -25,7 +25,7 @@ class DataSourceFactory {
             ctx = new InitialContext();
             ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/MyLocalDB");
         } catch (NamingException e) {
-           log.error("Can't create ds connection" + e);
+           log.error("Can't create ds connection", e);
         }
         return ds;
     }

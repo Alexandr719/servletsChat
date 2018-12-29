@@ -40,7 +40,6 @@ public class MessageController {
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException |SQLException| EncodeException e) {
             log.error("Error with sending message" +e);
-
         }
     }
 
@@ -70,7 +69,6 @@ public class MessageController {
 
     private static void broadcast(String message)
             throws IOException, EncodeException {
-
         chatEndpoints.forEach(endpoint -> {
             synchronized (endpoint) {
                 try {

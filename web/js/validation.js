@@ -27,44 +27,46 @@ let delay = (function () {
 
 
 function validate(event, value) {
-     if (event.id === "reg_login" && event.name === "login"){
-         if(value.length > 0 && value.length < 20) {
-             let dataValue = '{ "login": "' + value + '"}';
-             $.postJSON("existlogin", dataValue, function (data) {
-                 insertChacker(event, data.condition);
-                 if (data.condition === true) {
-                     $("#error").text("");
+    if (event.id === "reg_login" && event.name === "login") {
+        if (value.length > 0 && value.length < 20) {
+            let dataValue = '{ "login": "' + value + '"}';
+            $.postJSON("existlogin", dataValue, function (data) {
+                insertChacker(event, data.condition);
+                if (data.condition === true) {
+                    $("#error").text("");
 
-                 } else {
-                     $("#error").text(data.cause);
+                } else {
+                    $("#error").text(data.cause);
 
-                 }
-             });
-         }else{
-             insertChacker(event, false);
-      }}
-      else if (event.name === "firstName"){
-        if(value.length > 0 && value.length < 20) {
-            insertChacker(event, true);
-        }else{
-                insertChacker(event, false);
-            }
-    } else if (event.name === "lastName"){
-        if(value.length > 0 && value.length < 20) {
-            insertChacker(event, true);
-        }else{
+                }
+            });
+        } else {
             insertChacker(event, false);
         }
-    } else if (event.name === "email"){
-        if(value.length > 0 && value.length < 20 && value.includes("@") && value.includes(".")) {
+    }
+    else if (event.name === "firstName") {
+        if (value.length > 0 && value.length < 20) {
             insertChacker(event, true);
-        }else{
+        } else {
             insertChacker(event, false);
         }
-    } else if (event.name === "password"){
-        if(value.length > 0 && value.length < 20) {
+    } else if (event.name === "lastName") {
+        if (value.length > 0 && value.length < 20) {
             insertChacker(event, true);
-        }else{
+        } else {
+            insertChacker(event, false);
+        }
+    } else if (event.name === "email") {
+        if (value.length > 0 && value.length < 20 && value.includes("@")
+            && value.includes(".")) {
+            insertChacker(event, true);
+        } else {
+            insertChacker(event, false);
+        }
+    } else if (event.name === "password") {
+        if (value.length > 0 && value.length < 20) {
+            insertChacker(event, true);
+        } else {
             insertChacker(event, false);
         }
     }
@@ -73,7 +75,7 @@ function validate(event, value) {
 }
 
 function insertChacker(event, coundition) {
-    console.log(coundition);
+
     let chackMark = $(event).parent().find(".checkMark");
     chackMark.empty();
     if (coundition) {

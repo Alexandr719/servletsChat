@@ -26,7 +26,7 @@ import java.sql.SQLException;
 @WebServlet(name = "LoginController", urlPatterns = "/login")
 public class LoginController extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1;
-    private  UserDAO userDAO;
+    private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
@@ -48,7 +48,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
     }
 
     private User checkLoginOpportunities(HttpServletRequest request,
-                                         HttpServletResponse response) throws IOException {
+                                         HttpServletResponse response)
+            throws IOException {
         User logUser = null;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
@@ -83,7 +84,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                     logUser = userDAO.getUser(user);
                 }
             } catch (SQLException e) {
-                response.sendError(700,"The error occurred, contact to the administrator");
+                response.sendError(700,
+                        "The error occurred, contact to the administrator");
             }
         }
         return logUser;

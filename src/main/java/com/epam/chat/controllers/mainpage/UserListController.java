@@ -31,7 +31,7 @@ public class UserListController extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request,
-                          HttpServletResponse response) throws ServletException,
+                         HttpServletResponse response) throws ServletException,
             IOException {
         EntityMapper mapper = new EntityMapper();
 
@@ -39,7 +39,8 @@ public class UserListController extends HttpServlet {
         try {
             users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
         } catch (SQLException e) {
-          response.sendError(700,"The error occurred, contact to the administrator");
+            response.sendError(700,
+                    "The error occurred, contact to the administrator");
         }
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
 

@@ -22,23 +22,28 @@ public class CheckExistLogin extends HttpServlet {
 
     private UserDAO userDAO;
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    protected void doPost(HttpServletRequest request,
+                          HttpServletResponse response)
+            throws ServletException, IOException {
 
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
         ServiceMessage serviceMessage = null;
         try {
             if (userDAO.isUserExist(user)) {
-                serviceMessage = new ServiceMessage(false, "User with this login already exist");
-                log.debug("User with " + user.getLogin() + " login already exist");
+                serviceMessage = new ServiceMessage(false,
+                        "User with this login already exist");
+                log.debug("User with " + user.getLogin() +
+                        " login already exist");
 
             } else {
-                serviceMessage = new ServiceMessage(true, "User with this login isn't exist");
+                serviceMessage = new ServiceMessage(true,
+                        "User with this login isn't exist");
                 log.debug("User with " + user.getLogin() + "isn't exist");
             }
         } catch (SQLException e) {
-            response.sendError(700,"The error occurred, contact to the administrator");
+            response.sendError(700,
+                    "The error occurred, contact to the administrator");
         }
         response.getWriter().write(mapper.convertToJSON(serviceMessage));
     }

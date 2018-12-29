@@ -49,7 +49,8 @@ public class RegistrationController extends HttpServlet {
     }
 
     private User checkRegisteredOpportunities(HttpServletRequest request,
-                                              HttpServletResponse response) throws IOException {
+                                              HttpServletResponse response)
+            throws IOException {
         User regUser = null;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
@@ -79,7 +80,8 @@ public class RegistrationController extends HttpServlet {
                     log.debug("Success registration");
                 }
             } catch (SQLException e) {
-                response.sendError(700,"The error occurred, contact to the administrator");
+                response.sendError(700,
+                        "The error occurred, contact to the administrator");
             }
         }
         return regUser;
