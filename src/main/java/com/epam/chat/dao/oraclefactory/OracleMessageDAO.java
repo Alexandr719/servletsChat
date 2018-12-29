@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class OracleMessageDAO implements MessageDAO {
     //Todo add key annotation
     @SqlStatement(key = "ADD_NEW_MESSAGE",
-            value = "INSERT INTO SERVLETMESSAGE (MESSAGEID, USERID, TEXTMESSAGE) " +
+            value = "INSERT INTO MESSAGES (MESSAGEID, USERID, TEXTMESSAGE) " +
                     "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
     public void sentMessage(Message message) throws SQLException {
@@ -49,8 +49,8 @@ public class OracleMessageDAO implements MessageDAO {
     }
 
     @SqlStatement(key = "GET_MESSAGES",
-            value = "SELECT * FROM SERVLETMESSAGE JOIN SERVLETUSER on " +
-                    "SERVLETUSER.USERID = SERVLETMESSAGE.USERID WHERE 1=1 " +
+            value = "SELECT * FROM MESSAGES JOIN USERS on " +
+                    "USERS.USERID = MESSAGES.USERID WHERE 1=1 " +
                     "AND ROWNUM <= ?")
     @Override
     public List<Message> getLastMessages(int count) throws SQLException {

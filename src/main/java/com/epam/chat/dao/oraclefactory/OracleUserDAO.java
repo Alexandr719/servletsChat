@@ -28,7 +28,7 @@ public class OracleUserDAO implements UserDAO {
     private static final String USER_ROLE = "USER";
 
     @SqlStatement(key ="LOGIN_USER",
-            value = "INSERT INTO SERVLETUSER (USERID, LOGIN, FIRSTNAME, LASTNAME," +
+            value = "INSERT INTO USERS (USERID, LOGIN, FIRSTNAME, LASTNAME," +
                     " EMAIL, PASSWORD, ROLE) VALUES " +
                     "(SERVETUSERSSEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)")
     @Override
@@ -55,7 +55,7 @@ public class OracleUserDAO implements UserDAO {
         }
     }
 
-    @SqlStatement(key ="IS_USER_EXIST", value = "SELECT * FROM SERVLETUSER " +
+    @SqlStatement(key ="IS_USER_EXIST", value = "SELECT * FROM USERS " +
             "WHERE (LOGIN = ?)")
     @Override
     public boolean isUserExist(User user) throws SQLException {
@@ -81,7 +81,7 @@ public class OracleUserDAO implements UserDAO {
         return isUserExist;
     }
 
-    @SqlStatement(key ="CHECK_AUTORIZATION", value = "SELECT * FROM SERVLETUSER " +
+    @SqlStatement(key ="CHECK_AUTORIZATION", value = "SELECT * FROM USERS " +
             "WHERE (LOGIN = ?)")
     @Override
     public boolean checkAuthorization(User user) throws SQLException {
@@ -118,7 +118,7 @@ boolean authorizationCkeck = false;
 
     }
 
-    @SqlStatement(key ="GET_USER_LIST", value = "SELECT * FROM SERVLETUSER " +
+    @SqlStatement(key ="GET_USER_LIST", value = "SELECT * FROM USERS " +
             "WHERE 1=1 AND ROWNUM <= ?")
     @Override
     public List<User> getUsersList(int count) throws SQLException {
@@ -148,7 +148,7 @@ boolean authorizationCkeck = false;
     }
 
     @SqlStatement(key ="GET_USER",
-            value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ? " +
+            value = "SELECT * FROM USERS WHERE (LOGIN = ? " +
                     "AND PASSWORD = ?)")
     @Override
     public User getUser(User user) throws SQLException {

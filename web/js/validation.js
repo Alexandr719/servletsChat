@@ -27,31 +27,46 @@ let delay = (function () {
 
 
 function validate(event, value) {
-    let valid_condition = false;
-    if (event.id === "reg_login" && event.name === "login" && value.length > 0 && value.length < 20) {
-        let dataValue = '{ "login": "' + value + '"}';
-        $.postJSON("existlogin", dataValue, function (data) {
-            insertChacker(event, data.condition);
-            if (data.condition === true) {
-                $("#error").text("");
+     if (event.id === "reg_login" && event.name === "login"){
+         if(value.length > 0 && value.length < 20) {
+             let dataValue = '{ "login": "' + value + '"}';
+             $.postJSON("existlogin", dataValue, function (data) {
+                 insertChacker(event, data.condition);
+                 if (data.condition === true) {
+                     $("#error").text("");
 
-            } else {
-                $("#error").text(data.cause);
+                 } else {
+                     $("#error").text(data.cause);
 
+                 }
+             });
+         }else{
+             insertChacker(event, false);
+      }}
+      else if (event.name === "firstName"){
+        if(value.length > 0 && value.length < 20) {
+            insertChacker(event, true);
+        }else{
+                insertChacker(event, false);
             }
-        });
-    } else if (event.name === "firstName" && value.length > 0 && value.length < 20) {
-        valid_condition = true;
-        insertChacker(event, valid_condition);
-    } else if (event.name === "lastName" && value.length > 0 && value.length < 20) {
-        valid_condition = true;
-        insertChacker(event, valid_condition);
-    } else if (event.name === "email" && value.length > 0 && value.length < 20 && value.includes("@") && value.includes(".")) {
-        valid_condition = true;
-        insertChacker(event, valid_condition);
-    } else if (event.name === "password" && value.length > 0 && value.length < 20) {
-        valid_condition = true;
-        insertChacker(event, valid_condition);
+    } else if (event.name === "lastName"){
+        if(value.length > 0 && value.length < 20) {
+            insertChacker(event, true);
+        }else{
+            insertChacker(event, false);
+        }
+    } else if (event.name === "email"){
+        if(value.length > 0 && value.length < 20 && value.includes("@") && value.includes(".")) {
+            insertChacker(event, true);
+        }else{
+            insertChacker(event, false);
+        }
+    } else if (event.name === "password"){
+        if(value.length > 0 && value.length < 20) {
+            insertChacker(event, true);
+        }else{
+            insertChacker(event, false);
+        }
     }
 
 
