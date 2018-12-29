@@ -14,12 +14,12 @@ public interface UserDAO {
 
     void login(User loginingUser) throws SQLException;
 
-    boolean isUserExist(User user);
+    boolean isUserExist(User user) throws SQLException;
 
-    boolean checkAuthorization(User user);
+    boolean checkAuthorization(User user) throws SQLException;
 
-    List<User> getUsersList(int count);
+    List<User> getUsersList(int count) throws SQLException;
 
-    User getUser(User user);
+    User getUser(User user) throws SQLException;
 
 }

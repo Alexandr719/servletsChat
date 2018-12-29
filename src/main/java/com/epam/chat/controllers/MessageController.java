@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,12 +37,14 @@ public class MessageController {
         try {
             Message msg = om.readValue(message, Message.class);
             messageDAO.sentMessage(msg);
-             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
-        } catch (IOException | EncodeException e) {
+            broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
+        } catch (IOException |SQLException| EncodeException e) {
             log.error("Error with sending message" +e);
-        }
 
+        }
     }
+
+
 
     @OnOpen
     public void onOpen(Session session) {

@@ -58,7 +58,7 @@ public class OracleUserDAO implements UserDAO {
     @SqlStatement(key ="IS_USER_EXIST", value = "SELECT * FROM SERVLETUSER " +
             "WHERE (LOGIN = ?)")
     @Override
-    public boolean isUserExist(User user) {
+    public boolean isUserExist(User user) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
@@ -76,6 +76,7 @@ public class OracleUserDAO implements UserDAO {
              isUserExist = rs.isBeforeFirst();
         } catch (SQLException e) {
             log.error("Can't check is Logging ", e);
+            throw e;
         }
         return isUserExist;
     }
@@ -83,9 +84,11 @@ public class OracleUserDAO implements UserDAO {
     @SqlStatement(key ="CHECK_AUTORIZATION", value = "SELECT * FROM SERVLETUSER " +
             "WHERE (LOGIN = ?)")
     @Override
-    public boolean checkAuthorization(User user) {
+    public boolean checkAuthorization(User user) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
 
+
+boolean authorizationCkeck = false;
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         String sqlMessage = null;
@@ -101,22 +104,24 @@ public class OracleUserDAO implements UserDAO {
                     checkedUser.setPassword(rs.getString("PASSWORD"));
                 }
             }
-            return (user.getPassword().equals(checkedUser.getPassword())
+            authorizationCkeck = (user.getPassword().equals(checkedUser.getPassword())
                     && user.getLogin().equals(checkedUser.getLogin()));
 
         } catch (SQLException e) {
             log.error("Can't check user", e);
+            throw e;
+
         }
 
 
-        return false;
+        return authorizationCkeck;
 
     }
 
     @SqlStatement(key ="GET_USER_LIST", value = "SELECT * FROM SERVLETUSER " +
             "WHERE 1=1 AND ROWNUM <= ?")
     @Override
-    public List<User> getUsersList(int count) {
+    public List<User> getUsersList(int count) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
 
         List<User> loggedUsers = new ArrayList<>();
@@ -134,6 +139,7 @@ public class OracleUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error("Can't take all users from db", e);
+            throw e;
         }
 
 
@@ -145,7 +151,7 @@ public class OracleUserDAO implements UserDAO {
             value = "SELECT * FROM SERVLETUSER WHERE (LOGIN = ? " +
                     "AND PASSWORD = ?)")
     @Override
-    public User getUser(User user) {
+    public User getUser(User user) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         EntityMapper mapper = new EntityMapper();
@@ -161,6 +167,7 @@ public class OracleUserDAO implements UserDAO {
             }
         } catch (SQLException e) {
             log.error("Can't take user from db " , e);
+            throw e;
         }
         return user;
     }

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @Log4j2
 @WebServlet(name = "CheckExistLogin", urlPatterns = "/existlogin")
@@ -27,13 +28,17 @@ public class CheckExistLogin extends HttpServlet {
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
         ServiceMessage serviceMessage = null;
-        if (userDAO.isUserExist(user)) {
-            serviceMessage = new ServiceMessage(false, "User with this login already exist");
-            log.debug("User with " + user.getLogin() + " login already exist");
+        try {
+            if (userDAO.isUserExist(user)) {
+                serviceMessage = new ServiceMessage(false, "User with this login already exist");
+                log.debug("User with " + user.getLogin() + " login already exist");
 
-        } else {
-            serviceMessage = new ServiceMessage(true, "User with this login isn't exist");
-            log.debug("User with " + user.getLogin() + "isn't exist");
+            } else {
+                serviceMessage = new ServiceMessage(true, "User with this login isn't exist");
+                log.debug("User with " + user.getLogin() + "isn't exist");
+            }
+        } catch (SQLException e) {
+            response.sendError(700,"The error occurred, contact to the administrator");
         }
         response.getWriter().write(mapper.convertToJSON(serviceMessage));
     }

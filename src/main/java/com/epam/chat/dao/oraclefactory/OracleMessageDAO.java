@@ -30,7 +30,7 @@ public class OracleMessageDAO implements MessageDAO {
             value = "INSERT INTO SERVLETMESSAGE (MESSAGEID, USERID, TEXTMESSAGE) " +
                     "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
-    public void sentMessage(Message message) {
+    public void sentMessage(Message message) throws SQLException {
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
@@ -43,6 +43,7 @@ public class OracleMessageDAO implements MessageDAO {
             ps.execute();
         } catch (SQLException e) {
             log.error("Can't add new user", e);
+            throw e;
 
         }
     }
@@ -52,7 +53,7 @@ public class OracleMessageDAO implements MessageDAO {
                     "SERVLETUSER.USERID = SERVLETMESSAGE.USERID WHERE 1=1 " +
                     "AND ROWNUM <= ?")
     @Override
-    public List<Message> getLastMessages(int count) {
+    public List<Message> getLastMessages(int count) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
         String sqlMessage = null;
         EntityMapper mapper = new EntityMapper();
@@ -77,6 +78,7 @@ public class OracleMessageDAO implements MessageDAO {
             }
         } catch (SQLException e) {
             log.error("Cant get last messages: ", e);
+            throw e;
         }
 
         return messages;

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Servlet  RegistrationController
@@ -48,7 +49,7 @@ public class RegistrationController extends HttpServlet {
     }
 
     private User checkRegisteredOpportunities(HttpServletRequest request,
-                                              HttpServletResponse response) {
+                                              HttpServletResponse response) throws IOException {
         User regUser = null;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
@@ -62,18 +63,24 @@ public class RegistrationController extends HttpServlet {
                 e.printStackTrace();
             }
 
-        } else if (userDAO.isUserExist(user)) {
-            log.debug("User with this login already exist");
-            try {
-                response.sendError(777, "User with this login already" +
-                        " exist");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         } else {
-            userDAO.login(user);
-            regUser = userDAO.getUser(user);
-            log.debug("Success registration");
+            try {
+                if (userDAO.isUserExist(user)) {
+                    log.debug("User with this login already exist");
+                    try {
+                        response.sendError(777, "User with this login already" +
+                                " exist");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    userDAO.login(user);
+                    regUser = userDAO.getUser(user);
+                    log.debug("Success registration");
+                }
+            } catch (SQLException e) {
+                response.sendError(700,"The error occurred, contact to the administrator");
+            }
         }
         return regUser;
     }

@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Servlet  LoginController
@@ -48,7 +49,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
     }
 
     private User checkLoginOpportunities(HttpServletRequest request,
-                                         HttpServletResponse response) {
+                                         HttpServletResponse response) throws IOException {
         User logUser = null;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUser(request);
@@ -61,24 +62,30 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                 log.error("IOException with sendError method", e);
             }
 
-        } else if (!userDAO.isUserExist(user)) {
-            try {
-                log.debug("User with this login already exist");
-                response.sendError(409);
-            } catch (IOException e) {
-                log.error("IOException with sendError method", e);
-            }
-
-        } else if (!userDAO.checkAuthorization(user)) {
-            try {
-                log.debug("User login and password  are wrong");
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            } catch (IOException e) {
-                log.error("IOException with sendError method", e);
-            }
-
         } else {
-            logUser = userDAO.getUser(user);
+            try {
+                if (!userDAO.isUserExist(user)) {
+                    try {
+                        log.debug("User with this login already exist");
+                        response.sendError(409);
+                    } catch (IOException e) {
+                        log.error("IOException with sendError method", e);
+                    }
+
+                } else if (!userDAO.checkAuthorization(user)) {
+                    try {
+                        log.debug("User login and password  are wrong");
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                    } catch (IOException e) {
+                        log.error("IOException with sendError method", e);
+                    }
+
+                } else {
+                    logUser = userDAO.getUser(user);
+                }
+            } catch (SQLException e) {
+                response.sendError(700,"The error occurred, contact to the administrator");
+            }
         }
         return logUser;
     }

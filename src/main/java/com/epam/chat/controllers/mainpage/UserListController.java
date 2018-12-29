@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -23,19 +24,25 @@ import java.util.List;
 @Log4j2
 @WebServlet(name = "UserListController", urlPatterns = "/getusers")
 public class UserListController extends HttpServlet {
+
     private static final long serialVersionUID = 1;
     private final static int MAX_LENGTH_USERLIST = 100;
     private UserDAO userDAO;
 
-    //Todo goget
+
     protected void doGet(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
             IOException {
         EntityMapper mapper = new EntityMapper();
 
-        List<User> users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
+        List<User> users = null;
+        try {
+            users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
+        } catch (SQLException e) {
+          response.sendError(700,"The error occurred, contact to the administrator");
+        }
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
-//todo
+
         response.setContentType("application/json");
         response.getWriter().println(mapper.convertToJSON(users));
     }
