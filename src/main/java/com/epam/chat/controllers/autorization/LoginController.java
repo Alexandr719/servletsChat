@@ -9,7 +9,6 @@ import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
 import lombok.extern.log4j.Log4j2;
 
-import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +51,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                                          HttpServletResponse response) throws IOException {
         User logUser = null;
         EntityMapper mapper = new EntityMapper();
-        User user = mapper.getUser(request);
+        User user = mapper.getUserFromRequest(request);
 
         if (!validateUser(user)) {
             log.debug("User is invalid");

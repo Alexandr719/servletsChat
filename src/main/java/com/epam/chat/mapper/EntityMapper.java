@@ -24,7 +24,7 @@ public class EntityMapper {
      *
      * @return user
      */
-    public User getUser(HttpServletRequest req) {
+    public User getUserFromRequest(HttpServletRequest req) {
         ObjectMapper om = new ObjectMapper();
         User user = null;
         try {
@@ -53,6 +53,12 @@ public class EntityMapper {
       //  return Encode.forHtmlContent(objectInJson);
         return objectInJson;
     }
+
+    /**
+     * Method returns User class from result set
+     *
+     * @return user
+     */
 
     public User getUserFromDB(ResultSet rs) throws SQLException {
         User user = new User();

@@ -52,7 +52,7 @@ public class RegistrationController extends HttpServlet {
                                               HttpServletResponse response) throws IOException {
         User regUser = null;
         EntityMapper mapper = new EntityMapper();
-        User user = mapper.getUser(request);
+        User user = mapper.getUserFromRequest(request);
 
 
         if (!validateUser(user)) {

@@ -26,7 +26,7 @@ public class CheckExistLogin extends HttpServlet {
 
 
         EntityMapper mapper = new EntityMapper();
-        User user = mapper.getUser(request);
+        User user = mapper.getUserFromRequest(request);
         ServiceMessage serviceMessage = null;
         try {
             if (userDAO.isUserExist(user)) {
