@@ -66,6 +66,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             try {
                 if (!userDAO.isUserExist(user)) {
                     try {
+                        //todo
+
                         log.debug("User with this login already exist");
                         response.sendError(409);
                     } catch (IOException e) {

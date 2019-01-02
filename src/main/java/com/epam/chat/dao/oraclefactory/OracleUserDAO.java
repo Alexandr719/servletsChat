@@ -11,10 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -27,7 +24,7 @@ public class OracleUserDAO implements UserDAO {
 
     private static final String USER_ROLE = "USER";
 
-    @SqlStatement(key ="LOGIN_USER",
+    @SqlStatement(key = "LOGIN_USER",
             value = "INSERT INTO USERS (USERID, LOGIN, FIRSTNAME, LASTNAME," +
                     " EMAIL, PASSWORD, ROLE) VALUES " +
                     "(SERVETUSERSSEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)")
@@ -55,7 +52,7 @@ public class OracleUserDAO implements UserDAO {
         }
     }
 
-    @SqlStatement(key ="IS_USER_EXIST", value = "SELECT * FROM USERS " +
+    @SqlStatement(key = "IS_USER_EXIST", value = "SELECT * FROM USERS " +
             "WHERE (LOGIN = ?)")
     @Override
     public boolean isUserExist(User user) throws SQLException {
@@ -63,17 +60,14 @@ public class OracleUserDAO implements UserDAO {
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
 
-        String sqlMessage = null;
-        sqlMessage = getSQLstatement("IS_USER_EXIST");
-        if (sqlMessage == null) {
-            log.error("SqlStatement is null");
-        }
+        String sqlMessage = getSQLstatement("IS_USER_EXIST");
+
         boolean isUserExist = false;
         try (Connection con = dataSource.getConnection(); PreparedStatement ps
                 = createPreparedStatement(con, sqlMessage, user.getLogin());
              ResultSet rs =
                      ps.executeQuery()) {
-             isUserExist = rs.isBeforeFirst();
+            isUserExist = rs.isBeforeFirst();
         } catch (SQLException e) {
             log.error("Can't check is Logging ", e);
             throw e;
@@ -81,14 +75,14 @@ public class OracleUserDAO implements UserDAO {
         return isUserExist;
     }
 
-    @SqlStatement(key ="CHECK_AUTORIZATION", value = "SELECT * FROM USERS " +
+    @SqlStatement(key = "CHECK_AUTORIZATION", value = "SELECT * FROM USERS " +
             "WHERE (LOGIN = ?)")
     @Override
     public boolean checkAuthorization(User user) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
 
 
-boolean authorizationCkeck = false;
+        boolean authorizationCkeck = false;
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         String sqlMessage = null;
@@ -118,7 +112,7 @@ boolean authorizationCkeck = false;
 
     }
 
-    @SqlStatement(key ="GET_USER_LIST", value = "SELECT * FROM USERS " +
+    @SqlStatement(key = "GET_USER_LIST", value = "SELECT * FROM USERS " +
             "WHERE 1=1 AND ROWNUM <= ?")
     @Override
     public List<User> getUsersList(int count) throws SQLException {
@@ -147,7 +141,7 @@ boolean authorizationCkeck = false;
 
     }
 
-    @SqlStatement(key ="GET_USER",
+    @SqlStatement(key = "GET_USER",
             value = "SELECT * FROM USERS WHERE (LOGIN = ? " +
                     "AND PASSWORD = ?)")
     @Override
@@ -163,10 +157,10 @@ boolean authorizationCkeck = false;
                 user.getPassword
                         ()); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                 user = mapper.getUserFromDB(rs);
+                user = mapper.getUserFromDB(rs);
             }
         } catch (SQLException e) {
-            log.error("Can't take user from db " , e);
+            log.error("Can't take user from db ", e);
             throw e;
         }
         return user;
@@ -200,16 +194,11 @@ boolean authorizationCkeck = false;
     }
 
     private String getSQLstatement(String key) {
-        List<SqlStatement> sqlStatements = Arrays.stream(getClass().getMethods())
-                .map(method -> method.getAnnotation(SqlStatement.class))
-                .collect(Collectors.toList());
-
-        for (SqlStatement sqlStatement : sqlStatements) {
-            if (key.equals(sqlStatement.key())) {
-                return sqlStatement.value();
-            }
-        }
-        return null;
+        return Objects.requireNonNull(Arrays.stream(getClass().getMethods())
+                .map(method -> method.getAnnotation(SqlStatement.class)).filter(sqlStatement -> key.equals(sqlStatement.key()))
+                .findAny()
+                .orElse(null))
+                .value();
     }
 
 }

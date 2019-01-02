@@ -41,8 +41,10 @@ public class MessageListController extends HttpServlet {
             messages = messageDAO
                     .getLastMessages(MAX_LENGTH_MESSAGESLIST);
         } catch (SQLException e) {
+            //todo
             response.sendError(700,
                     "The error occurred, contact to the administrator");
+            log.error("Error in dao", e);
         }
         log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
 

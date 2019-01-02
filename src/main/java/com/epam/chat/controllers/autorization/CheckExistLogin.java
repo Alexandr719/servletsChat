@@ -42,8 +42,10 @@ public class CheckExistLogin extends HttpServlet {
                 log.debug("User with " + user.getLogin() + "isn't exist");
             }
         } catch (SQLException e) {
+            //Todo
             response.sendError(700,
                     "The error occurred, contact to the administrator");
+            log.error("Error in dao", e);
         }
         response.getWriter().write(mapper.convertToJSON(serviceMessage));
     }

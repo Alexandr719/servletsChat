@@ -12,10 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -93,15 +90,11 @@ public class OracleMessageDAO implements MessageDAO {
     }
 
     private String getSQLstatement(String key) {
-        List<SqlStatement> sqlStatements = Arrays.stream(getClass().getMethods())
+        return Objects.requireNonNull(Arrays.stream(getClass().getMethods())
                 .map(method -> method.getAnnotation(SqlStatement.class))
-                .collect(Collectors.toList());
-
-        for (SqlStatement sqlStatement : sqlStatements) {
-            if (key.equals(sqlStatement.key())) {
-                return sqlStatement.value();
-            }
-        }
-        return null;
+                .filter(sqlStatement -> key.equals(sqlStatement.key()))
+                .findAny()
+                .orElse(null))
+                .value();
     }
 }

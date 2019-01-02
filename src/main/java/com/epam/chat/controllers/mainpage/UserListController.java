@@ -39,6 +39,7 @@ public class UserListController extends HttpServlet {
         try {
             users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
         } catch (SQLException e) {
+            //todo
             response.sendError(700,
                     "The error occurred, contact to the administrator");
         }

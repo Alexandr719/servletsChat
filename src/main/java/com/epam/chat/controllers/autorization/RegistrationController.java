@@ -58,28 +58,23 @@ public class RegistrationController extends HttpServlet {
 
         if (!validateUser(user)) {
             log.debug("User didn't pass validation");
-            try {
-                response.sendError(778, "User didn't pass validation");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+             response.sendError(778, "User didn't pass validation");
+
 
         } else {
             try {
                 if (userDAO.isUserExist(user)) {
                     log.debug("User with this login already exist");
-                    try {
-                        response.sendError(777, "User with this login already" +
-                                " exist");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    //todo
+                    response.sendError(777, "User with this login already  exist");
+
                 } else {
                     userDAO.login(user);
                     regUser = userDAO.getUser(user);
                     log.debug("Success registration");
                 }
             } catch (SQLException e) {
+                //todo
                 response.sendError(700,
                         "The error occurred, contact to the administrator");
             }
