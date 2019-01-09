@@ -29,16 +29,15 @@ let delay = (function () {
 function validate(event, value) {
     if (event.id === "reg_login" && event.name === "login") {
         if (value.length > 0 && value.length < 20) {
-            let dataValue = '{ "login": "' + value + '"}';
-            $.postJSON("existlogin", dataValue, function (data) {
-                insertChacker(event, data.condition);
-                if (data.condition === true) {
-                    $("#error").text("");
-
-                } else {
-                    $("#error").text(data.cause);
-
-                }
+            $.get("users", function (data) {
+                let condition = true;
+                $("#user_list").empty();
+                data.forEach(function (item) {
+                    if (item.login === value) {
+                        condition = false;
+                    }
+                });
+                insertChacker(event, condition);
             });
         } else {
             insertChacker(event, false);
@@ -57,14 +56,14 @@ function validate(event, value) {
             insertChacker(event, false);
         }
     } else if (event.name === "email") {
-        if (value.length > 0 && value.length < 20 && value.includes("@")
+        if (value.length > 0 && value.length < 40 && value.includes("@")
             && value.includes(".")) {
             insertChacker(event, true);
         } else {
             insertChacker(event, false);
         }
     } else if (event.name === "password") {
-        if (value.length > 0 && value.length < 20) {
+        if (value.length > 0 && value.length < 40) {
             insertChacker(event, true);
         } else {
             insertChacker(event, false);
@@ -75,7 +74,6 @@ function validate(event, value) {
 }
 
 function insertChacker(event, coundition) {
-
     let chackMark = $(event).parent().find(".checkMark");
     chackMark.empty();
     if (coundition) {
@@ -85,6 +83,5 @@ function insertChacker(event, coundition) {
         chackMark.append(checker_false.clone());
         checker_false.show();
     }
-
 
 }

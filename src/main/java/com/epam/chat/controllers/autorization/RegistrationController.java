@@ -4,6 +4,7 @@ package com.epam.chat.controllers.autorization;
 import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
+import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
@@ -24,7 +25,7 @@ import java.sql.SQLException;
  * Add new user into db, show main page
  */
 @Log4j2
-@WebServlet(name = "RegistrationController", urlPatterns = "/registration")
+@WebServlet(name = "RegistrationController", urlPatterns = "/user")
 public class RegistrationController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
@@ -34,52 +35,46 @@ public class RegistrationController extends HttpServlet {
                           HttpServletResponse response) throws
             ServletException, IOException {
 
-        EntityMapper mapper = new EntityMapper();
-        User user = checkRegisteredOpportunities(request, response);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        } else {
-            request.getSession().setAttribute(ChatConstants.SESSION_USER, user);
-            log.info("New user is enter into chat: " + user);
-
-            response.setContentType("application/json");
-            response.getWriter().write(mapper.convertToJSON(user));
-        }
+        String responseMessage = checkRegisteredOpportunities(request);
+        response.getWriter().write(responseMessage);
 
     }
 
-    private User checkRegisteredOpportunities(HttpServletRequest request,
-                                              HttpServletResponse response)
+
+    private String checkRegisteredOpportunities(HttpServletRequest request)
             throws IOException {
-        User regUser = null;
+
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
-
+        String responseMessage = null;
 
         if (!validateUser(user)) {
             log.debug("User didn't pass validation");
-             response.sendError(778, "User didn't pass validation");
-
-
+            ServiceMessage serviceMessage = new ServiceMessage(false,
+                    ChatConstants.NO_VALID_USER);
+            responseMessage = mapper.convertToJSON(serviceMessage);
         } else {
             try {
                 if (userDAO.isUserExist(user)) {
                     log.debug("User with this login already exist");
-                    //todo
-                    response.sendError(777, "User with this login already  exist");
-
+                    ServiceMessage serviceMessage = new ServiceMessage(false,
+                            ChatConstants.EXISTED_USER_LOGIN);
+                    responseMessage = mapper.convertToJSON(serviceMessage);
                 } else {
                     userDAO.login(user);
-                    regUser = userDAO.getUser(user);
-                    log.debug("Success registration");
+                    User regUser = userDAO.getUser(user);
+                    request.getSession()
+                            .setAttribute(ChatConstants.SESSION_USER, regUser);
+                    responseMessage = mapper.convertToJSON(regUser);
                 }
             } catch (SQLException e) {
-                //todo
-                response.sendError(700,
-                        "The error occurred, contact to the administrator");
+                log.error("Error with database: ", e);
+                ServiceMessage serviceMessage = new ServiceMessage(false,
+                        ChatConstants.GO_TO_ADMIN);
+                responseMessage = mapper.convertToJSON(serviceMessage);
             }
         }
-        return regUser;
+        return responseMessage;
     }
 
     private boolean validateUser(User user) {

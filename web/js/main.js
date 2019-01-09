@@ -37,7 +37,7 @@ $.doDelete = function (url, data, callback, error) {
 checkLogIn();
 
 $("#exit_button").click(function () {
-    $.doDelete("exit", null, function (data) {
+    $.doDelete("user/session", null, function (data) {
         console.log("Click exit!!!");
         showRegistration();
     }, function (e) {
@@ -87,7 +87,7 @@ function innerUserInfo(user) {
 }
 
 function fillMessages() {
-    $.get("getmessages", function (data) {
+    $.get("users/messages", function (data) {
         $("#main_messages_list").empty();
         data.forEach(function (item) {
             $("#main_messages_list").append("<li>" + escapeHtml(item.user.login
@@ -98,7 +98,7 @@ function fillMessages() {
 
 function fillUsers() {
 
-    $.get("getusers",  function (data) {
+    $.get("users",  function (data) {
         console.log("dsadasd");
         $("#user_list").empty();
         data.forEach(function (item) {
@@ -108,13 +108,19 @@ function fillUsers() {
 }
 
 function checkLogIn() {
-    $.postJSON("checklog", null, function (data) {
+    $.get("user/session", function (data) {
         user = data;
-        showMain(user)
-    }, function (e) {
-        showRegistration(user);
-    });
+        if (user.id === null) {
+            showRegistration(user);
+        } else {
+            showMain(user)
+        }
+    })
+
+
 }
+
+
 
 
 function escapeHtml(string) {

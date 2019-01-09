@@ -21,7 +21,7 @@ import java.util.Set;
  * WebSocket controller, who rules user's messagegs into chat.
  */
 @Log4j2
-@ServerEndpoint("/websocket")
+@ServerEndpoint("/user/message")
 public class MessageController {
     private MessageDAO messageDAO;
     private Session session;

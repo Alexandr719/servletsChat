@@ -20,10 +20,14 @@ $('input[type=radio][name=type_log]').change(function () {
 $("#singIn").click(function () {
 
         let data = getFormData(regBlock);
-        $.postJSON("registration", data, function (data) {
+        $.postJSON("user", data, function (data) {
             user = data;
-            changeHash(user.id);
-            showMain(user);
+            if(user.id != null){
+                changeHash(user.id);
+                showMain(user);
+            }else{
+                $("#error").text(data.cause);
+            }
 
         }, function (e) {
             $("#error").text(e.message);
@@ -33,7 +37,7 @@ $("#singIn").click(function () {
 
 $("#LogIn").click(function () {
     let data = getFormData(logBlock);
-    $.postJSON("login", data, function (data) {
+    $.postJSON("user/session", data, function (data) {
         user = data;
         changeHash(user.id);
         showMain(user);

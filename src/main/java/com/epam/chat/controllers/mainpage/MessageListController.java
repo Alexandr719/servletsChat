@@ -24,7 +24,7 @@ import java.util.List;
  * Gets messages from dataBase
  */
 @Log4j2
-@WebServlet(name = "MessageListController", urlPatterns = "/getmessages")
+@WebServlet(name = "MessageListController", urlPatterns = "/users/messages")
 public class MessageListController extends HttpServlet {
 
     private static final long serialVersionUID = 1;

@@ -22,7 +22,7 @@ import java.util.List;
  * Gets users from dataBase
  */
 @Log4j2
-@WebServlet(name = "UserListController", urlPatterns = "/getusers")
+@WebServlet(name = "UserListController", urlPatterns = "/users")
 public class UserListController extends HttpServlet {
 
     private static final long serialVersionUID = 1;

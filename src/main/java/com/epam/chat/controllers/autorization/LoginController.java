@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -23,7 +24,7 @@ import java.sql.SQLException;
  * Get full user data from db, by login and password. Also show main page.
  */
 @Log4j2
-@WebServlet(name = "LoginController", urlPatterns = "/login")
+@WebServlet(name = "LoginController", urlPatterns = "/user/session")
 public class LoginController extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1;
     private UserDAO userDAO;
@@ -102,4 +103,40 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         DAOFactory dao = DAOFactory.getDAOFactory();
         userDAO = dao.getUserDAO();
     }
+
+
+
+    protected void doDelete(HttpServletRequest request,
+                            HttpServletResponse response) throws ServletException,
+            IOException {
+        HttpSession session = request.getSession();
+
+        User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
+        if (user == null) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        } else {
+            log.info("Deleted session user id = " + user.getId());
+            session.invalidate();
+        }
+    }
+
+    protected void doGet(HttpServletRequest request,
+                         HttpServletResponse response) throws ServletException,
+            IOException {
+
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
+
+        if (user == null) {
+            log.debug("New user entered into chat");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        } else {
+            log.debug("User with id=" + user.getId() + "entered into chat");
+
+
+            response.setContentType("application/json");
+            response.getWriter().write(new EntityMapper().convertToJSON(user));
+        }
+    }
+
 }

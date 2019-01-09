@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(filterName = "LoginFilter",
-        servletNames = {"MessageListController", "UserListController"})
+        servletNames = "MessageListController")
 public class LogFilter implements Filter {
     public void destroy() {
     }
