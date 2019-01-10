@@ -45,7 +45,7 @@ public class UserListController extends HttpServlet {
         }
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
 
-        response.setContentType("application/json");
+
         response.getWriter().println(mapper.convertToJSON(users));
     }
 
