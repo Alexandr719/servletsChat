@@ -50,7 +50,7 @@ public class MessageController {
         log.debug(session + " - session opened");
         DAOFactory dao = DAOFactory.getDAOFactory();
         messageDAO = dao.getMessageDAO();
-        //Todo
+
 
             this.session = session;
             chatEndpoints.add(this);

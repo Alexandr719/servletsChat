@@ -46,7 +46,7 @@ public class RegistrationController extends HttpServlet {
 
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
-        String responseMessage = null;
+        String responseMessage;
 
         if (!validateUser(user)) {
             log.debug("User didn't pass validation");

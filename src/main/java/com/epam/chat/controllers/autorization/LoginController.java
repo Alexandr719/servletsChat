@@ -4,9 +4,11 @@ package com.epam.chat.controllers.autorization;
 import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
+import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
@@ -34,64 +36,49 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             IOException {
 
         EntityMapper mapper = new EntityMapper();
-        User logUser = checkLoginOpportunities(request, response);
+        String responseMessage = checkLoginOpportunities(request);
+        response.getWriter().write(responseMessage);
 
-        if (logUser == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        } else {
-            request.getSession()
-                    .setAttribute(ChatConstants.SESSION_USER, logUser);
-            log.info("Logged user is enter into chat: " + logUser);
-
-            response.setContentType("application/json");
-            response.getWriter().write(mapper.convertToJSON(logUser));
-        }
     }
 
-    private User checkLoginOpportunities(HttpServletRequest request,
-                                         HttpServletResponse response)
+    private String checkLoginOpportunities(HttpServletRequest request)
             throws IOException {
         User logUser = null;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
+        String responseMessage = null;
 
         if (!validateUser(user)) {
-            log.debug("User is invalid");
-            try {
-                response.sendError(406);
-            } catch (IOException e) {
-                log.error("IOException with sendError method", e);
-            }
-
+            log.debug("User didn't pass validation");
+            ServiceMessage serviceMessage = new ServiceMessage(false,
+                    ChatConstants.NO_VALID_USER);
+            responseMessage = mapper.convertToJSON(serviceMessage);
         } else {
-            try {
+           try {
                 if (!userDAO.isUserExist(user)) {
-                    try {
-                        //todo
-
-                        log.debug("User with this login already exist");
-                        response.sendError(409);
-                    } catch (IOException e) {
-                        log.error("IOException with sendError method", e);
-                    }
-
+                    log.debug("User with this login don't exist");
+                    ServiceMessage serviceMessage = new ServiceMessage(false,
+                            ChatConstants.NOT_EXISTED_USER_LOGIN);
+                    responseMessage = mapper.convertToJSON(serviceMessage);
                 } else if (!userDAO.checkAuthorization(user)) {
-                    try {
-                        log.debug("User login and password  are wrong");
-                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-                    } catch (IOException e) {
-                        log.error("IOException with sendError method", e);
-                    }
-
+                    log.debug("User login and password  are wrong");
+                    ServiceMessage serviceMessage = new ServiceMessage(false,
+                            ChatConstants.WRONG_PASS_LOGIN);
+                    responseMessage = mapper.convertToJSON(serviceMessage);
                 } else {
                     logUser = userDAO.getUser(user);
+                    request.getSession()
+                            .setAttribute(ChatConstants.SESSION_USER, logUser);
+                    log.info("Logged user is enter into chat: " + logUser);
+                    responseMessage = mapper.convertToJSON(logUser);
                 }
             } catch (SQLException e) {
-                response.sendError(700,
-                        "The error occurred, contact to the administrator");
+               log.error("Database error: ", e);
+               ServiceMessage serviceMessage = new ServiceMessage(false,
+                       ChatConstants.GO_TO_ADMIN);
             }
         }
-        return logUser;
+        return responseMessage;
     }
 
     private boolean validateUser(User user) {
@@ -134,7 +121,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             log.debug("User with id=" + user.getId() + "entered into chat");
 
 
-            response.setContentType("application/json");
+
             response.getWriter().write(new EntityMapper().convertToJSON(user));
         }
     }

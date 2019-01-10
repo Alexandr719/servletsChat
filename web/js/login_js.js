@@ -22,10 +22,10 @@ $("#singIn").click(function () {
         let data = getFormData(regBlock);
         $.postJSON("user", data, function (data) {
             user = data;
-            if(user.id != null){
+            if (user.id != null) {
                 changeHash(user.id);
                 showMain(user);
-            }else{
+            } else {
                 $("#error").text(data.cause);
             }
 
@@ -39,9 +39,13 @@ $("#LogIn").click(function () {
     let data = getFormData(logBlock);
     $.postJSON("user/session", data, function (data) {
         user = data;
-        changeHash(user.id);
-        showMain(user);
-
+        if (user.id != null) {
+            $("#error").text("");
+            changeHash(user.id);
+            showMain(user);
+        } else {
+            $("#error").text(data.cause);
+        }
     }, function (e) {
         $("#error").text(e.message);
     });
