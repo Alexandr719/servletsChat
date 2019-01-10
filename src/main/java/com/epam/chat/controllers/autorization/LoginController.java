@@ -119,9 +119,6 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             log.debug("User with id=" + user.getId() + "entered into chat");
-
-
-
             response.getWriter().write(new EntityMapper().convertToJSON(user));
         }
     }
