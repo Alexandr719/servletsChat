@@ -29,7 +29,7 @@ public class OracleUserDAO implements UserDAO {
                     " EMAIL, PASSWORD, ROLE) VALUES " +
                     "(SERVETUSERSSEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)")
     @Override
-    public void login(User loginUser) throws SQLException {
+    public void addUser(User loginUser) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 

@@ -2,15 +2,14 @@ package com.epam.chat.controllers.autorization;
 
 
 import com.epam.chat.ChatConstants;
-import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,27 +22,30 @@ import java.sql.SQLException;
  * Servlet  LoginController
  *
  * @author Alexander_Filatov
- * Get full user data from db, by login and password. Also show main page.
+ * Get full user data from db, by addUser and password. Also show main page.
  */
 @Log4j2
 @WebServlet(name = "LoginController", urlPatterns = "/user/session")
 public class LoginController extends javax.servlet.http.HttpServlet {
     private static final long serialVersionUID = 1;
+    @Inject
     private UserDAO userDAO;
+
+
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
             IOException {
 
-        EntityMapper mapper = new EntityMapper();
-        String responseMessage = checkLoginOpportunities(request);
+
+        String responseMessage = getLoginOpportunities(request);
         response.getWriter().write(responseMessage);
 
     }
-
-    private String checkLoginOpportunities(HttpServletRequest request)
+    //Todo naming
+    private String getLoginOpportunities(HttpServletRequest request)
             throws IOException {
-        User logUser = null;
+        User logUser;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
         String responseMessage = null;
@@ -55,13 +57,14 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             responseMessage = mapper.convertToJSON(serviceMessage);
         } else {
            try {
+               //Todo
                 if (!userDAO.isUserExist(user)) {
-                    log.debug("User with this login don't exist");
+                    log.debug("User with this addUser don't exist");
                     ServiceMessage serviceMessage = new ServiceMessage(false,
                             ChatConstants.NOT_EXISTED_USER_LOGIN);
                     responseMessage = mapper.convertToJSON(serviceMessage);
                 } else if (!userDAO.checkAuthorization(user)) {
-                    log.debug("User login and password  are wrong");
+                    log.debug("User addUser and password  are wrong");
                     ServiceMessage serviceMessage = new ServiceMessage(false,
                             ChatConstants.WRONG_PASS_LOGIN);
                     responseMessage = mapper.convertToJSON(serviceMessage);
@@ -87,8 +90,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        userDAO = dao.getUserDAO();
+
+
     }
 
 
@@ -99,12 +102,9 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
-        if (user == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        } else {
-            log.info("Deleted session user id = " + user.getId());
-            session.invalidate();
-        }
+        log.info("Deleted session user id = " + user.getId());
+        session.invalidate();
+
     }
 
     protected void doGet(HttpServletRequest request,

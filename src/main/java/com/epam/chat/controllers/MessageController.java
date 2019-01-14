@@ -6,6 +6,7 @@ import com.epam.chat.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
+import javax.inject.Inject;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import java.util.Set;
 @Log4j2
 @ServerEndpoint("/user/message")
 public class MessageController {
+    @Inject
     private MessageDAO messageDAO;
     private Session session;
     //Todo not static
@@ -48,10 +50,6 @@ public class MessageController {
     @OnOpen
     public void onOpen(Session session) {
         log.debug(session + " - session opened");
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        messageDAO = dao.getMessageDAO();
-
-
             this.session = session;
             chatEndpoints.add(this);
             log.debug("Queue contains " + chatEndpoints.size() + " elements");

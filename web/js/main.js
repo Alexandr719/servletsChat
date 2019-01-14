@@ -70,6 +70,7 @@ function changeHash(id) {
 function showMain(user) {
     fillMessages();
     fillUsers();
+    //TOdo load
     $("#login_page").hide();
     $("#main_page").show();
     innerUserInfo(user);
@@ -101,7 +102,10 @@ function fillUsers() {
     $.get("users",  function (data) {
         console.log("dsadasd");
         $("#user_list").empty();
-        data.forEach(function (item) {
+        console.log(data);
+        let users = data;
+        console.log(typeof users);
+        users.forEach(function (item) {
             $("#user_list").append("<li>" + escapeHtml(item.login) + "</li>");
         });
     });
@@ -119,9 +123,6 @@ function checkLogIn() {
 
 
 }
-
-
-
 
 function escapeHtml(string) {
     return String(string).replace(/[&<>"'`=\/]/g, function (s) {

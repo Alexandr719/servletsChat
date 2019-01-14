@@ -6,6 +6,7 @@ import com.epam.chat.entity.User;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,6 +28,7 @@ public class UserListController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
     private final static int MAX_LENGTH_USERLIST = 100;
+    @Inject
     private UserDAO userDAO;
 
 
@@ -46,13 +48,10 @@ public class UserListController extends HttpServlet {
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
 
 
+        response.setContentType("application/json");
         response.getWriter().println(mapper.convertToJSON(users));
     }
 
 
-    @Override
-    public void init() throws ServletException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        userDAO = dao.getUserDAO();
-    }
+
 }

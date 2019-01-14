@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "LoginFilter",
-        servletNames = "MessageListController")
-public class LogFilter implements Filter {
+@WebFilter(servletNames = "MessageListController")
+public class UserPermissionFilter implements Filter {
     public void destroy() {
     }
 
@@ -22,7 +21,6 @@ public class LogFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
         User user = (User) request.getSession()
                 .getAttribute(ChatConstants.SESSION_USER);
-
         if (user == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }

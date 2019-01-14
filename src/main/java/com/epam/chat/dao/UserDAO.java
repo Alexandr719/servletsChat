@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface UserDAO {
 
-    void login(User loginingUser) throws SQLException;
+    void addUser(User loginingUser) throws SQLException;
 
     boolean isUserExist(User user) throws SQLException;
 

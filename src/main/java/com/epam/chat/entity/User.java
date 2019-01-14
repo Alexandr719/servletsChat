@@ -25,7 +25,7 @@ public class User implements Serializable {
     /** Field id  creating by data base*/
     private int id;
 
-    /** Field login (unique) */
+    /** Field addUser (unique) */
     @NotNull(message = "Login will be not null")
     @Size(min = 1, max = 20,
             message = "Login length must be between 1 and 20 characters")

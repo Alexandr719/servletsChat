@@ -8,6 +8,7 @@ import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 import org.owasp.encoder.Encode;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,6 +30,7 @@ public class MessageListController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
     private final static int MAX_LENGTH_MESSAGESLIST = 100;
+    @Inject
     private MessageDAO messageDAO;
 
     protected void doGet(HttpServletRequest request,
@@ -48,15 +50,11 @@ public class MessageListController extends HttpServlet {
         }
         log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
 
-
+        response.setContentType("application/json");
         response.getWriter().println(mapper.convertToJSON(messages));
     }
 
 
-    @Override
-    public void init() throws ServletException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        messageDAO = dao.getMessageDAO();
-    }
+
 
 }

@@ -35,13 +35,13 @@ public class RegistrationController extends HttpServlet {
                           HttpServletResponse response) throws
             ServletException, IOException {
 
-        String responseMessage = checkRegisteredOpportunities(request);
+        String responseMessage = registrateUser(request);
         response.getWriter().write(responseMessage);
 
     }
 
-
-    private String checkRegisteredOpportunities(HttpServletRequest request)
+//Todo rename
+    private String registrateUser(HttpServletRequest request)
             throws IOException {
 
         EntityMapper mapper = new EntityMapper();
@@ -56,12 +56,12 @@ public class RegistrationController extends HttpServlet {
         } else {
             try {
                 if (userDAO.isUserExist(user)) {
-                    log.debug("User with this login already exist");
+                    log.debug("User with this addUser already exist");
                     ServiceMessage serviceMessage = new ServiceMessage(false,
                             ChatConstants.EXISTED_USER_LOGIN);
                     responseMessage = mapper.convertToJSON(serviceMessage);
                 } else {
-                    userDAO.login(user);
+                    userDAO.addUser(user);
                     User regUser = userDAO.getUser(user);
                     request.getSession()
                             .setAttribute(ChatConstants.SESSION_USER, regUser);
