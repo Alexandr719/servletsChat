@@ -38,12 +38,12 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             IOException {
 
 
-        String responseMessage = getLoginOpportunities(request);
+        String responseMessage = getLoginResponseMessage(request);
         response.getWriter().write(responseMessage);
 
     }
-    //Todo naming
-    private String getLoginOpportunities(HttpServletRequest request)
+
+    private String getLoginResponseMessage(HttpServletRequest request)
             throws IOException {
         User logUser;
         EntityMapper mapper = new EntityMapper();
@@ -57,7 +57,6 @@ public class LoginController extends javax.servlet.http.HttpServlet {
             responseMessage = mapper.convertToJSON(serviceMessage);
         } else {
            try {
-               //Todo
                 if (!userDAO.isUserExist(user)) {
                     log.debug("User with this addUser don't exist");
                     ServiceMessage serviceMessage = new ServiceMessage(false,

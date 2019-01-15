@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class OracleMessageDAO implements MessageDAO {
-    //Todo add key annotation
-    @SqlStatement(key = "ADD_NEW_MESSAGE",
+   @SqlStatement(key = "ADD_NEW_MESSAGE",
             value = "INSERT INTO MESSAGES (MESSAGEID, USERID, TEXTMESSAGE) " +
                     "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
@@ -54,11 +53,7 @@ public class OracleMessageDAO implements MessageDAO {
         Locale.setDefault(Locale.ENGLISH);
         String sqlMessage = null;
         EntityMapper mapper = new EntityMapper();
-
-
         sqlMessage = getSQLstatement("GET_MESSAGES");
-
-
         List<Message> messages = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         try (Connection con = dataSource.getConnection();

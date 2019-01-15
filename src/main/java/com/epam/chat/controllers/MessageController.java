@@ -2,6 +2,7 @@ package com.epam.chat.controllers;
 
 import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.MessageDAO;
+import com.epam.chat.dao.OracleDAOFactory;
 import com.epam.chat.entity.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
@@ -24,10 +25,8 @@ import java.util.Set;
 @Log4j2
 @ServerEndpoint("/user/message")
 public class MessageController {
-    @Inject
     private MessageDAO messageDAO;
     private Session session;
-    //Todo not static
     private static Set<MessageController> chatEndpoints = Collections
             .synchronizedSet(new HashSet<>());
 
@@ -49,6 +48,8 @@ public class MessageController {
 
     @OnOpen
     public void onOpen(Session session) {
+        DAOFactory dao = new OracleDAOFactory();
+         messageDAO = dao.getMessageDAO();
         log.debug(session + " - session opened");
             this.session = session;
             chatEndpoints.add(this);

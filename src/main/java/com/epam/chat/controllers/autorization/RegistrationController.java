@@ -35,13 +35,12 @@ public class RegistrationController extends HttpServlet {
                           HttpServletResponse response) throws
             ServletException, IOException {
 
-        String responseMessage = registrateUser(request);
+        String responseMessage = getResponseRegistrationMessage(request);
         response.getWriter().write(responseMessage);
 
     }
 
-//Todo rename
-    private String registrateUser(HttpServletRequest request)
+   private String getResponseRegistrationMessage(HttpServletRequest request)
             throws IOException {
 
         EntityMapper mapper = new EntityMapper();
