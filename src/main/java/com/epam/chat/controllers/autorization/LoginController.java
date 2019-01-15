@@ -32,7 +32,6 @@ public class LoginController extends javax.servlet.http.HttpServlet {
     private UserDAO userDAO;
 
 
-
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
             IOException {
@@ -41,6 +40,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         String responseMessage = getLoginResponseMessage(request);
         response.getWriter().write(responseMessage);
 
+
     }
 
     private String getLoginResponseMessage(HttpServletRequest request)
@@ -48,26 +48,22 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         User logUser;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
-        String responseMessage = null;
-
+        String responseMessage ;
+//Todo another method
         if (!validateUser(user)) {
             log.debug("User didn't pass validation");
             ServiceMessage serviceMessage = new ServiceMessage(false,
                     ChatConstants.NO_VALID_USER);
             responseMessage = mapper.convertToJSON(serviceMessage);
         } else {
-           try {
-                if (!userDAO.isUserExist(user)) {
-                    log.debug("User with this addUser don't exist");
-                    ServiceMessage serviceMessage = new ServiceMessage(false,
-                            ChatConstants.NOT_EXISTED_USER_LOGIN);
-                    responseMessage = mapper.convertToJSON(serviceMessage);
-                } else if (!userDAO.checkAuthorization(user)) {
-                    log.debug("User addUser and password  are wrong");
+            try {
+                 if (!userDAO.checkAuthorization(user)) {
+                    log.debug("User login and password  are wrong");
                     ServiceMessage serviceMessage = new ServiceMessage(false,
                             ChatConstants.WRONG_PASS_LOGIN);
                     responseMessage = mapper.convertToJSON(serviceMessage);
                 } else {
+                    //Todo Main method
                     logUser = userDAO.getUser(user);
                     request.getSession()
                             .setAttribute(ChatConstants.SESSION_USER, logUser);
@@ -75,9 +71,10 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                     responseMessage = mapper.convertToJSON(logUser);
                 }
             } catch (SQLException e) {
-               log.error("Database error: ", e);
-               ServiceMessage serviceMessage = new ServiceMessage(false,
-                       ChatConstants.GO_TO_ADMIN);
+                log.error("Database error: ", e);
+                ServiceMessage serviceMessage = new ServiceMessage(false,
+                        ChatConstants.GO_TO_ADMIN);
+                responseMessage = mapper.convertToJSON(serviceMessage);
             }
         }
         return responseMessage;
@@ -87,16 +84,12 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         return new InputsValidator().validateUser(user);
     }
 
-    @Override
-    public void init() throws ServletException {
-
-
-    }
 
 
 
     protected void doDelete(HttpServletRequest request,
-                            HttpServletResponse response) throws ServletException,
+                            HttpServletResponse response)
+            throws ServletException,
             IOException {
         HttpSession session = request.getSession();
 
@@ -115,7 +108,9 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
         if (user == null) {
             log.debug("New user entered into chat");
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            //Todo SetStatus
+            response.setStatus(500);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "message");
         } else {
             log.debug("User with id=" + user.getId() + "entered into chat");
             response.getWriter().write(new EntityMapper().convertToJSON(user));

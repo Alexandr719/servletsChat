@@ -1,5 +1,6 @@
 package com.epam.chat.dao.oraclefactory;
 
+import com.epam.chat.ChatConstants;
 import lombok.extern.log4j.Log4j2;
 
 import javax.naming.Context;
@@ -23,7 +24,7 @@ class DataSourceFactory {
         DataSource ds = null;
         try {
             ctx = new InitialContext();
-            ds = (DataSource) ctx.lookup("java:/comp/env/jdbc/MyLocalDB");
+            ds = (DataSource) ctx.lookup(ChatConstants.DATA_SOURSE_PATH);
         } catch (NamingException e) {
            log.error("Can't create ds connection", e);
         }

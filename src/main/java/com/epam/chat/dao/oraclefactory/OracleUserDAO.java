@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  *
  * @author Alexander_Filatov
  */
+
 @Log4j2
 public class OracleUserDAO implements UserDAO {
 
@@ -82,7 +83,7 @@ public class OracleUserDAO implements UserDAO {
         Locale.setDefault(Locale.ENGLISH);
 
 
-        boolean authorizationCkeck = false;
+        boolean authorizationCkeck ;
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         String sqlMessage = null;
@@ -98,8 +99,9 @@ public class OracleUserDAO implements UserDAO {
                     checkedUser.setPassword(rs.getString("PASSWORD"));
                 }
             }
-            authorizationCkeck = (user.getPassword().equals(checkedUser.getPassword())
-                    && user.getLogin().equals(checkedUser.getLogin()));
+            authorizationCkeck =
+                    (user.getPassword().equals(checkedUser.getPassword())
+                            && user.getLogin().equals(checkedUser.getLogin()));
 
         } catch (SQLException e) {
             log.error("Can't check user", e);
@@ -195,7 +197,8 @@ public class OracleUserDAO implements UserDAO {
 
     private String getSQLstatement(String key) {
         return Objects.requireNonNull(Arrays.stream(getClass().getMethods())
-                .map(method -> method.getAnnotation(SqlStatement.class)).filter(sqlStatement -> key.equals(sqlStatement.key()))
+                .map(method -> method.getAnnotation(SqlStatement.class))
+                .filter(sqlStatement -> key.equals(sqlStatement.key()))
                 .findAny()
                 .orElse(null))
                 .value();

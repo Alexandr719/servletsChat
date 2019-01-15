@@ -25,6 +25,7 @@ import java.util.Set;
 @Log4j2
 @ServerEndpoint("/user/message")
 public class MessageController {
+
     private MessageDAO messageDAO;
     private Session session;
     private static Set<MessageController> chatEndpoints = Collections
@@ -34,13 +35,13 @@ public class MessageController {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
         ObjectMapper om = new ObjectMapper();
-
         try {
             Message msg = om.readValue(message, Message.class);
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (IOException |SQLException| EncodeException e) {
             log.error("Error with sending message", e);
+            //Todo say user about problem
         }
     }
 
@@ -49,7 +50,7 @@ public class MessageController {
     @OnOpen
     public void onOpen(Session session) {
         DAOFactory dao = new OracleDAOFactory();
-         messageDAO = dao.getMessageDAO();
+        messageDAO = dao.getMessageDAO();
         log.debug(session + " - session opened");
             this.session = session;
             chatEndpoints.add(this);

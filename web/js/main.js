@@ -120,8 +120,6 @@ function checkLogIn() {
             showMain(user)
         }
     })
-
-
 }
 
 function escapeHtml(string) {

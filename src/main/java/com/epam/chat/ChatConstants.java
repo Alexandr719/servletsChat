@@ -15,6 +15,7 @@ public class ChatConstants {
     public static String GO_TO_ADMIN = "Error occurs, send message to \" +\n" +
             "                        \"administrator";
 
+    public static String DATA_SOURSE_PATH = "java:/comp/env/jdbc/MyLocalDB";
     private ChatConstants() {
 
     }
