@@ -8,19 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b6db151c-569b-4c16-b0a2-87afe0a1f4ff" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/ChatConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/ChatConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/DataSourceFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/DataSourceFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleUserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleUserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/filtres/UserPermissionFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/filtres/UserPermissionFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/login_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/js/message_js.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/message.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -150,7 +137,7 @@
       <file leaf-file-name="InputsValidator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/validation/InputsValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
+            <state relative-caret-position="582">
               <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
             </state>
           </provider>
@@ -673,7 +660,7 @@
       <workItem from="1547108592793" duration="5902000" />
       <workItem from="1547455040163" duration="219000" />
       <workItem from="1547455614285" duration="5456000" />
-      <workItem from="1547545146632" duration="8188000" />
+      <workItem from="1547545146632" duration="8226000" />
     </task>
     <task id="LOCAL-00001" summary="Fix conar bugs">
       <created>1545220467170</created>
@@ -836,11 +823,18 @@
       <option name="project" value="LOCAL" />
       <updated>1547545723914</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Rewrite todo">
+      <created>1547559054849</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1547559054849</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78796000" />
+    <option name="totallyTimeSpent" value="78834000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -875,12 +869,12 @@
       <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.32897604" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="16" weight="0.5294118" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" visible="true" weight="0.15904139" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.15904139" />
       <window_info anchor="bottom" id="CheckStyle" order="11" weight="0.32897604" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32897604" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8419689" visible="true" weight="0.23081024" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8420479" visible="true" weight="0.23081024" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.22654584" />
-      <window_info id="Web" order="7" sideWeight="0.15803109" side_tool="true" visible="true" weight="0.23081024" />
+      <window_info id="Web" order="7" sideWeight="0.15795207" side_tool="true" visible="true" weight="0.23081024" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32737032" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info id="Favorites" order="5" sideWeight="0.21981424" side_tool="true" weight="0.2097166" />
@@ -948,7 +942,8 @@
     <MESSAGE value="Rewrite login controller2" />
     <MESSAGE value="Add Inject annotation" />
     <MESSAGE value="Delete todo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete todo" />
+    <MESSAGE value="Rewrite todo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rewrite todo" />
   </component>
   <component name="editorHistoryManager">
     <entry file="das://7093395e-72e8-48f6-859e-a742236e3b50/schema/CHAT/table/SERVLETUSER" />
@@ -1244,7 +1239,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/validation/InputsValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
+        <state relative-caret-position="582">
           <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
         </state>
       </provider>
