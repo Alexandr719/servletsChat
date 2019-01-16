@@ -36,10 +36,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                           HttpServletResponse response) throws ServletException,
             IOException {
 
-
         String responseMessage = getLoginResponseMessage(request);
         response.getWriter().write(responseMessage);
-
 
     }
 
@@ -70,6 +68,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                     log.info("Logged user is enter into chat: " + logUser);
                     responseMessage = mapper.convertToJSON(logUser);
                 }
+                //Todo own exeption
             } catch (SQLException e) {
                 log.error("Database error: ", e);
                 ServiceMessage serviceMessage = new ServiceMessage(false,

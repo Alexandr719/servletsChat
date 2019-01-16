@@ -8,6 +8,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b6db151c-569b-4c16-b0a2-87afe0a1f4ff" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/js/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/js/message.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -74,26 +80,17 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="110" column="7" lean-forward="true" selection-start-line="110" selection-start-column="7" selection-end-line="110" selection-end-column="7" />
+            <state relative-caret-position="295">
+              <caret line="134" column="19" selection-start-line="134" selection-start-column="9" selection-end-line="134" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserListController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java">
+      <file leaf-file-name="message.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/web/js/message.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="52" selection-start-line="52" selection-end-line="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserPermissionFilter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/filtres/UserPermissionFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="25" column="66" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="66" />
+            <state relative-caret-position="336">
+              <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -101,8 +98,8 @@
       <file leaf-file-name="MessageListController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="54" column="54" lean-forward="true" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
+            <state relative-caret-position="864">
+              <caret line="54" column="52" lean-forward="true" selection-start-line="54" selection-start-column="52" selection-end-line="54" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -119,8 +116,8 @@
       <file leaf-file-name="OracleMessageDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleMessageDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="94" column="1" lean-forward="true" selection-start-line="94" selection-start-column="1" selection-end-line="94" selection-end-column="1" />
+            <state relative-caret-position="1944">
+              <caret line="94" column="1" selection-start-line="94" selection-start-column="1" selection-end-line="94" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -128,17 +125,26 @@
       <file leaf-file-name="OracleUserDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleUserDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
+            <state relative-caret-position="2928">
+              <caret line="134" selection-start-line="134" selection-end-line="134" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InputsValidator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="InputsValidator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/validation/InputsValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="582">
-              <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+            <state relative-caret-position="696">
+              <caret line="36" column="16" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="beans.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/WEB-INF/beans.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -161,8 +167,8 @@
       <file leaf-file-name="RegistrationController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/RegistrationController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="57" column="70" lean-forward="true" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
+            <state relative-caret-position="1008">
+              <caret line="57" column="70" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
             </state>
           </provider>
         </entry>
@@ -188,12 +194,15 @@
     </option>
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="testBr" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/mapper/EntityMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/controllers/MessageController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/dao/oraclefactory/DataSourceFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/dao/oraclefactory/OracleMessageDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/validation/InputsValidator.java" />
@@ -233,16 +242,18 @@
         <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleMessageDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/ChatConstants.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/DataSourceFactory.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/web/js/message_js.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleUserDAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/LoginController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/filtres/UserPermissionFilter.java" />
         <option value="$PROJECT_DIR$/web/index.html" />
-        <option value="$PROJECT_DIR$/web/js/main.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/MessageController.java" />
+        <option value="$PROJECT_DIR$/web/WEB-INF/beans.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/LoginController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/MessageController.java" />
+        <option value="$PROJECT_DIR$/web/js/main.js" />
+        <option value="$PROJECT_DIR$/web/js/message.js" />
       </list>
     </option>
   </component>
@@ -263,10 +274,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="y" value="-7" />
-    <option name="width" value="1295" />
-    <option name="height" value="735" />
+    <option name="x" value="292" />
+    <option name="y" value="69" />
+    <option name="width" value="1408" />
+    <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -274,6 +285,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -394,6 +406,11 @@
             <path>
               <item name="Chatv3.1" type="b2602c69:ProjectViewProjectNode" />
               <item name="servletsChat" type="462c0819:PsiDirectoryNode" />
+              <item name="target" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Chatv3.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="servletsChat" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -414,7 +431,6 @@
       </pane>
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -423,11 +439,11 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="Oracle" />
     <property name="database.console.LAST_STATE" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../DataBaseTest" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="fileTemplates" />
@@ -661,6 +677,7 @@
       <workItem from="1547455040163" duration="219000" />
       <workItem from="1547455614285" duration="5456000" />
       <workItem from="1547545146632" duration="8226000" />
+      <workItem from="1547628159578" duration="3550000" />
     </task>
     <task id="LOCAL-00001" summary="Fix conar bugs">
       <created>1545220467170</created>
@@ -830,11 +847,18 @@
       <option name="project" value="LOCAL" />
       <updated>1547559054849</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Rewrite todo">
+      <created>1547628186213</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1547628186213</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78834000" />
+    <option name="totallyTimeSpent" value="82384000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -853,8 +877,8 @@
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5010661" side_tool="true" weight="0.28431374" />
       <window_info anchor="bottom" id="Application Servers" order="8" weight="0.32897604" />
       <window_info anchor="right" id="Maven Projects" order="5" />
-      <window_info anchor="bottom" id="Database Changes" order="15" show_stripe_button="false" />
       <window_info anchor="right" id="CDI" order="10" />
+      <window_info anchor="bottom" id="Database Changes" order="15" show_stripe_button="false" />
       <window_info id="Capture Tool" order="6" />
       <window_info id="Designer" order="2" />
       <window_info anchor="right" id="Database" order="6" weight="0.11740891" />
@@ -869,13 +893,12 @@
       <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.32897604" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" id="Version Control" order="16" weight="0.5294118" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.15904139" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" visible="true" weight="0.39106753" />
       <window_info anchor="bottom" id="CheckStyle" order="11" weight="0.32897604" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32897604" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8420479" visible="true" weight="0.23081024" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8389982" visible="true" weight="0.23081024" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.22654584" />
-      <window_info id="Web" order="7" sideWeight="0.15795207" side_tool="true" visible="true" weight="0.23081024" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32737032" />
+      <window_info id="Web" order="7" sideWeight="0.16100179" side_tool="true" visible="true" weight="0.23081024" />
       <window_info anchor="right" id="Theme Preview" order="8" />
       <window_info id="Favorites" order="5" sideWeight="0.21981424" side_tool="true" weight="0.2097166" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -884,6 +907,7 @@
       <window_info anchor="bottom" id="Database Console" order="17" weight="0.3291592" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info active="true" anchor="bottom" id="SonarLint" order="6" visible="true" weight="0.32897604" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32737032" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
     </layout>
@@ -1095,20 +1119,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="135" column="30" selection-start-line="135" selection-start-column="25" selection-end-line="135" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/beans.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/weld/servlet/weld-servlet-shaded/3.0.5.Final/weld-servlet-shaded-3.0.5.Final.jar!/javax/inject/Inject.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -1144,13 +1154,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/js/message.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/js/login.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
@@ -1158,20 +1161,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/filtres/UserPermissionFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="25" column="66" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/LoginController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1684">
-          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
+        <state relative-caret-position="-278">
+          <caret line="81" column="45" selection-start-line="81" selection-start-column="45" selection-end-line="81" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/filtres/UserPermissionFilter.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="25" column="66" selection-start-line="25" selection-start-column="51" selection-end-line="25" selection-end-column="66" />
+        <state relative-caret-position="408">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="54" column="52" lean-forward="true" selection-start-line="54" selection-start-column="52" selection-end-line="54" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/MessageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleMessageDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1944">
+          <caret line="94" column="1" selection-start-line="94" selection-start-column="1" selection-end-line="94" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleUserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2928">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/validation/InputsValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="36" column="16" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -1190,57 +1242,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/autorization/RegistrationController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="57" column="70" lean-forward="true" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
+        <state relative-caret-position="1008">
+          <caret line="57" column="70" selection-start-line="57" selection-start-column="70" selection-end-line="57" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/beans.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="110" column="7" lean-forward="true" selection-start-line="110" selection-start-column="7" selection-end-line="110" selection-end-column="7" />
+        <state relative-caret-position="295">
+          <caret line="134" column="19" selection-start-line="134" selection-start-column="9" selection-end-line="134" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/UserListController.java">
+    <entry file="file://$PROJECT_DIR$/web/js/message.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/mainpage/MessageListController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="54" column="54" lean-forward="true" selection-start-line="54" selection-start-column="54" selection-end-line="54" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/controllers/MessageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleMessageDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="580">
-          <caret line="94" column="1" lean-forward="true" selection-start-line="94" selection-start-column="1" selection-end-line="94" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/dao/oraclefactory/OracleUserDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="134" lean-forward="true" selection-start-line="134" selection-end-line="134" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/epam/chat/validation/InputsValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="582">
-          <caret line="36" column="16" lean-forward="true" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
+        <state relative-caret-position="336">
+          <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
         </state>
       </provider>
     </entry>

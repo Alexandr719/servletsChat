@@ -36,6 +36,7 @@ $.doDelete = function (url, data, callback, error) {
 
 checkLogIn();
 
+
 $("#exit_button").click(function () {
     $.doDelete("user/session", null, function (data) {
         console.log("Click exit!!!");
@@ -94,6 +95,7 @@ function fillMessages() {
             $("#main_messages_list").append("<li>" + escapeHtml(item.user.login
                 + " : " + item.message) + "</li>");
         })
+        scrollDown();
     });
 }
 
@@ -128,3 +130,8 @@ function escapeHtml(string) {
     });
 }
 let timerUsers = setInterval(fillUsers, 60000);
+
+
+function scrollDown() {
+    $('.main_messages').scrollTop($('.main_messages')[0].scrollHeight);
+}

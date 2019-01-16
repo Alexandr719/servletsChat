@@ -44,8 +44,8 @@ webSocket.onclose = function (event) {
 };
 
 function onMessage(event) {
-
     $("#main_messages_list").append("<li>" + escapeHtml(event.data) + "</li>");
+    scrollDown();
 
 }
 

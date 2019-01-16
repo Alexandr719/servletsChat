@@ -52,6 +52,7 @@ public class MessageListController extends HttpServlet {
             responseMessage = mapper.convertToJSON(serviceMessage);
         }
         log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
+        response.setContentType("application/json");
         response.getWriter().println(responseMessage);
     }
 

@@ -50,6 +50,8 @@ public class UserListController extends HttpServlet {
             responseMessage = mapper.convertToJSON(serviceMessage);
         }
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
+        response.setContentType("");
+        response.setContentType("application/json");
         response.getWriter().println(responseMessage);
     }
 
