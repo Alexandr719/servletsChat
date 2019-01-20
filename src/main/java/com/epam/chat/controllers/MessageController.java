@@ -41,7 +41,7 @@ public class MessageController {
             Message msg = om.readValue(message, Message.class);
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
-        } catch (IOException | ChatExeption | EncodeException e) {
+        } catch (ChatExeption e) {
             log.error("Error with sending message", e);
             session.getBasicRemote().sendText(ChatConstants.GO_TO_ADMIN);
         }
@@ -67,13 +67,14 @@ public class MessageController {
 
     }
     private static void broadcast(String message)
-            throws IOException, EncodeException {
+            throws ChatExeption {
         chatEndpoints.forEach(endpoint -> {
             synchronized (endpoint) {
                 try {
                     endpoint.session.getBasicRemote().sendText(message);
                 } catch (IOException e) {
                     log.error("Error with notify", e);
+                    throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
                 }
             }
         });

@@ -36,7 +36,7 @@ public class OracleUserDAO implements UserDAO {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
-        String sqlMessage = null;
+        String sqlMessage;
         sqlMessage = getSQLstatement("LOGIN_USER");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps =
                 con.prepareStatement(sqlMessage)) {
