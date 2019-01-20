@@ -135,3 +135,10 @@ let timerUsers = setInterval(fillUsers, 60000);
 function scrollDown() {
     $('.main_messages').scrollTop($('.main_messages')[0].scrollHeight);
 }
+
+function setError(e) {
+    let response = $.parseHTML(e.responseText);
+    let string = $(response).filter('p').text();
+    let errorMessage = string.substring(string.indexOf("Message") + 7, string.indexOf("Description"));
+    $("#error").text(errorMessage);
+}

@@ -1,8 +1,10 @@
 package com.epam.chat.dao.oraclefactory;
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.SqlStatement;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.User;
+import com.epam.chat.exeptions.ChatExeption;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 
@@ -30,7 +32,7 @@ public class OracleUserDAO implements UserDAO {
                     " EMAIL, PASSWORD, ROLE) VALUES " +
                     "(SERVETUSERSSEQ.NEXTVAL, ?, ?, ?, ?, ?, ?)")
     @Override
-    public void addUser(User loginUser) throws SQLException {
+    public void addUser(User loginUser) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
@@ -48,7 +50,7 @@ public class OracleUserDAO implements UserDAO {
             ps.execute();
         } catch (SQLException e) {
             log.error("Can't add new user", e);
-            throw new SQLException();
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
 
         }
     }
@@ -56,7 +58,7 @@ public class OracleUserDAO implements UserDAO {
     @SqlStatement(key = "IS_USER_EXIST", value = "SELECT * FROM USERS " +
             "WHERE (LOGIN = ?)")
     @Override
-    public boolean isUserExist(User user) throws SQLException {
+    public boolean isUserExist(User user) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
@@ -71,7 +73,7 @@ public class OracleUserDAO implements UserDAO {
             isUserExist = rs.isBeforeFirst();
         } catch (SQLException e) {
             log.error("Can't check is Logging ", e);
-            throw e;
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
         }
         return isUserExist;
     }
@@ -79,9 +81,8 @@ public class OracleUserDAO implements UserDAO {
     @SqlStatement(key = "CHECK_AUTORIZATION", value = "SELECT * FROM USERS " +
             "WHERE (LOGIN = ?)")
     @Override
-    public boolean checkAuthorization(User user) throws SQLException {
+    public boolean checkAuthorization(User user) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
-
 
         boolean authorizationCkeck ;
         User checkedUser = new User();
@@ -105,7 +106,7 @@ public class OracleUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error("Can't check user", e);
-            throw e;
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
 
         }
 
@@ -117,7 +118,7 @@ public class OracleUserDAO implements UserDAO {
     @SqlStatement(key = "GET_USER_LIST", value = "SELECT * FROM USERS " +
             "WHERE 1=1 AND ROWNUM <= ?")
     @Override
-    public List<User> getUsersList(int count) throws SQLException {
+    public List<User> getUsersList(int count) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
 
         List<User> loggedUsers = new ArrayList<>();
@@ -135,9 +136,8 @@ public class OracleUserDAO implements UserDAO {
 
         } catch (SQLException e) {
             log.error("Can't take all users from db", e);
-            throw e;
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
         }
-
 
         return loggedUsers;
 
@@ -147,7 +147,7 @@ public class OracleUserDAO implements UserDAO {
             value = "SELECT * FROM USERS WHERE (LOGIN = ? " +
                     "AND PASSWORD = ?)")
     @Override
-    public User getUser(User user) throws SQLException {
+    public User getUser(User user) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         EntityMapper mapper = new EntityMapper();
@@ -163,7 +163,7 @@ public class OracleUserDAO implements UserDAO {
             }
         } catch (SQLException e) {
             log.error("Can't take user from db ", e);
-            throw e;
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
         }
         return user;
     }

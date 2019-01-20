@@ -6,6 +6,7 @@ import com.epam.chat.dao.MessageDAO;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.Message;
 import com.epam.chat.entity.ServiceMessage;
+import com.epam.chat.exeptions.ChatExeption;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 import org.owasp.encoder.Encode;
@@ -45,7 +46,7 @@ public class MessageListController extends HttpServlet {
             messages = messageDAO
                     .getLastMessages(MAX_LENGTH_MESSAGESLIST);
             responseMessage = mapper.convertToJSON(messages);
-        } catch (SQLException e) {
+        } catch (ChatExeption e) {
             log.error("Can't get last messages ", e);
             ServiceMessage serviceMessage = new ServiceMessage(false,
                     ChatConstants.GO_TO_ADMIN);

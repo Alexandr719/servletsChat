@@ -5,6 +5,7 @@ import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
 import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
+import com.epam.chat.exeptions.ChatExeption;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 
@@ -43,14 +44,14 @@ public class UserListController extends HttpServlet {
         try {
             users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
             responseMessage = mapper.convertToJSON(users);
-        } catch (SQLException e) {
+        } catch (ChatExeption e) {
             log.error("Error in dao", e);
             ServiceMessage serviceMessage = new ServiceMessage(false,
                     ChatConstants.GO_TO_ADMIN);
             responseMessage = mapper.convertToJSON(serviceMessage);
         }
         log.debug(MAX_LENGTH_USERLIST + " users took from db");
-        response.setContentType("");
+
         response.setContentType("application/json");
         response.getWriter().println(responseMessage);
     }

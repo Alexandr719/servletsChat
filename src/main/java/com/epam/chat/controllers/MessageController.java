@@ -1,9 +1,11 @@
 package com.epam.chat.controllers;
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.MessageDAO;
 import com.epam.chat.dao.OracleDAOFactory;
 import com.epam.chat.entity.Message;
+import com.epam.chat.exeptions.ChatExeption;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
@@ -39,12 +41,11 @@ public class MessageController {
             Message msg = om.readValue(message, Message.class);
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
-        } catch (IOException |SQLException| EncodeException e) {
+        } catch (IOException | ChatExeption | EncodeException e) {
             log.error("Error with sending message", e);
-            //Todo say user about problem
+            session.getBasicRemote().sendText(ChatConstants.GO_TO_ADMIN);
         }
     }
-
 
 
     @OnOpen
@@ -52,9 +53,9 @@ public class MessageController {
         DAOFactory dao = new OracleDAOFactory();
         messageDAO = dao.getMessageDAO();
         log.debug(session + " - session opened");
-            this.session = session;
-            chatEndpoints.add(this);
-            log.debug("Queue contains " + chatEndpoints.size() + " elements");
+        this.session = session;
+        chatEndpoints.add(this);
+        log.debug("Queue contains " + chatEndpoints.size() + " elements");
 
     }
 
@@ -65,8 +66,6 @@ public class MessageController {
         log.debug("Queue contains " + chatEndpoints.size() + " elements");
 
     }
-
-
     private static void broadcast(String message)
             throws IOException, EncodeException {
         chatEndpoints.forEach(endpoint -> {

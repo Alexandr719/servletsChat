@@ -1,6 +1,7 @@
 package com.epam.chat.dao;
 
 import com.epam.chat.entity.Message;
+import com.epam.chat.exeptions.ChatExeption;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface MessageDAO {
 
-    void sentMessage(Message message) throws SQLException;
+    void sentMessage(Message message) throws ChatExeption;
 
-    List<Message> getLastMessages(int count) throws SQLException;
+    List<Message> getLastMessages(int count) throws ChatExeption;
 }

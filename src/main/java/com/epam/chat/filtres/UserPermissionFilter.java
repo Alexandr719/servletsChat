@@ -22,7 +22,6 @@ public class UserPermissionFilter implements Filter {
         User user = (User) request.getSession()
                 .getAttribute(ChatConstants.SESSION_USER);
         if (user == null) {
-            //Todo
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
         chain.doFilter(req, resp);

@@ -1,9 +1,11 @@
 package com.epam.chat.dao.oraclefactory;
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.SqlStatement;
 import com.epam.chat.dao.MessageDAO;
 import com.epam.chat.entity.Message;
 import com.epam.chat.entity.User;
+import com.epam.chat.exeptions.ChatExeption;
 import com.epam.chat.mapper.EntityMapper;
 import lombok.extern.log4j.Log4j2;
 
@@ -26,7 +28,7 @@ public class OracleMessageDAO implements MessageDAO {
             value = "INSERT INTO MESSAGES (MESSAGEID, USERID, TEXTMESSAGE) " +
                     "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
     @Override
-    public void sentMessage(Message message) throws SQLException {
+    public void sentMessage(Message message) throws ChatExeption {
 
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
 
@@ -39,7 +41,7 @@ public class OracleMessageDAO implements MessageDAO {
             ps.execute();
         } catch (SQLException e) {
             log.error("Can't add new user", e);
-            throw e;
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
 
         }
     }
@@ -49,7 +51,7 @@ public class OracleMessageDAO implements MessageDAO {
                     "USERS.USERID = MESSAGES.USERID WHERE 1=1 " +
                     "AND ROWNUM <= ?")
     @Override
-    public List<Message> getLastMessages(int count) throws SQLException {
+    public List<Message> getLastMessages(int count) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
         String sqlMessage = null;
         EntityMapper mapper = new EntityMapper();
@@ -70,7 +72,7 @@ public class OracleMessageDAO implements MessageDAO {
             }
         } catch (SQLException e) {
             log.error("Cant get last messages: ", e);
-            throw e;
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
         }
 
         return messages;

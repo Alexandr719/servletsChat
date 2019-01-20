@@ -3,8 +3,8 @@ package com.epam.chat.controllers.autorization;
 
 import com.epam.chat.ChatConstants;
 import com.epam.chat.dao.UserDAO;
-import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
+import com.epam.chat.exeptions.ChatExeption;
 import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
 import lombok.extern.log4j.Log4j2;
@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Servlet  LoginController
@@ -36,54 +35,53 @@ public class LoginController extends javax.servlet.http.HttpServlet {
                           HttpServletResponse response) throws ServletException,
             IOException {
 
-        String responseMessage = getLoginResponseMessage(request);
-        response.getWriter().write(responseMessage);
-
-    }
-
-    private String getLoginResponseMessage(HttpServletRequest request)
-            throws IOException {
-        User logUser;
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
-        String responseMessage ;
-//Todo another method
-        if (!validateUser(user)) {
-            log.debug("User didn't pass validation");
-            ServiceMessage serviceMessage = new ServiceMessage(false,
-                    ChatConstants.NO_VALID_USER);
-            responseMessage = mapper.convertToJSON(serviceMessage);
-        } else {
-            try {
-                 if (!userDAO.checkAuthorization(user)) {
-                    log.debug("User login and password  are wrong");
-                    ServiceMessage serviceMessage = new ServiceMessage(false,
-                            ChatConstants.WRONG_PASS_LOGIN);
-                    responseMessage = mapper.convertToJSON(serviceMessage);
-                } else {
-                    //Todo Main method
-                    logUser = userDAO.getUser(user);
-                    request.getSession()
-                            .setAttribute(ChatConstants.SESSION_USER, logUser);
-                    log.info("Logged user is enter into chat: " + logUser);
-                    responseMessage = mapper.convertToJSON(logUser);
-                }
-                //Todo own exeption
-            } catch (SQLException e) {
-                log.error("Database error: ", e);
-                ServiceMessage serviceMessage = new ServiceMessage(false,
-                        ChatConstants.GO_TO_ADMIN);
-                responseMessage = mapper.convertToJSON(serviceMessage);
+        try {
+            if (checkLoginValidation(user, response)) {
+                authorizedUser(user, request);
+                User sessionUser = (User) request.getSession().getAttribute(ChatConstants.SESSION_USER);
+                response.getWriter().write(mapper.convertToJSON(sessionUser));
             }
+        } catch (ChatExeption e) {
+            response.sendError(500, ChatConstants.GO_TO_ADMIN);
         }
-        return responseMessage;
+
     }
 
-    private boolean validateUser(User user) {
+
+    private boolean validateUserForm(User user) {
         return new InputsValidator().validateUser(user);
     }
 
+    private boolean checkLoginValidation(User user, HttpServletResponse response) throws ChatExeption {
+        boolean validationResult = false;
+        try {
+            if (!validateUserForm(user)) {
+                log.info("User didn't pass form validation");
+                response.sendError(500, ChatConstants.NO_VALID_USER);
+            } else {
+                if (!userDAO.checkAuthorization(user)) {
+                    log.debug("User login and password  are wrong");
+                    response.sendError(500, ChatConstants.WRONG_PASS_LOGIN);
+                } else {
+                    validationResult = true;
+                }
+            }
+        } catch (IOException e) {
+            log.error("Send error exception", e);
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
 
+        }
+        return validationResult;
+    }
+
+    private void authorizedUser(User user, HttpServletRequest request) {
+        User logUser = userDAO.getUser(user);
+        request.getSession()
+                .setAttribute(ChatConstants.SESSION_USER, logUser);
+        log.info("Logged user is enter into chat: " + logUser);
+    }
 
 
     protected void doDelete(HttpServletRequest request,
@@ -106,10 +104,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
 
         if (user == null) {
-            log.debug("New user entered into chat");
-            //Todo SetStatus
-            response.setStatus(500);
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "message");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {
             log.debug("User with id=" + user.getId() + "entered into chat");
             response.getWriter().write(new EntityMapper().convertToJSON(user));
