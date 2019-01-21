@@ -94,7 +94,7 @@ function fillMessages() {
         data.forEach(function (item) {
             $("#main_messages_list").append("<li>" + escapeHtml(item.user.login
                 + " : " + item.message) + "</li>");
-        })
+        });
         scrollDown();
     });
 }
@@ -102,12 +102,9 @@ function fillMessages() {
 function fillUsers() {
 
     $.get("users",  function (data) {
-        console.log("dsadasd");
         $("#user_list").empty();
-        console.log(data);
         let users = data;
-        console.log(typeof users);
-        users.forEach(function (item) {
+            users.forEach(function (item) {
             $("#user_list").append("<li>" + escapeHtml(item.login) + "</li>");
         });
     });

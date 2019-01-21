@@ -85,7 +85,7 @@ public class OracleMessageDAO implements MessageDAO {
         ps.setInt(1, count);
         return ps;
     }
-
+//Todo ammotation works class
     private String getSQLstatement(String key) {
         return Objects.requireNonNull(Arrays.stream(getClass().getMethods())
                 .map(method -> method.getAnnotation(SqlStatement.class))
