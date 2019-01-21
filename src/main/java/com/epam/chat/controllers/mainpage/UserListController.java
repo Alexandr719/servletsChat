@@ -40,7 +40,7 @@ public class UserListController extends HttpServlet {
             IOException {
         EntityMapper mapper = new EntityMapper();
         String responseMessage;
-        List<User> users = null;
+        List<User> users;
         try {
             users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
             responseMessage = mapper.convertToJSON(users);

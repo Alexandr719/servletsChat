@@ -41,7 +41,7 @@ public class MessageListController extends HttpServlet {
             IOException {
         String responseMessage;
         EntityMapper mapper = new EntityMapper();
-        List<Message> messages = null;
+        List<Message> messages;
         try {
             messages = messageDAO
                     .getLastMessages(MAX_LENGTH_MESSAGESLIST);

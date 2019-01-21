@@ -80,6 +80,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         User logUser = userDAO.getUser(user);
         request.getSession()
                 .setAttribute(ChatConstants.SESSION_USER, logUser);
+
         log.info("Logged user is enter into chat: " + logUser);
     }
 
