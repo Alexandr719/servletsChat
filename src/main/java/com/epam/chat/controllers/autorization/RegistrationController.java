@@ -40,15 +40,15 @@ public class RegistrationController extends HttpServlet {
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
         try {
-            if (checkRegistrationValidation(user, response)) {
+                checkRegistrationValidation(user);
                 authorizedUser(user, request);
-                User sessionUser = (User) request.getSession().getAttribute(ChatConstants.SESSION_USER);
+                User sessionUser = (User) request.getSession()
+                        .getAttribute(ChatConstants.SESSION_USER);
                 response.getWriter().write(mapper.convertToJSON(sessionUser));
-            }
-        } catch (ChatExeption e) {
-            response.sendError(500, ChatConstants.GO_TO_ADMIN);
-        }
 
+        } catch (ChatExeption e) {
+            response.sendError(500, e.getMessage());
+        }
     }
 
 
@@ -63,26 +63,16 @@ public class RegistrationController extends HttpServlet {
                 .setAttribute(ChatConstants.SESSION_USER, regUser);
     }
 
-    private boolean checkRegistrationValidation(User user, HttpServletResponse response) throws ChatExeption {
-        boolean validationResult = false;
-        try {
+    private void checkRegistrationValidation(User user)
+            throws ChatExeption {
             if (!validateUserForm(user)) {
                 log.debug("User didn't pass validation");
-                response.sendError(500, ChatConstants.NO_VALID_USER);
-            } else {
-                if (userDAO.isUserExist(user)) {
-                    log.debug("User with this login already exist");
-                    response.sendError(500, ChatConstants.EXISTED_USER_LOGIN);
-                } else {
-                    validationResult = true;
-                }
-
+                throw new ChatExeption(ChatConstants.NO_VALID_USER);
             }
-        } catch (IOException e) {
-            log.error("Send error exception", e);
-            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
-        }
-        return validationResult;
+            if (userDAO.isUserExist(user)) {
+                log.debug("User with this login already exist");
+                throw new ChatExeption(ChatConstants.EXISTED_USER_LOGIN);
+            }
     }
 
     @Override

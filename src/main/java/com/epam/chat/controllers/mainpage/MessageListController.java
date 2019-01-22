@@ -46,16 +46,14 @@ public class MessageListController extends HttpServlet {
             messages = messageDAO
                     .getLastMessages(MAX_LENGTH_MESSAGESLIST);
             responseMessage = mapper.convertToJSON(messages);
+            log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
+            response.setContentType("application/json");
+            response.getWriter().println(responseMessage);
         } catch (ChatExeption e) {
             log.error("Can't get last messages ", e);
-            ServiceMessage serviceMessage = new ServiceMessage(false,
-                    ChatConstants.GO_TO_ADMIN);
-            responseMessage = mapper.convertToJSON(serviceMessage);
+            response.sendError(500,ChatConstants.GO_TO_ADMIN);
+
         }
-        log.debug(MAX_LENGTH_MESSAGESLIST + " messages took from db");
-        response.setContentType("application/json");
-        response.getWriter().println(responseMessage);
+
     }
-
-
 }

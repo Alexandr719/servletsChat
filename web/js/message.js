@@ -2,7 +2,7 @@ let msgBlock = $("#message");
 
 //Todo constants or auto href
 let webSocket = new WebSocket('ws://localhost:8081//chat/user/message');
-//let webSocket = new WebSocket('ws:epruryaw0818:8081//websocket');
+//let webSocket = new WebSocket('ws:epruryaw0818:8081//chat/user/message');
 //let webSocket = new WebSocket('ws://1d60a975.ngrok.io//websocket');
 
 

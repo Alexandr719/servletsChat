@@ -40,7 +40,8 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         try {
             if (checkLoginValidation(user, response)) {
                 authorizedUser(user, request);
-                User sessionUser = (User) request.getSession().getAttribute(ChatConstants.SESSION_USER);
+                User sessionUser = (User) request.getSession()
+                        .getAttribute(ChatConstants.SESSION_USER);
                 response.getWriter().write(mapper.convertToJSON(sessionUser));
             }
         } catch (ChatExeption e) {
@@ -54,7 +55,9 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         return new InputsValidator().validateUser(user);
     }
 
-    private boolean checkLoginValidation(User user, HttpServletResponse response) throws ChatExeption {
+    private boolean checkLoginValidation(User user,
+                                         HttpServletResponse response)
+            throws ChatExeption {
         boolean validationResult = false;
         try {
             if (!validateUserForm(user)) {
@@ -92,7 +95,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         HttpSession session = request.getSession();
 
         User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
-        log.info("Deleted session user id = " + user.getId());
+        log.info("Deleted session user id = " + user);
         session.invalidate();
 
     }
