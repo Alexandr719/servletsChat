@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 @Log4j2
 public class OracleMessageDAO implements MessageDAO {
    @SqlStatement(key = "ADD_NEW_MESSAGE",
-            value = "INSERT INTO MESSAGES (MESSAGEID, USERID, TEXTMESSAGE) " +
-                    "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?)")
+            value = "INSERT INTO MESSAGES (MESSAGEID, USERID, TEXTMESSAGE, DATA) " +
+                    "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?, CURRENT_TIMESTAMP)")
     @Override
     public void sentMessage(Message message) throws ChatExeption {
 
@@ -49,7 +49,7 @@ public class OracleMessageDAO implements MessageDAO {
     @SqlStatement(key = "GET_MESSAGES",
             value = "SELECT * FROM MESSAGES JOIN USERS on " +
                     "USERS.USERID = MESSAGES.USERID WHERE 1=1 " +
-                    "AND ROWNUM <= ?")
+                    "AND ROWNUM <= ? ORDER BY DATA")
     @Override
     public List<Message> getLastMessages(int count) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);

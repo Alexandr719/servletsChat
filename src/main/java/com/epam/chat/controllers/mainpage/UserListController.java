@@ -39,22 +39,15 @@ public class UserListController extends HttpServlet {
                          HttpServletResponse response) throws ServletException,
             IOException {
         EntityMapper mapper = new EntityMapper();
-        String responseMessage;
         List<User> users;
         try {
             users = userDAO.getUsersList(MAX_LENGTH_USERLIST);
-            responseMessage = mapper.convertToJSON(users);
+            log.debug(MAX_LENGTH_USERLIST + " users took from db");
+            response.setContentType("application/json");
+            response.getWriter().println(mapper.convertToJSON(users));
         } catch (ChatExeption e) {
             log.error("Error in dao", e);
-            ServiceMessage serviceMessage = new ServiceMessage(false,
-                    ChatConstants.GO_TO_ADMIN);
-            responseMessage = mapper.convertToJSON(serviceMessage);
+            response.sendError(500, ChatConstants.GO_TO_ADMIN);
         }
-        log.debug(MAX_LENGTH_USERLIST + " users took from db");
-
-        response.setContentType("application/json");
-        response.getWriter().println(responseMessage);
     }
-
-
 }

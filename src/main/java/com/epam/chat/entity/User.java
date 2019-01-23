@@ -18,7 +18,6 @@ import java.io.Serializable;
  */
 
 @Data
-@ToString
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1;
@@ -52,7 +51,14 @@ public class User implements Serializable {
     /** Field role (ADMIN or USER) */
     private String role;
 
-
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
+                ", password = *****'" +
+                '}';
+    }
 }
 

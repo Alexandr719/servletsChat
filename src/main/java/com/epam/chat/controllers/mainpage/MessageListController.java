@@ -51,7 +51,7 @@ public class MessageListController extends HttpServlet {
             response.getWriter().println(responseMessage);
         } catch (ChatExeption e) {
             log.error("Can't get last messages ", e);
-            response.sendError(500,ChatConstants.GO_TO_ADMIN);
+            response.sendError(500, ChatConstants.GO_TO_ADMIN);
 
         }
 

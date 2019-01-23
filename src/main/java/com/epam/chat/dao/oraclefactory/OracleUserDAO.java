@@ -39,7 +39,7 @@ public class OracleUserDAO implements UserDAO {
         String sqlMessage;
         sqlMessage = getSQLstatement("LOGIN_USER");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps =
-                con.prepareStatement(sqlMessage)) {
+                con.prepareStatement(sqlMessage, new String[]{"ID"})) {
 
             ps.setString(1, loginUser.getLogin());
             ps.setString(2, loginUser.getFirstName());
@@ -84,7 +84,7 @@ public class OracleUserDAO implements UserDAO {
     public boolean checkAuthorization(User user) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
 
-        boolean authorizationCkeck ;
+        boolean authorizationCkeck;
         User checkedUser = new User();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         String sqlMessage = null;
@@ -109,8 +109,6 @@ public class OracleUserDAO implements UserDAO {
             throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
 
         }
-
-
         return authorizationCkeck;
 
     }

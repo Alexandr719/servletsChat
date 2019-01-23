@@ -11,6 +11,7 @@ import com.epam.chat.mapper.EntityMapper;
 import com.epam.chat.validation.InputsValidator;
 import lombok.extern.log4j.Log4j2;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +30,7 @@ import java.io.IOException;
 public class RegistrationController extends HttpServlet {
 
     private static final long serialVersionUID = 1;
-
+    @Inject
     private UserDAO userDAO;
 
 
@@ -40,11 +41,11 @@ public class RegistrationController extends HttpServlet {
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
         try {
-                checkRegistrationValidation(user);
-                authorizedUser(user, request);
-                User sessionUser = (User) request.getSession()
-                        .getAttribute(ChatConstants.SESSION_USER);
-                response.getWriter().write(mapper.convertToJSON(sessionUser));
+            checkRegistrationValidation(user);
+            authorizedUser(user, request);
+            User sessionUser = (User) request.getSession()
+                    .getAttribute(ChatConstants.SESSION_USER);
+            response.getWriter().write(mapper.convertToJSON(sessionUser));
 
         } catch (ChatExeption e) {
             response.sendError(500, e.getMessage());
@@ -65,20 +66,16 @@ public class RegistrationController extends HttpServlet {
 
     private void checkRegistrationValidation(User user)
             throws ChatExeption {
-            if (!validateUserForm(user)) {
-                log.debug("User didn't pass validation");
-                throw new ChatExeption(ChatConstants.NO_VALID_USER);
-            }
-            if (userDAO.isUserExist(user)) {
-                log.debug("User with this login already exist");
-                throw new ChatExeption(ChatConstants.EXISTED_USER_LOGIN);
-            }
+        if (!validateUserForm(user)) {
+            log.debug("User didn't pass validation");
+            throw new ChatExeption(ChatConstants.NO_VALID_USER);
+        }
+        if (userDAO.isUserExist(user)) {
+            log.debug("User with this login already exist");
+            throw new ChatExeption(ChatConstants.EXISTED_USER_LOGIN);
+        }
     }
 
-    @Override
-    public void init() throws ServletException {
-        DAOFactory dao = DAOFactory.getDAOFactory();
-        userDAO = dao.getUserDAO();
-    }
+
 }
 
