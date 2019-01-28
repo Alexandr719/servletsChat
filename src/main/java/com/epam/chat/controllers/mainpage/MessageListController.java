@@ -36,6 +36,7 @@ public class MessageListController extends HttpServlet {
     @Inject
     private MessageDAO messageDAO;
 
+    @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException,
             IOException {

@@ -9,11 +9,10 @@ import com.epam.chat.exeptions.ChatExeption;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
-import javax.inject.Inject;
+
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -67,14 +66,14 @@ public class MessageController {
 
     }
     private static void broadcast(String message)
-            throws ChatExeption {
+            {
         chatEndpoints.forEach(endpoint -> {
             synchronized (endpoint) {
                 try {
                     endpoint.session.getBasicRemote().sendText(message);
                 } catch (IOException e) {
                     log.error("Error with notify", e);
-                    throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
+
                 }
             }
         });

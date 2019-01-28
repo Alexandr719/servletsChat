@@ -30,7 +30,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
     @Inject
     private UserDAO userDAO;
 
-
+    @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws ServletException,
             IOException {
@@ -76,7 +76,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         log.info("Logged user is enter into chat: " + logUser);
     }
 
-
+@Override
     protected void doDelete(HttpServletRequest request,
                             HttpServletResponse response)
             throws ServletException,
@@ -88,7 +88,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
         session.invalidate();
 
     }
-
+@Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException,
             IOException {

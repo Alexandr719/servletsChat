@@ -33,7 +33,7 @@ public class RegistrationController extends HttpServlet {
     @Inject
     private UserDAO userDAO;
 
-
+    @Override
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response) throws
             ServletException, IOException {

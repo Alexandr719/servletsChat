@@ -34,7 +34,7 @@ public class UserListController extends HttpServlet {
     @Inject
     private UserDAO userDAO;
 
-
+    @Override
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException,
             IOException {
