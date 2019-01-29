@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 /**
  * Entity Message
@@ -20,4 +21,7 @@ public class Message {
     @Size(min = 1, max = 255,
             message= "Message length must be between 1 and 255 characters")
     private String message;
+
+    private Date timeStamp;
+
 }

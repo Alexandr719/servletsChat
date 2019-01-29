@@ -11,9 +11,8 @@ import java.io.IOException;
 
 @WebFilter(servletNames = "MessageListController")
 public class UserPermissionFilter implements Filter {
-    public void destroy() {
-    }
 
+    @Override
     public void doFilter(ServletRequest req, ServletResponse resp,
                          FilterChain chain)
             throws ServletException, IOException {

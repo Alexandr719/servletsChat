@@ -67,6 +67,7 @@ public class OracleMessageDAO implements MessageDAO {
                 User user = mapper.getUserFromDB(rs);
                 message.setId(rs.getInt("MESSAGEID"));
                 message.setMessage(rs.getString("TEXTMESSAGE"));
+                message.setTimeStamp(rs.getDate("DATA"));
                 message.setUser(user);
                 messages.add(message);
             }
@@ -85,7 +86,6 @@ public class OracleMessageDAO implements MessageDAO {
         ps.setInt(1, count);
         return ps;
     }
-//Todo ammotation works class
     private String getSQLstatement(String key) {
         return Objects.requireNonNull(Arrays.stream(getClass().getMethods())
                 .map(method -> method.getAnnotation(SqlStatement.class))

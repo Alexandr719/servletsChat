@@ -1,9 +1,7 @@
 package com.epam.chat.controllers.mainpage;
 
 import com.epam.chat.ChatConstants;
-import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
-import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
 import com.epam.chat.exeptions.ChatExeption;
 import com.epam.chat.mapper.EntityMapper;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 /**

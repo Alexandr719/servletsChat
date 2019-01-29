@@ -2,9 +2,7 @@ package com.epam.chat.controllers.autorization;
 
 
 import com.epam.chat.ChatConstants;
-import com.epam.chat.dao.DAOFactory;
 import com.epam.chat.dao.UserDAO;
-import com.epam.chat.entity.ServiceMessage;
 import com.epam.chat.entity.User;
 import com.epam.chat.exeptions.ChatExeption;
 import com.epam.chat.mapper.EntityMapper;

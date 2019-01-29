@@ -5,7 +5,6 @@ import com.epam.chat.entity.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
-import org.owasp.encoder.Encode;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -50,7 +49,6 @@ public class EntityMapper {
             log.error("Json writing error" +e);
         }
         log.debug("Put java object into json format: " + objectInJson);
-      //  return Encode.forHtmlContent(objectInJson);
         return objectInJson;
     }
 
