@@ -20,11 +20,13 @@ $("#message").keydown(function (event) {
 function sendMessage() {
 
     let message = {};
+    console.log(user);
     message.user = user;
     message.message = msgBlock.val();
     webSocket.send(JSON.stringify(message));
     msgBlock.val("");
 }
+
 
 
 

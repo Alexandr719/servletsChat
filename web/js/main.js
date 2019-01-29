@@ -112,11 +112,13 @@ function fillUsers() {
 
 function checkLogIn() {
     $.get("user/session", function (data) {
-        user = data;
-        if (user.id === null) {
-            showRegistration(user);
+        if (data.id === null) {
+            showRegistration();
         } else {
-            showMain(user)
+            user = data;
+            showMain(user);
+            console.log(user);
+
         }
     })
 }

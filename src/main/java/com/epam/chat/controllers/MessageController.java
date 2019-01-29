@@ -38,6 +38,7 @@ public class MessageController {
         ObjectMapper om = new ObjectMapper();
         try {
             Message msg = om.readValue(message, Message.class);
+            System.out.println(msg);
             messageDAO.sentMessage(msg);
             broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
         } catch (ChatExeption e) {
