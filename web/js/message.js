@@ -1,9 +1,5 @@
 let msgBlock = $("#message");
-
-//Todo constants or auto href
-let webSocket = new WebSocket('ws://localhost:8084//chat/user/message');
-//let webSocket = new WebSocket('ws:epruryaw0818:8081//chat/user/message');
-//let webSocket = new WebSocket('ws://1d60a975.ngrok.io//websocket');
+let webSocket = new WebSocket(getRelativeWSUrl());
 
 
 $("#message_sent").click(function () {
@@ -20,7 +16,6 @@ $("#message").keydown(function (event) {
 function sendMessage() {
 
     let message = {};
-    console.log(user);
     message.user = user;
     message.message = msgBlock.val();
     webSocket.send(JSON.stringify(message));
@@ -46,6 +41,7 @@ webSocket.onclose = function (event) {
 };
 
 function onMessage(event) {
+    console.log(event.data);
     $("#main_messages_list").append("<li>" + escapeHtml(event.data) + "</li>");
     scrollDown();
 
@@ -69,3 +65,18 @@ $(document).ready(function () {
         }
     });
 });
+
+function getRelativeWSUrl() {
+    const WEBSOCKET_PATH = "/user/message";
+    let loc = window.location;
+    let new_uri;
+    if (loc.protocol === "https:") {
+        new_uri = "wss:";
+    } else {
+        new_uri = "ws:";
+    }
+    new_uri += "//" + loc.host;
+    new_uri+= loc.pathname + WEBSOCKET_PATH;
+    return new_uri;
+
+}

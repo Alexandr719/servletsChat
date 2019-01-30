@@ -115,7 +115,7 @@ function checkLogIn() {
         if (data.id === null) {
             showRegistration();
         } else {
-            user = data;
+            user = JSON.parse(data);
             showMain(user);
             console.log(user);
 
