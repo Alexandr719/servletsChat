@@ -95,7 +95,7 @@ public class LoginController extends javax.servlet.http.HttpServlet {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute(ChatConstants.SESSION_USER);
-
+//TODO
         if (user == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         } else {

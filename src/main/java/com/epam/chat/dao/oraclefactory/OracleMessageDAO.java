@@ -53,9 +53,8 @@ public class OracleMessageDAO implements MessageDAO {
     @Override
     public List<Message> getLastMessages(int count) throws ChatExeption {
         Locale.setDefault(Locale.ENGLISH);
-        String sqlMessage = null;
         EntityMapper mapper = new EntityMapper();
-        sqlMessage = getSQLstatement("GET_MESSAGES");
+        String sqlMessage = getSQLstatement("GET_MESSAGES");
         List<Message> messages = new ArrayList<>();
         DataSource dataSource = DataSourceFactory.getOracleDataSource();
         try (Connection con = dataSource.getConnection();

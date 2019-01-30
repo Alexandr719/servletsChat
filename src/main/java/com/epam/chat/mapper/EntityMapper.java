@@ -1,7 +1,9 @@
 package com.epam.chat.mapper;
 
 
+import com.epam.chat.ChatConstants;
 import com.epam.chat.entity.User;
+import com.epam.chat.exeptions.ChatExeption;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
@@ -30,7 +32,7 @@ public class EntityMapper {
             user = om.readValue(req.getInputStream(), User.class);
             log.debug("Get user from request" + user);
         } catch (IOException e) {
-            log.error("Mapping error" + e);
+            log.error("Mapping error", e);
         }
         return user;
     }
@@ -42,13 +44,14 @@ public class EntityMapper {
      */
     public String convertToJSON(Object object) {
         ObjectMapper om = new ObjectMapper();
-        String objectInJson = null;
+        String objectInJson;
         try {
             objectInJson = om.writeValueAsString(object);
         } catch (JsonProcessingException  e) {
-            log.error("Json writing error" +e);
+            log.error("Json writing error" ,e);
+            throw new ChatExeption(ChatConstants.GO_TO_ADMIN);
         }
-        log.debug("Put java object into json format: " + objectInJson);
+        log.debug("Put java object into json format: ", objectInJson);
         return objectInJson;
     }
 
