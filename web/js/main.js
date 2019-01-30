@@ -33,7 +33,6 @@ $.doDelete = function (url, data, callback, error) {
 };
 
 
-
 checkLogIn();
 
 
@@ -92,8 +91,15 @@ function fillMessages() {
     $.get("users/messages", function (data) {
         $("#main_messages_list").empty();
         data.forEach(function (item) {
-            $("#main_messages_list").append("<li>" + escapeHtml(item.user.login
-                + " : " + item.message) + "</li>");
+
+            let data = new Date(item.timeStamp);
+           console.log(data);
+
+
+            $("#main_messages_list").append("<li>"
+                + escapeHtml(item.user.login
+                + " : " + item.message) + "</li>"+
+                "<p>" + formatedData + "</p>");
         });
         scrollDown();
     });
@@ -101,10 +107,10 @@ function fillMessages() {
 
 function fillUsers() {
 
-    $.get("users",  function (data) {
+    $.get("users", function (data) {
         $("#user_list").empty();
         let users = data;
-            users.forEach(function (item) {
+        users.forEach(function (item) {
             $("#user_list").append("<li>" + escapeHtml(item.login) + "</li>");
         });
     });
@@ -128,6 +134,7 @@ function escapeHtml(string) {
         return entityMap[s];
     });
 }
+
 let timerUsers = setInterval(fillUsers, 60000);
 
 
@@ -140,4 +147,38 @@ function setError(e) {
     let string = $(response).filter('p').text();
     let errorMessage = string.substring(string.indexOf("Message") + 7, string.indexOf("Description"));
     $("#error").text(errorMessage);
+}
+function formatDate(date) {
+    let diff = new Date() - date; // разница в миллисекундах
+
+    if (diff < 1000) { // прошло менее 1 секунды
+        return 'только что';
+    }
+
+    let sec = Math.floor(diff / 1000); // округлить diff до секунд
+
+    if (sec < 60) {
+        return sec + ' сек. назад';
+    }
+
+    let min = Math.floor(diff / 60000); // округлить diff до минут
+    if (min < 60) {
+        return min + ' мин. назад';
+    }
+
+    // форматировать дату, с учетом того, что месяцы начинаются с 0
+    let d = date;
+    d = [
+        '0' + d.getDate(),
+        '0' + (d.getMonth() + 1),
+        '' + d.getFullYear(),
+        '0' + d.getHours(),
+        '0' + d.getMinutes()
+    ];
+
+    for (let i = 0; i < d.length; i++) {
+        d[i] = d[i].slice(-2);
+    }
+
+    return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
 }

@@ -121,6 +121,13 @@ li {
     padding: 1%;
 
 }
+#main_messages_list p{
+    color: #bbbaba;
+    font-size: 11px;
+    position: relative;
+    left: -45%;
+    margin: 0px;
+}
 
 
 /*==================================

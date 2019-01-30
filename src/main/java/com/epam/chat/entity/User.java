@@ -1,12 +1,8 @@
 package com.epam.chat.entity;
 
 
-import com.epam.chat.dao.DAOFactory;
-import com.epam.chat.dao.MessageDAO;
-import com.epam.chat.dao.UserDAO;
-import lombok.Data;
-import lombok.ToString;
 
+import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

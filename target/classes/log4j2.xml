@@ -4,7 +4,8 @@
         <RollingFile name="RollingFile" fileName="logs/app.log"
                      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
 
-            <PatternLayout pattern="%d{DEFAULT} [%tp] %-6level %logger{36} : %msg%n"/>
+            <PatternLayout
+                    pattern="%d{DEFAULT} %X{sessionId}{7} %tid  [%tp] %-6level %logger{36} : %msg%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="100 KB"/>
             </Policies>
@@ -13,7 +14,8 @@
 
 
         <Console name="STDOUT" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{DEFAULT} [%tp] %-6level %logger{36} : %msg%n"/>
+            <PatternLayout
+                    pattern="%d{DEFAULT}  [%tp] %-6level  [Session ID = %X{sessionId}{7}] [ThreadID = %tid] %logger{36} : %msg%n"/>
         </Console>
 
     </Appenders>
