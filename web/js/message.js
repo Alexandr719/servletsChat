@@ -1,6 +1,6 @@
 let msgBlock = $("#message");
 let webSocket = new WebSocket(getRelativeWSUrl());
-
+const MAX_MESSAGE_LENGTH = 80;
 
 $("#message_sent").click(function () {
     sendMessage();
@@ -14,15 +14,16 @@ $("#message").keydown(function (event) {
 
 
 function sendMessage() {
-
     let message = {};
     message.user = user;
+    message.timeStamp = new Date();
     message.message = msgBlock.val();
-    webSocket.send(JSON.stringify(message));
-    msgBlock.val("");
+    if (user != null && message.message.length > 0
+        && message.message.length <= MAX_MESSAGE_LENGTH) {
+        webSocket.send(JSON.stringify(message));
+        msgBlock.val("");
+    }
 }
-
-
 
 
 webSocket.onerror = function (event) {
@@ -37,12 +38,12 @@ webSocket.onmessage = function (event) {
     onMessage(event)
 };
 webSocket.onclose = function (event) {
-   console.log("Connection closed");
+    console.log("Connection closed");
 };
 
 function onMessage(event) {
-    console.log(event.data);
-    $("#main_messages_list").append("<li>" + escapeHtml(event.data) + "</li>");
+    let message = JSON.parse(event.data);
+    fullMessage(message);
     scrollDown();
 
 }
@@ -76,7 +77,7 @@ function getRelativeWSUrl() {
         new_uri = "ws:";
     }
     new_uri += "//" + loc.host;
-    new_uri+= loc.pathname + WEBSOCKET_PATH;
+    new_uri += loc.pathname + WEBSOCKET_PATH;
     return new_uri;
 
 }

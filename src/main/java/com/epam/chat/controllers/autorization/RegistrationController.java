@@ -40,6 +40,7 @@ public class RegistrationController extends HttpServlet {
 
         EntityMapper mapper = new EntityMapper();
         User user = mapper.getUserFromRequest(request);
+
         try {
             checkRegistrationValidation(user);
             authorizedUser(user, request);

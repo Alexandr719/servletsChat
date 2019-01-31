@@ -39,7 +39,7 @@ public class OracleUserDAO implements UserDAO {
         String sqlMessage;
         sqlMessage = getSQLstatement("LOGIN_USER");
         try (Connection con = dataSource.getConnection(); PreparedStatement ps =
-                con.prepareStatement(sqlMessage, new String[]{"ID"})) {
+                con.prepareStatement(sqlMessage)) {
 
             ps.setString(1, loginUser.getLogin());
             ps.setString(2, loginUser.getFirstName());

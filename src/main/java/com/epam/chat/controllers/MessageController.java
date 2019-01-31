@@ -6,6 +6,8 @@ import com.epam.chat.dao.MessageDAO;
 import com.epam.chat.dao.OracleDAOFactory;
 import com.epam.chat.entity.Message;
 import com.epam.chat.exeptions.ChatExeption;
+import com.epam.chat.mapper.EntityMapper;
+import com.epam.chat.validation.InputsValidator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 
@@ -38,9 +40,11 @@ public class MessageController {
         ObjectMapper om = new ObjectMapper();
         try {
             Message msg = om.readValue(message, Message.class);
-            System.out.println(msg);
+            log.info("Sending new message ", msg);
+            new InputsValidator().validateMessage(msg);
             messageDAO.sentMessage(msg);
-            broadcast(msg.getUser().getLogin() + " : " + msg.getMessage());
+            EntityMapper entityMapper = new EntityMapper();
+            broadcast(entityMapper.convertToJSON(msg));
         } catch (ChatExeption e) {
             log.error("Error with sending message", e);
             session.getBasicRemote().sendText(ChatConstants.GO_TO_ADMIN);
@@ -66,8 +70,8 @@ public class MessageController {
         log.debug("Queue contains " + chatEndpoints.size() + " elements");
 
     }
-    private static void broadcast(String message)
-            {
+
+    private static void broadcast(String message) {
         chatEndpoints.forEach(endpoint -> {
             synchronized (endpoint) {
                 try {

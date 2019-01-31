@@ -5,6 +5,7 @@ public class ChatConstants {
     public static String SESSION_USER = "user";
 
     public static String NO_VALID_USER = "User didn't pass validation";
+    public static String NO_VALID_MESSAGE = "Message didn't pass validation";
     public static String EXISTED_USER_LOGIN =
             "User with this login already exist";
 

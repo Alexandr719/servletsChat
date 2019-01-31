@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Log4j2
 public class OracleMessageDAO implements MessageDAO {
-   @SqlStatement(key = "ADD_NEW_MESSAGE",
+    @SqlStatement(key = "ADD_NEW_MESSAGE",
             value = "INSERT INTO MESSAGES (MESSAGEID, USERID, TEXTMESSAGE, DATA) " +
                     "VALUES (SERVETMESSAGESSEQ.NEXTVAL, ?, ?, CURRENT_TIMESTAMP)")
     @Override
@@ -66,7 +66,7 @@ public class OracleMessageDAO implements MessageDAO {
                 User user = mapper.getUserFromDB(rs);
                 message.setId(rs.getInt("MESSAGEID"));
                 message.setMessage(rs.getString("TEXTMESSAGE"));
-                message.setTimeStamp(rs.getDate("DATA"));
+                message.setTimeStamp(rs.getTimestamp("DATA"));
                 message.setUser(user);
                 messages.add(message);
             }
@@ -85,6 +85,7 @@ public class OracleMessageDAO implements MessageDAO {
         ps.setInt(1, count);
         return ps;
     }
+
     private String getSQLstatement(String key) {
         return Objects.requireNonNull(Arrays.stream(getClass().getMethods())
                 .map(method -> method.getAnnotation(SqlStatement.class))

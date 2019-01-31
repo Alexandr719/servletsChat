@@ -70,7 +70,6 @@ function changeHash(id) {
 function showMain(user) {
     fillMessages();
     fillUsers();
-    //TOdo load
     $("#login_page").hide();
     $("#main_page").show();
     innerUserInfo(user);
@@ -78,6 +77,8 @@ function showMain(user) {
 }
 
 function showRegistration() {
+    user = null;
+    $("#main_messages_list").empty();
     $("#main_page").hide();
     $("#login_page").show();
 }
@@ -91,18 +92,10 @@ function fillMessages() {
     $.get("users/messages", function (data) {
         $("#main_messages_list").empty();
         data.forEach(function (item) {
-
-            let data = new Date(item.timeStamp);
-           console.log(data);
-
-
-            $("#main_messages_list").append("<li>"
-                + escapeHtml(item.user.login
-                + " : " + item.message) + "</li>"+
-                "<p>" + formatedData + "</p>");
+            fullMessage(item);
+            scrollDown();
         });
-        scrollDown();
-    });
+    })
 }
 
 function fillUsers() {
@@ -136,6 +129,7 @@ function escapeHtml(string) {
 }
 
 let timerUsers = setInterval(fillUsers, 60000);
+let timerMessages = setInterval(fillMessages, 60000);
 
 
 function scrollDown() {
@@ -148,22 +142,23 @@ function setError(e) {
     let errorMessage = string.substring(string.indexOf("Message") + 7, string.indexOf("Description"));
     $("#error").text(errorMessage);
 }
+
 function formatDate(date) {
     let diff = new Date() - date; // разница в миллисекундах
 
     if (diff < 1000) { // прошло менее 1 секунды
-        return 'только что';
+        return 'right now';
     }
 
     let sec = Math.floor(diff / 1000); // округлить diff до секунд
 
     if (sec < 60) {
-        return sec + ' сек. назад';
+        return sec + ' sec. ago';
     }
 
     let min = Math.floor(diff / 60000); // округлить diff до минут
     if (min < 60) {
-        return min + ' мин. назад';
+        return min + ' min. ago';
     }
 
     // форматировать дату, с учетом того, что месяцы начинаются с 0
@@ -181,4 +176,13 @@ function formatDate(date) {
     }
 
     return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
+}
+
+
+function fullMessage(message) {
+    let data = new Date(message.timeStamp);
+    $("#main_messages_list").append("<li>"
+        + escapeHtml(message.user.login
+            + " : " + message.message) + "</li>" +
+        "<p>" + formatDate(data) + "</p>");
 }
